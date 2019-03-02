@@ -39,21 +39,21 @@ int main(int, char**)
 
 	assert(a.a == 10);
 	assert(a.b == 5.0);
-	
+
 	auto* b = std::uninitialized_construct_using_allocator(&a, alloc, 20, 10.0);
 
 	assert(a.a == 20);
 	assert(a.b == 10.0);
-	
+
 	assert(b->a == 20);
 	assert(b->b == 10.0);
-	
+
 	assert(&a == b);
-	
+
 	// pair construction
 	std::allocator<pair_t> p_alloc;
 	pair_t p { 10, 5.0 };
-	
+
 	test_pair(p_alloc);
 	test_pair(p_alloc, 10, 5.0);
 	test_pair(p_alloc, p);

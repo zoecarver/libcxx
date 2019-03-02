@@ -626,7 +626,7 @@ template<class T>
     atomic_compare_exchange_strong_explicit(shared_ptr<T>* p, shared_ptr<T>* v,
                                             shared_ptr<T> w, memory_order success,
                                             memory_order failure);
- 
+
 template <class T, class Alloc, class... Args>
 	auto uses_allocator_construction_args(const Alloc& alloc, Args&&... args);
 template <class T, class Alloc, class Tuple1, class Tuple2>
@@ -5685,7 +5685,7 @@ struct __is_allocator<_Alloc,
        typename __void_t<decltype(_VSTD::declval<_Alloc&>().allocate(size_t(0)))>::type
      >
    : true_type {};
-    
+
 #if _LIBCPP_STD_VER > 17
 
 template <class _Tp> struct __is_pair : false_type { };
@@ -5720,7 +5720,7 @@ uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args) {
 		_VSTD::is_constructible<_Tp, allocator_arg_t, _Alloc, _Args...>(),
 		__alloc, _VSTD::forward<_Args>(__args)...);
 }
-	
+
 template<class _Tp, class _Alloc, class _T1, class _T2,
 	typename = enable_if_t<__is_pair<_Tp>::value>>
 auto
