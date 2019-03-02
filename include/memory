@@ -626,6 +626,24 @@ template<class T>
     atomic_compare_exchange_strong_explicit(shared_ptr<T>* p, shared_ptr<T>* v,
                                             shared_ptr<T> w, memory_order success,
                                             memory_order failure);
+ 
+template <class T, class Alloc, class... Args>
+	auto uses_allocator_construction_args(const Alloc& alloc, Args&&... args);
+template <class T, class Alloc, class Tuple1, class Tuple2>
+	auto uses_allocator_construction_args(const Alloc& alloc, piecewise_construct_t, Tuple1&& x, Tuple2&& y);
+template <class T>
+	auto uses_allocator_construction_args(const Alloc& alloc);
+template <class T, class Alloc, class U, class V>
+	auto uses_allocator_construction_args(const Alloc& alloc, U&& u, V&& v);
+template <class T, class Alloc, class U, class V>
+	auto uses_allocator_construction_args(const Alloc& alloc, const pair<U,V>& pr);
+template <class T, class Alloc, class U, class V>
+	auto uses_allocator_construction_args(const Alloc& alloc, pair<U,V>&& pr);
+template <class T, class Alloc, class... Args>
+	T make_obj_using_allocator(const Alloc& alloc, Args&&... args);
+template <class T, class Alloc, class... Args>
+	T* uninitialized_construct_using_allocator(T* p, const Alloc& alloc, Args&&... args);
+
 // Hash support
 template <class T> struct hash;
 template <class T, class D> struct hash<unique_ptr<T, D> >;
@@ -5722,8 +5740,7 @@ template<class _Tp, class _Alloc,
 	typename = enable_if_t<__is_pair<_Tp>::value>>
 auto
 uses_allocator_construction_args(const _Alloc& __alloc) {
-	return uses_allocator_construction_args<_Tp>(__alloc, piecewise_construct,
-												 _VSTD::tuple<>{}, _VSTD::tuple<>{});
+	return uses_allocator_construction_args<_Tp>(__alloc, piecewise_construct, _VSTD::tuple<>{}, _VSTD::tuple<>{});
 }
 
 template<class _Tp, class _Alloc, class _T1, class _T2,
@@ -5731,7 +5748,8 @@ template<class _Tp, class _Alloc, class _T1, class _T2,
 auto
 uses_allocator_construction_args(const _Alloc& __alloc, _T1&& __a, _T2&& __b) {
 	return uses_allocator_construction_args<_Tp>(
-		__alloc, piecewise_construct, _VSTD::forward_as_tuple(_VSTD::forward<_T1>(__a)),
+		__alloc, piecewise_construct,
+		_VSTD::forward_as_tuple(_VSTD::forward<_T1>(__a)),
 		_VSTD::forward_as_tuple(_VSTD::forward<_T2>(__b)));
 }
 
@@ -5748,7 +5766,8 @@ template<class _Tp, class _Alloc, class _T1, class _T2,
 	typename = enable_if_t<__is_pair<_Tp>::value>>
 auto
 uses_allocator_construction_args(const _Alloc& __alloc, _VSTD::pair<_T1, _T2>&& __p) {
-	return uses_allocator_construction_args<_Tp>(__alloc, piecewise_construct,
+	return uses_allocator_construction_args<_Tp>(__alloc,
+		piecewise_construct,
 		forward_as_tuple(_VSTD::move(__p).first),
 		forward_as_tuple(_VSTD::move(__p).first));
 }
