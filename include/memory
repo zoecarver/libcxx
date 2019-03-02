@@ -5667,6 +5667,163 @@ struct __is_allocator<_Alloc,
        typename __void_t<decltype(_VSTD::declval<_Alloc&>().allocate(size_t(0)))>::type
      >
    : true_type {};
+    
+#if _LIBCPP_STD_VER > 17
+                            
+//template<class _Tp, class _Alloc, class... _Args>
+//typename enable_if<
+//    !is_base_of_v<_Tp, _VSTD::pair>,
+//    _VSTD::tuple<_Tp>
+//>::type
+//auto
+//uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args) {
+//    if (!_VSTD::uses_allocator_v<_Tp, _Alloc> &&
+//    	_VSTD::is_constructible_v<_Tp, _Args...>)
+//        return _VSTD::forward_as_tuple(
+//        	_VSTD::forward<_Args>(__args)..., __alloc);
+//
+//	if (_VSTD::uses_allocator_v<_Tp, _Alloc> &&
+//		_VSTD::is_constructible_v<_Tp, allocator_arg_t, _Alloc, _Args...>)
+//		return _VSTD::tuple<allocator_arg_t, const _Alloc&, _Args&&...>(
+//			allocator_arg, __alloc, _VSTD::forward<_Args>(__args)...);
+//
+//	if (_VSTD::uses_allocator_v<_Tp, _Alloc> &&
+//		_VSTD::is_constructible_v<_Tp, _Args..., _Alloc>)
+//		return _VSTD::forward_as_tuple(
+//			_VSTD::forward<_Args>(__args)..., __alloc);
+//}
+
+//template<class... _Args>
+//tuple<_Args...>
+//__uses_allocator_construction_args_forward_args(_Args&&... __args) {
+//    return _VSTD::forward_as_tuple(_VSTD::forward<_Args>(__args)...);
+//}
+//
+//template<class _Tp, class _Alloc, class... _Args>
+//tuple<allocator_arg_t, _Alloc, _Args...>
+//__uses_allocator_construction_args_with_alloc(const _Alloc& __alloc, _Args&&... __args) {
+//	return _VSTD::tuple<allocator_arg_t, const _Alloc&, _Args&&...>(
+//			allocator_arg, __alloc, _VSTD::forward<_Args>(__args)...);
+//}
+
+//template<class _Tp, class _Alloc, class... _Args>
+//typename enable_if<
+//	_VSTD::uses_allocator_v<_Tp, _Alloc>,
+//	tuple<>
+//>::type
+//uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args) {
+//
+//}
+//
+//template<class _Tp, class _Alloc, class... _Args>
+//typename enable_if<
+//	!_VSTD::uses_allocator_v<_Tp, _Alloc>,
+//	tuple<_Tp&&, _Alloc>
+//>::type
+//uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args) {
+//
+//}
+
+template<class _Tp, class _Un, class _Alloc, class... _Args>
+auto __uses_allocator_construction_args_no_pair(false_type, _Un, const _Alloc, _Args&&... __args) {
+	return _VSTD::forward_as_tuple(_VSTD::forward<_Args>(__args)...);
+}
+
+template<class _Tp, class _Alloc, class... _Args>
+auto __uses_allocator_construction_args_no_pair(true_type, true_type, const _Alloc __alloc, _Args&&... __args) {
+	return _VSTD::forward_as_tuple(allocator_arg, __alloc, _VSTD::forward<_Args>(__args)...);
+}
+
+template<class _Tp, class _Alloc, class... _Args>
+auto __uses_allocator_construction_args_no_pair(false_type, false_type, const _Alloc __alloc, _Args&&... __args) {
+	return _VSTD::forward_as_tuple(_VSTD::forward<_Args>(__args)..., __alloc);
+}
+
+template<class _Tp, class _Alloc, class... _Args>
+auto uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args) {
+	return __uses_allocator_construction_args_no_pair<_Tp>(
+		_VSTD::uses_allocator<_Tp, _Alloc>(),
+		_VSTD::is_constructible<_Tp, allocator_arg_t, _Alloc, _Args...>(),
+		__alloc, _VSTD::forward<_Args>(__args)...);
+}
+	
+template<class _Tp, class _Alloc, class _T1, class _T2>
+//typename enable_if<
+//	is_base_of_v<_Tp, _VSTD::pair>,
+//	_VSTD::tuple<_T1, _T2>
+//>::type
+auto
+uses_allocator_construction_args(const _Alloc& __alloc,
+								 piecewise_construct_t,
+								 _T1&& __a, _T2&& __b) {
+	return std::make_tuple(piecewise_construct,
+						   _VSTD::apply( [&__alloc](auto&&... __args) {
+		return _VSTD::uses_allocator_construction_args<_T1>(__alloc, _VSTD::forward<decltype(__args)>(__args)...);
+	}, _VSTD::forward<_T1>(__a)),
+						   _VSTD::apply( [&__alloc](auto&&... __args) {
+		return _VSTD::uses_allocator_construction_args<_T2>(__alloc, _VSTD::forward<decltype(__args)>(__args)...);
+	}, _VSTD::forward<_T2>(__b)));
+}
+
+template<class _Tp, class _Alloc>
+//typename enable_if<
+//	is_base_of_v<_Tp, _VSTD::pair>,
+//	_VSTD::tuple<>
+//>::type
+auto
+uses_allocator_construction_args(const _Alloc& __alloc) {
+	return uses_allocator_construction_args<_Tp>(__alloc, piecewise_construct,
+												 _VSTD::tuple<>{}, _VSTD::tuple<>{});
+}
+
+template<class _Tp, class _Alloc, class _T1, class _T2>
+//typename enable_if<
+//	is_base_of_v<_Tp, _VSTD::pair>,
+//	_VSTD::tuple<>
+//>::type
+auto
+uses_allocator_construction_args(const _Alloc& __alloc, _T1&& __a, _T2&& __b) {
+	return uses_allocator_construction_args<_Tp>(__alloc, piecewise_construct, _VSTD::forward_as_tuple(_VSTD::forward<_T1>(__a)), _VSTD::forward_as_tuple(_VSTD::forward<_T2>(__b)));
+}
+
+template<class _Tp, class _Alloc, class _T1, class _T2>
+//typename enable_if<
+//	is_base_of_v<_Tp, _VSTD::pair>,
+//	_VSTD::tuple<>
+//>::type
+auto
+uses_allocator_construction_args(const _Alloc& __alloc, const _VSTD::pair<_T1, _T2>& __p) {
+	return uses_allocator_construction_args<_Tp>(__alloc, piecewise_construct,
+		forward_as_tuple(__p.first),
+		forward_as_tuple(__p.second));
+}
+
+template<class _Tp, class _Alloc, class _T1, class _T2>
+//typename enable_if<
+//	is_base_of_v<_Tp, _VSTD::pair>,
+//	_VSTD::tuple<>
+//>::type
+auto
+uses_allocator_construction_args(const _Alloc& __alloc, _VSTD::pair<_T1, _T2>&& __p) {
+	return uses_allocator_construction_args<_Tp>(__alloc, piecewise_construct,
+		forward_as_tuple(_VSTD::move(__p).first),
+		forward_as_tuple(_VSTD::move(__p).first));
+}
+
+template<class _Tp, class _Alloc, class... _Args>
+_Tp make_obj_using_allocator(const _Alloc& __alloc, _Args&&... __args) {
+	return make_from_tuple<_Tp>(
+		uses_allocator_construction_args<_Tp>(__alloc, _VSTD::forward<_Args>(__args)...));
+}
+
+template<class _Tp, class _Alloc, class... _Args>
+_Tp* uninitialized_construct_using_allocator(_Tp* __p, const _Alloc& __alloc, _Args&&... __args) {
+	return ::new(static_cast<void*>(__p)) _Tp(
+		make_obj_using_allocator<_Tp>(__alloc, _VSTD::forward<_Args>(__args)...)
+	);
+}
+
+#endif // _LIBCPP_STD_VER > 17
 
 _LIBCPP_END_NAMESPACE_STD
 
