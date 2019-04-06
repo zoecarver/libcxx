@@ -2969,6 +2969,48 @@ inline void __libcpp_erase_if_container( _Container& __c, _Predicate __pred)
 	}
 }
 
+#if _LIBCPP_STD_VER > 17
+
+template<class _Fun, class _TupleArgs, size_t... _S, class... _OtherArgs>
+auto
+__bind_front_apply_both(_Fun&& __f, 
+                        _TupleArgs&& __tuple_args, _VSTD::index_sequence<S...>,
+                        _OtherArgs... __other_args)
+{
+    return _VSTD::invoke(_VSTD::forward<_Fun>(__f),
+                         _VSTD::get<S>(_VSTD::forward<_TupleArgs>(__tuple_args))...,
+                         _VSTD::forward<_OtherArgs>(__other_args)...);
+}
+
+template<class _Fun, class... _BoundArgs>
+struct __bind_front_impl
+{
+    _Fun __f;
+    _VSTD::tuple<_BoundArgs...> __bound_args;
+    
+    template<class... _CallArgs>
+    _VSTD::invoke_result_t<_Fun&, _BoundArgs&..., _CallArgs...>
+    operator()(_CallArgs&&... __call_agrs)
+    {
+        auto constexpr __size = _VSTD::tuple_size_v<
+            typename _VSTD::remove_reference<decltype(__bound_args)>::type  
+        >;
+        
+        return __bind_front_apply_both(__f, 
+                                       __bound_args, _VSTD::make_index_sequence<__size>(),
+                                       _VSTD::forward<_CallArgs>(__call_agrs)...);
+    }
+}
+
+template<class _Func, class... _Args>
+auto bind_front(_Func&& __f, _Args&&... __args)
+{
+    return __bind_front_impl { _VSTD::forward<_Func>(__f), 
+                               _VSTD::forward<_BoundArgs>(__args)... };
+}
+
+#endif // _LIBCPP_STD_VER > 17
+
 _LIBCPP_END_NAMESPACE_STD
 
 #endif  // _LIBCPP_FUNCTIONAL
