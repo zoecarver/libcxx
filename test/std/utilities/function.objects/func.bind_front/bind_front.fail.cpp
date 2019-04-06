@@ -32,6 +32,6 @@ int main(int, char**)
     auto d = std::bind_front(do_nothing, n); // expected-error {{no matching function for call to 'bind_front'}}
     assert(d() == n);
     
-    auto a = std::bind_front(simple); // {{static_assert failed}}
+    auto a = std::bind_front(simple); // expected-error {{static_assert failed}}
     assert(a(1) == 1);
 }
