@@ -14,32 +14,24 @@
 
 #include <functional>
 
-int add (int a, int b) { return a + b; }
+constexpr int pass(const int n) { return n; }
 
-int long_test (int a, int b, int c, int d, int e, int f) 
-{
-    return a + b + c + d + e + f;
-}
+int simple(int n) { return n; }
 
-struct S { bool operator()(int a) { return a == 1; } };
+template<class T>
+T do_nothing(T t) { return t; }
 
 int main(int, char**)
 {
-    int n = 2;
-    int m = 1;
+    int n = 1;
+    const int c = 1;
     
-    auto a = std::bind_front(add, m, n);
-    assert(a() == 3);
+    auto p = std::bind_front(pass, c);
+    static_assert(p() == 1); // expected-error {{static_assert expression is not an integral constant expression}}
     
-    auto b = std::bind_front(long_test, m, n, m, m, m, m);
-    assert(b() == 7);
+    auto d = std::bind_front(do_nothing, n); // expected-error {{no matching function for call to 'bind_front'}}
+    assert(d() == n);
     
-    auto c = std::bind_front(long_test, n, m);
-    assert(c(1, 1, 1, 1) == 7);
-    
-    auto d = std::bind_front(S{}, m);
-    assert(d());
-    
-    auto f = std::bind_front(add, n);
-    assert(f(3) == 5);
+    auto a = std::bind_front(simple); // {{static_assert failed}}
+    assert(a(1) == 1);
 }

@@ -229,6 +229,9 @@ template<class Fn, class... BoundArgs>
   unspecified bind(Fn&&, BoundArgs&&...);
 template<class R, class Fn, class... BoundArgs>
   unspecified bind(Fn&&, BoundArgs&&...);
+  
+template <class F, class... Args> 
+  unspecified bind_front(F&&, Args&&...);
 
 template<class F, class... Args>
  invoke_result_t<F, Args...> invoke(F&& f, Args&&... args) // C++17
@@ -2971,14 +2974,14 @@ inline void __libcpp_erase_if_container( _Container& __c, _Predicate __pred)
 
 #if _LIBCPP_STD_VER > 17
 
-template<class _Fun, class _TupleArgs, size_t... _S, class... _OtherArgs>
+template<class _Fun, class _TupleArgs, size_t... _Sz, class... _OtherArgs>
 auto
 __bind_front_apply_both(_Fun&& __f, 
-                        _TupleArgs&& __tuple_args, _VSTD::index_sequence<S...>,
+                        _TupleArgs&& __tuple_args, _VSTD::index_sequence<_Sz...>,
                         _OtherArgs... __other_args)
 {
     return _VSTD::invoke(_VSTD::forward<_Fun>(__f),
-                         _VSTD::get<S>(_VSTD::forward<_TupleArgs>(__tuple_args))...,
+                         _VSTD::get<_Sz>(_VSTD::forward<_TupleArgs>(__tuple_args))...,
                          _VSTD::forward<_OtherArgs>(__other_args)...);
 }
 
@@ -2987,6 +2990,10 @@ struct __bind_front_impl
 {
     _Fun __f;
     _VSTD::tuple<_BoundArgs...> __bound_args;
+    
+    __bind_front_impl(_Fun&& __f, _BoundArgs&&... __bound_args) :    
+        __f(_VSTD::forward<_Fun>(__f)), 
+        __bound_args(_VSTD::forward<_BoundArgs>(__bound_args)...) { }
     
     template<class... _CallArgs>
     _VSTD::invoke_result_t<_Fun&, _BoundArgs&..., _CallArgs...>
@@ -3000,13 +3007,14 @@ struct __bind_front_impl
                                        __bound_args, _VSTD::make_index_sequence<__size>(),
                                        _VSTD::forward<_CallArgs>(__call_agrs)...);
     }
-}
+};
 
 template<class _Func, class... _Args>
 auto bind_front(_Func&& __f, _Args&&... __args)
 {
-    return __bind_front_impl { _VSTD::forward<_Func>(__f), 
-                               _VSTD::forward<_BoundArgs>(__args)... };
+    static_assert(sizeof...(_Args) > 0);
+    return __bind_front_impl<_VSTD::decay_t<_Func>, _Args...>
+        { _VSTD::forward<_Func>(__f), _VSTD::forward<_Args>(__args)... };
 }
 
 #endif // _LIBCPP_STD_VER > 17
