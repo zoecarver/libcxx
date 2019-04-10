@@ -16,7 +16,7 @@
 
 int add (int a, int b) { return a + b; }
 
-int long_test (int a, int b, int c, int d, int e, int f) 
+int long_test (int a, int b, int c, int d, int e, int f)
 {
     return a + b + c + d + e + f;
 }
@@ -27,19 +27,21 @@ int main(int, char**)
 {
     int n = 2;
     int m = 1;
-    
+
     auto a = std::bind_front(add, m, n);
     assert(a() == 3);
-    
+
     auto b = std::bind_front(long_test, m, n, m, m, m, m);
     assert(b() == 7);
-    
+
     auto c = std::bind_front(long_test, n, m);
     assert(c(1, 1, 1, 1) == 7);
-    
+
     auto d = std::bind_front(S{}, m);
     assert(d());
-    
+
     auto f = std::bind_front(add, n);
     assert(f(3) == 5);
+
+    return 0;
 }

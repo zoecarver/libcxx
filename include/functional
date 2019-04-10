@@ -229,8 +229,8 @@ template<class Fn, class... BoundArgs>
   unspecified bind(Fn&&, BoundArgs&&...);
 template<class R, class Fn, class... BoundArgs>
   unspecified bind(Fn&&, BoundArgs&&...);
-  
-template <class F, class... Args> 
+
+template <class F, class... Args>
   unspecified bind_front(F&&, Args&&...);
 
 template<class F, class... Args>
@@ -2976,7 +2976,7 @@ inline void __libcpp_erase_if_container( _Container& __c, _Predicate __pred)
 
 template<class _Fun, class _TupleArgs, size_t... _Sz, class... _OtherArgs>
 auto
-__bind_front_apply_both(_Fun&& __f, 
+__bind_front_apply_both(_Fun&& __f,
                         _TupleArgs&& __tuple_args, _VSTD::index_sequence<_Sz...>,
                         _OtherArgs... __other_args)
 {
@@ -2990,20 +2990,20 @@ struct __bind_front_impl
 {
     _Fun __f;
     _VSTD::tuple<_BoundArgs...> __bound_args;
-    
-    __bind_front_impl(_Fun&& __f, _BoundArgs&&... __bound_args) :    
-        __f(_VSTD::forward<_Fun>(__f)), 
+
+    __bind_front_impl(_Fun&& __f, _BoundArgs&&... __bound_args) :
+        __f(_VSTD::forward<_Fun>(__f)),
         __bound_args(_VSTD::forward<_BoundArgs>(__bound_args)...) { }
-    
+
     template<class... _CallArgs>
     _VSTD::invoke_result_t<_Fun&, _BoundArgs&..., _CallArgs...>
     operator()(_CallArgs&&... __call_agrs)
     {
         auto constexpr __size = _VSTD::tuple_size_v<
-            typename _VSTD::remove_reference<decltype(__bound_args)>::type  
+            typename _VSTD::remove_reference<decltype(__bound_args)>::type
         >;
-        
-        return __bind_front_apply_both(__f, 
+
+        return __bind_front_apply_both(__f,
                                        __bound_args, _VSTD::make_index_sequence<__size>(),
                                        _VSTD::forward<_CallArgs>(__call_agrs)...);
     }
