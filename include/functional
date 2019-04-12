@@ -2796,21 +2796,25 @@ public:
     template<typename... _Args>
     auto operator()(_Args&&... __args) &
         noexcept(is_nothrow_invocable<_Fn&, _Args...>::value)
+        -> decltype(__operation(__fn, _VSTD::forward<_Args>(__args)...))
     { return __operation(__fn, _VSTD::forward<_Args>(__args)...); }
 
     template<typename... _Args>
     auto operator()(_Args&&... __args) const&
         noexcept(is_nothrow_invocable<_Fn const&, _Args...>::value)
+        -> decltype(__operation(__fn, _VSTD::forward<_Args>(__args)...))
     { return __operation(__fn, _VSTD::forward<_Args>(__args)...); }
 
     template<typename... _Args>
     auto operator()(_Args&&... __args) &&
         noexcept(is_nothrow_invocable<_Fn&&, _Args...>::value)
+        -> decltype(__operation(_VSTD::move(__fn), _VSTD::forward<_Args>(__args)...))
     { return __operation(_VSTD::move(__fn), _VSTD::forward<_Args>(__args)...); }
 
     template<typename... _Args>
     auto operator()(_Args&&... __args) const&&
         noexcept(is_nothrow_invocable<_Fn const, _Args...>::value)
+        -> decltype(__operation(_VSTD::move(__fn), _VSTD::forward<_Args>(__args)...))
     { return __operation(_VSTD::move(__fn), _VSTD::forward<_Args>(__args)...); }
 };
 
