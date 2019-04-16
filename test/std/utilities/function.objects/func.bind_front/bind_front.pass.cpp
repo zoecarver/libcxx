@@ -13,18 +13,17 @@
 // template <class F, class... Args> unspecified bind_front(F&&, Args&&...);
 
 #include <functional>
+#include "../callable_types.h"
 
-int add (int a, int b) { return a + b; }
-
-int long_test (int a, int b, int c, int d, int e, int f)
+void basic_tests()
 {
-    return a + b + c + d + e + f;
-}
+    int add (int a, int b) { return a + b; }
 
-struct S { bool operator()(int a) { return a == 1; } };
+    int long_test (int a, int b, int c, int d, int e, int f)
+    { return a + b + c + d + e + f; }
 
-int main(int, char**)
-{
+    struct S { bool operator()(int a) { return a == 1; } };
+
     int n = 2;
     int m = 1;
 
@@ -42,6 +41,11 @@ int main(int, char**)
 
     auto f = std::bind_front(add, n);
     assert(f(3) == 5);
+}
+
+int main(int, char**)
+{
+    basic_tests();
 
     return 0;
 }
