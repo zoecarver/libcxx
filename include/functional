@@ -2793,7 +2793,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
     _VSTD::tuple<_Bound...> __bound;
 
     template<typename... _Args>
-    constexpr auto operator()(_Args&&... __args) &
+    auto operator()(_Args&&... __args) &
     noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
                                   _VSTD::forward<_Args>(__args)...)))
     -> decltype(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
@@ -2804,7 +2804,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
     }
 
     template<typename... _Args>
-    constexpr auto operator()(_Args&&... __args) const&
+    auto operator()(_Args&&... __args) const&
     noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
                                   _VSTD::forward<_Args>(__args)...)))
     -> decltype(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
@@ -2815,7 +2815,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
     }
 
     template<typename... _Args>
-    constexpr auto operator()(_Args&&... __args) &&
+    auto operator()(_Args&&... __args) &&
     noexcept(noexcept(_Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))...,
                                   _VSTD::forward<_Args>(__args)...)))
     -> decltype(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
@@ -2826,7 +2826,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
     }
 
     template<typename... _Args>
-    constexpr auto operator()(_Args&&... __args) const&&
+    auto operator()(_Args&&... __args) const&&
     noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
                                   _VSTD::forward<_Args>(__args)...)))
     -> decltype(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
@@ -2836,7 +2836,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
                            _VSTD::forward<_Args>(__args)...);
     }
 
-    constexpr __perfect_forward_impl(_Bound&&... __bound) :
+    __perfect_forward_impl(_Bound&&... __bound) :
         __bound(_VSTD::forward<_Bound>(__bound)...) { }
 };
 
@@ -2846,14 +2846,14 @@ using __perfect_forward = __perfect_forward_impl<_Op, __tuple_types<_Bound...>>;
 struct __not_fn_op
 {
     template<class... _Args>
-    static constexpr auto __call(_Args&&... __args)
+    static auto __call(_Args&&... __args)
     noexcept(noexcept(!_VSTD::invoke(_VSTD::forward<_Args>(__args)...)))
     -> decltype(!_VSTD::invoke(_VSTD::forward<_Args>(__args)...))
     { return !_VSTD::invoke(_VSTD::forward<_Args>(__args)...); }
 };
 
 template<class _Fn>
-inline constexpr auto not_fn(_Fn&& __f)
+inline auto not_fn(_Fn&& __f)
 {
     return __perfect_forward<__not_fn_op, _Fn> (_VSTD::forward<_Fn>(__f));
 }
@@ -2865,14 +2865,14 @@ inline constexpr auto not_fn(_Fn&& __f)
 struct __bind_front_op
 {
     template<class... _Args>
-    static constexpr auto __call(_Args&&... __args)
+    static auto __call(_Args&&... __args)
     noexcept(noexcept(_VSTD::invoke(_VSTD::forward<_Args>(__args)...)))
     -> decltype(_VSTD::invoke(_VSTD::forward<_Args>(__args)...))
     { return _VSTD::invoke(_VSTD::forward<_Args>(__args)...); }
 };
 
 template<class _Fn, class... _Args>
-inline constexpr auto bind_front(_Fn&& __f, _Args&&... __args)
+inline auto bind_front(_Fn&& __f, _Args&&... __args)
 {
     static_assert(sizeof...(_Args) > 0, "At least one argument must be provided");
     return __perfect_forward<__bind_front_op, _Fn, _Args...>
