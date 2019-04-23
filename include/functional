@@ -2790,54 +2790,54 @@ struct __perfect_forward_impl;
 template<class _Op, class... _Bound, size_t... _Idxs>
 struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Idxs...>>
 {
-	_VSTD::tuple<_Bound...> __bound;
+    _VSTD::tuple<_Bound...> __bound;
 
-	template<typename... _Args>
-	auto operator()(_Args&&... __args) &
-	noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
-								  _VSTD::forward<_Args>(__args)...)))
-	-> decltype(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
-							_VSTD::forward<_Args>(__args)...))
-	{
-		return _Op::__call(_VSTD::get<_Idxs>(__bound)...,
-						   _VSTD::forward<_Args>(__args)...);
-	}
+    template<typename... _Args>
+    auto operator()(_Args&&... __args) &
+    noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
+                                  _VSTD::forward<_Args>(__args)...)))
+    -> decltype(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
+                            _VSTD::forward<_Args>(__args)...))
+    {
+        return _Op::__call(_VSTD::get<_Idxs>(__bound)...,
+                           _VSTD::forward<_Args>(__args)...);
+    }
 
-	template<typename... _Args>
-	constexpr auto operator()(_Args&&... __args) const&
-	noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
-								  _VSTD::forward<_Args>(__args)...)))
-	-> decltype(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
-							_VSTD::forward<_Args>(__args)...))
-	{
-		return _Op::__call(_VSTD::get<_Idxs>(__bound)...,
-						   _VSTD::forward<_Args>(__args)...);
-	}
+    template<typename... _Args>
+    constexpr auto operator()(_Args&&... __args) const&
+    noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
+                                  _VSTD::forward<_Args>(__args)...)))
+    -> decltype(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
+                            _VSTD::forward<_Args>(__args)...))
+    {
+        return _Op::__call(_VSTD::get<_Idxs>(__bound)...,
+                           _VSTD::forward<_Args>(__args)...);
+    }
 
-	template<typename... _Args>
-	auto operator()(_Args&&... __args) &&
-	noexcept(noexcept(_Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))...,
-								  _VSTD::forward<_Args>(__args)...)))
-	-> decltype(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
-							_VSTD::forward<_Args>(__args)...))
-	{
-		return _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
-						   _VSTD::forward<_Args>(__args)...);
-	}
+    template<typename... _Args>
+    auto operator()(_Args&&... __args) &&
+    noexcept(noexcept(_Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))...,
+                                  _VSTD::forward<_Args>(__args)...)))
+    -> decltype(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
+                            _VSTD::forward<_Args>(__args)...))
+    {
+        return _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
+                           _VSTD::forward<_Args>(__args)...);
+    }
 
-	template<typename... _Args>
-	auto operator()(_Args&&... __args) const&&
-	noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
-								  _VSTD::forward<_Args>(__args)...)))
-	-> decltype(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
-							_VSTD::forward<_Args>(__args)...))
-	{
-		return _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
-						   _VSTD::forward<_Args>(__args)...);
-	}
+    template<typename... _Args>
+    auto operator()(_Args&&... __args) const&&
+    noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
+                                  _VSTD::forward<_Args>(__args)...)))
+    -> decltype(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
+                            _VSTD::forward<_Args>(__args)...))
+    {
+        return _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
+                           _VSTD::forward<_Args>(__args)...);
+    }
 
-	constexpr __perfect_forward_impl(_Bound&&... __bound) :
-		__bound(_VSTD::forward<_Bound>(__bound)...) { }
+    constexpr __perfect_forward_impl(_Bound&&... __bound) :
+        __bound(_VSTD::forward<_Bound>(__bound)...) { }
 };
 
 template<class _Op, class... _Bound>
@@ -2845,17 +2845,17 @@ using __perfect_forward = __perfect_forward_impl<_Op, __tuple_types<_Bound...>>;
 
 struct __not_fn_op
 {
-	template<class... _Args>
-	static constexpr auto __call(_Args&&... __args)
-	noexcept(noexcept(!_VSTD::__invoke(_VSTD::forward<_Args>(__args)...)))
-	-> decltype(!_VSTD::__invoke(_VSTD::forward<_Args>(__args)...))
-	{ return !_VSTD::__invoke(_VSTD::forward<_Args>(__args)...); }
+    template<class... _Args>
+    static constexpr auto __call(_Args&&... __args)
+    noexcept(noexcept(!_VSTD::invoke(_VSTD::forward<_Args>(__args)...)))
+    -> decltype(!_VSTD::invoke(_VSTD::forward<_Args>(__args)...))
+    { return !_VSTD::invoke(_VSTD::forward<_Args>(__args)...); }
 };
 
 template<class _Fn>
 inline constexpr auto not_fn(_Fn&& __f)
 {
-	return __perfect_forward<__not_fn_op, _Fn> (_VSTD::forward<_Fn>(__f));
+    return __perfect_forward<__not_fn_op, _Fn> (_VSTD::forward<_Fn>(__f));
 }
 
 #endif // _LIBCPP_STD_VER > 14
@@ -2864,18 +2864,19 @@ inline constexpr auto not_fn(_Fn&& __f)
 
 struct __bind_front_op
 {
-	template<class... _Args>
-	static constexpr auto __call(_Args... __args)
-	noexcept(noexcept(_VSTD::__invoke(_VSTD::forward<_Args>(__args)...)))
-	-> decltype(_VSTD::__invoke(_VSTD::forward<_Args>(__args)...))
-	{ return _VSTD::__invoke(_VSTD::forward<_Args>(__args)...); }
+    template<class... _Args>
+    static constexpr auto __call(_Args&&... __args)
+    noexcept(noexcept(_VSTD::invoke(_VSTD::forward<_Args>(__args)...)))
+    -> decltype(_VSTD::invoke(_VSTD::forward<_Args>(__args)...))
+    { return _VSTD::invoke(_VSTD::forward<_Args>(__args)...); }
 };
 
 template<class _Fn, class... _Args>
-constexpr auto bind_front(_Fn __f, _Args... __args)
+constexpr auto bind_front(_Fn&& __f, _Args&&... __args)
 {
-	return __perfect_forward<__bind_front_op, _Fn, _Args...>
-	    (_VSTD::forward<_Fn>(__f), _VSTD::forward<_Args>(__args)...);
+    static_assert(sizeof...(_Args) > 0, "At least one argument must be provided");
+    return __perfect_forward<__bind_front_op, _Fn, _Args...>
+        (_VSTD::forward<_Fn>(__f), _VSTD::forward<_Args>(__args)...);
 }
 
 #endif // _LIBCPP_STD_VER > 17
@@ -3004,13 +3005,13 @@ using unwrap_ref_decay_t = typename unwrap_ref_decay<_Tp>::type;
 template <class _Container, class _Predicate>
 inline void __libcpp_erase_if_container( _Container& __c, _Predicate __pred)
 {
-	for (typename _Container::iterator __iter = __c.begin(), __last = __c.end(); __iter != __last;)
-	{
-		if (__pred(*__iter))
-			__iter = __c.erase(__iter);
-		else
-			++__iter;
-	}
+    for (typename _Container::iterator __iter = __c.begin(), __last = __c.end(); __iter != __last;)
+    {
+        if (__pred(*__iter))
+            __iter = __c.erase(__iter);
+        else
+            ++__iter;
+    }
 }
 
 _LIBCPP_END_NAMESPACE_STD

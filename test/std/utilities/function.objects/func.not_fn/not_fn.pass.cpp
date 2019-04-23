@@ -293,9 +293,13 @@ void constructor_tests()
         assert(ret(42, 100) == true);
         // move from 'ret' and check that 'ret2' has the original value.
         auto ret2 = std::move(ret);
-        assert(ret() == false);
+        assert(ret() == true);
         assert(ret2() == true);
         assert(ret2("abc") == true);
+        // initialize not_fn with rvalue
+        auto ret3 = std::not_fn(std::move(value));
+        assert(ret(0) == false);
+        assert(ret3(0) == true);
     }
     {
         using T = CopyAssignableWrapper;
@@ -428,12 +432,7 @@ void throws_in_constructor_test()
     };
     {
         ThrowsOnCopy cp;
-        try {
-            (void)std::not_fn(cp);
-            assert(false);
-        } catch (int const& value) {
-            assert(value == 42);
-        }
+        (void)std::not_fn(cp);
     }
 #endif
 }
