@@ -130,13 +130,6 @@ void test_arg_count()
 	static_assert(std::is_invocable<T, int>::value);
 }
 
-void test_const()
-{
-	using T = decltype(std::bind_front(add, 1));
-	static_assert(std::is_invocable<T, int>::value);
-	static_assert(!std::is_invocable<T, const int>::value);
-}
-
 int main(int, char**)
 {
 	basic_tests();

@@ -2793,7 +2793,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
     _VSTD::tuple<_Bound...> __bound;
 
     template<typename... _Args>
-    auto operator()(_Args&&... __args) &
+    constexpr auto operator()(_Args&&... __args) &
     noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
                                   _VSTD::forward<_Args>(__args)...)))
     -> decltype(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
@@ -2815,7 +2815,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
     }
 
     template<typename... _Args>
-    auto operator()(_Args&&... __args) &&
+    constexpr auto operator()(_Args&&... __args) &&
     noexcept(noexcept(_Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))...,
                                   _VSTD::forward<_Args>(__args)...)))
     -> decltype(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
@@ -2826,7 +2826,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
     }
 
     template<typename... _Args>
-    auto operator()(_Args&&... __args) const&&
+    constexpr auto operator()(_Args&&... __args) const&&
     noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
                                   _VSTD::forward<_Args>(__args)...)))
     -> decltype(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
@@ -2872,7 +2872,7 @@ struct __bind_front_op
 };
 
 template<class _Fn, class... _Args>
-constexpr auto bind_front(_Fn&& __f, _Args&&... __args)
+inline constexpr auto bind_front(_Fn&& __f, _Args&&... __args)
 {
     static_assert(sizeof...(_Args) > 0, "At least one argument must be provided");
     return __perfect_forward<__bind_front_op, _Fn, _Args...>
