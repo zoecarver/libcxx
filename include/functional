@@ -2792,7 +2792,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
 {
     _VSTD::tuple<_Bound...> __bound;
 
-    template<typename... _Args>
+    template<class... _Args>
     auto operator()(_Args&&... __args) &
     noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
                                   _VSTD::forward<_Args>(__args)...)))
@@ -2803,7 +2803,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
                            _VSTD::forward<_Args>(__args)...);
     }
 
-    template<typename... _Args>
+    template<class... _Args>
     auto operator()(_Args&&... __args) const&
     noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)...,
                                   _VSTD::forward<_Args>(__args)...)))
@@ -2814,7 +2814,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
                            _VSTD::forward<_Args>(__args)...);
     }
 
-    template<typename... _Args>
+    template<class... _Args>
     auto operator()(_Args&&... __args) &&
     noexcept(noexcept(_Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))...,
                                   _VSTD::forward<_Args>(__args)...)))
@@ -2825,7 +2825,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
                            _VSTD::forward<_Args>(__args)...);
     }
 
-    template<typename... _Args>
+    template<class... _Args>
     auto operator()(_Args&&... __args) const&&
     noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))...,
                                   _VSTD::forward<_Args>(__args)...)))
