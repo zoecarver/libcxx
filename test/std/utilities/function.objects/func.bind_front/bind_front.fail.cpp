@@ -32,7 +32,7 @@ int main(int, char**)
     auto d = std::bind_front(do_nothing, n); // expected-error {{no matching function for call to 'bind_front'}}
     assert(d() == n);
 
-    auto a = std::bind_front(simple); // expected-error {{static_assert failed}}
+    auto a = std::bind_front(simple); // expected-error {{static_assert failed "At least one argument must be provided"}}
     assert(a(1) == 1);
 
     return 0;
