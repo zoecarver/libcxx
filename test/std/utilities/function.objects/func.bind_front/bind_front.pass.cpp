@@ -49,64 +49,64 @@ void basic_tests()
 
 void constructor_tests()
 {
-	{
-		MoveOnlyCallable value(true);
-		using RetT = decltype(std::bind_front(std::move(value), 1));
+    {
+        MoveOnlyCallable value(true);
+        using RetT = decltype(std::bind_front(std::move(value), 1));
 
-		static_assert(std::is_move_constructible<RetT>::value, "");
-		static_assert(!std::is_copy_constructible<RetT>::value, "");
-		static_assert(!std::is_move_assignable<RetT>::value, "");
-		static_assert(!std::is_copy_assignable<RetT>::value, "");
+        static_assert(std::is_move_constructible<RetT>::value, "");
+        static_assert(!std::is_copy_constructible<RetT>::value, "");
+        static_assert(!std::is_move_assignable<RetT>::value, "");
+        static_assert(!std::is_copy_assignable<RetT>::value, "");
 
-		auto ret = std::bind_front(std::move(value), 1);
-		assert(ret());
-		assert(ret(1, 2, 3));
+        auto ret = std::bind_front(std::move(value), 1);
+        assert(ret());
+        assert(ret(1, 2, 3));
 
-		auto ret1 = std::move(ret);
-		assert(!ret());
-		assert(ret1());
-		assert(ret1(1, 2, 3));
-	}
-	{
-		CopyCallable value(true);
-		using RetT = decltype(std::bind_front(value, 1));
+        auto ret1 = std::move(ret);
+        assert(!ret());
+        assert(ret1());
+        assert(ret1(1, 2, 3));
+    }
+    {
+        CopyCallable value(true);
+        using RetT = decltype(std::bind_front(value, 1));
 
-		static_assert(std::is_move_constructible<RetT>::value, "");
-		static_assert(std::is_copy_constructible<RetT>::value, "");
-		static_assert(!std::is_move_assignable<RetT>::value, "");
-		static_assert(!std::is_copy_assignable<RetT>::value, "");
+        static_assert(std::is_move_constructible<RetT>::value, "");
+        static_assert(std::is_copy_constructible<RetT>::value, "");
+        static_assert(!std::is_move_assignable<RetT>::value, "");
+        static_assert(!std::is_copy_assignable<RetT>::value, "");
 
-		auto ret = std::bind_front(value, 1);
-		assert(ret());
-		assert(ret(1, 2, 3));
+        auto ret = std::bind_front(value, 1);
+        assert(ret());
+        assert(ret(1, 2, 3));
 
-		auto ret1 = std::move(ret);
-		assert(ret1());
-		assert(ret1(1, 2, 3));
+        auto ret1 = std::move(ret);
+        assert(ret1());
+        assert(ret1(1, 2, 3));
 
-		auto ret2 = std::bind_front(std::move(value), 1);
-		assert(!ret());
-		assert(ret2());
-		assert(ret2(1, 2, 3));
-	}
-	{
-		CopyAssignableWrapper value(true);
-		using RetT = decltype(std::bind_front(value, 1));
+        auto ret2 = std::bind_front(std::move(value), 1);
+        assert(!ret());
+        assert(ret2());
+        assert(ret2(1, 2, 3));
+    }
+    {
+        CopyAssignableWrapper value(true);
+        using RetT = decltype(std::bind_front(value, 1));
 
-		static_assert(std::is_move_constructible<RetT>::value, "");
-		static_assert(std::is_copy_constructible<RetT>::value, "");
-		static_assert(std::is_move_assignable<RetT>::value, "");
-		static_assert(std::is_copy_assignable<RetT>::value, "");
-	}
-	{
-		MoveAssignableWrapper value(true);
-		using RetT = decltype(std::bind_front(std::move(value), 1));
+        static_assert(std::is_move_constructible<RetT>::value, "");
+        static_assert(std::is_copy_constructible<RetT>::value, "");
+        static_assert(std::is_move_assignable<RetT>::value, "");
+        static_assert(std::is_copy_assignable<RetT>::value, "");
+    }
+    {
+        MoveAssignableWrapper value(true);
+        using RetT = decltype(std::bind_front(std::move(value), 1));
 
-		static_assert(std::is_move_constructible<RetT>::value, "");
-		static_assert(!std::is_copy_constructible<RetT>::value, "");
-		static_assert(std::is_move_assignable<RetT>::value, "");
-		static_assert(!std::is_copy_assignable<RetT>::value, "");
-	}
+        static_assert(std::is_move_constructible<RetT>::value, "");
+        static_assert(!std::is_copy_constructible<RetT>::value, "");
+        static_assert(std::is_move_assignable<RetT>::value, "");
+        static_assert(!std::is_copy_assignable<RetT>::value, "");
+    }
 }
 
 template<class Res, class F, class... Args>
