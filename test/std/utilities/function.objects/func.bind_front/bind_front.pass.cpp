@@ -53,10 +53,10 @@ void constructor_tests()
         MoveOnlyCallable value(true);
         using RetT = decltype(std::bind_front(std::move(value), 1));
 
-        static_assert(std::is_move_constructible<RetT>::value, "");
-        static_assert(!std::is_copy_constructible<RetT>::value, "");
-        static_assert(!std::is_move_assignable<RetT>::value, "");
-        static_assert(!std::is_copy_assignable<RetT>::value, "");
+        static_assert( std::is_move_constructible<RetT>::value);
+        static_assert(!std::is_copy_constructible<RetT>::value);
+        static_assert(!std::is_move_assignable<RetT>::value);
+        static_assert(!std::is_copy_assignable<RetT>::value);
 
         auto ret = std::bind_front(std::move(value), 1);
         assert(ret());
@@ -71,10 +71,10 @@ void constructor_tests()
         CopyCallable value(true);
         using RetT = decltype(std::bind_front(value, 1));
 
-        static_assert(std::is_move_constructible<RetT>::value, "");
-        static_assert(std::is_copy_constructible<RetT>::value, "");
-        static_assert(!std::is_move_assignable<RetT>::value, "");
-        static_assert(!std::is_copy_assignable<RetT>::value, "");
+        static_assert( std::is_move_constructible<RetT>::value);
+        static_assert( std::is_copy_constructible<RetT>::value);
+        static_assert(!std::is_move_assignable<RetT>::value);
+        static_assert(!std::is_copy_assignable<RetT>::value);
 
         auto ret = std::bind_front(value, 1);
         assert(ret());
@@ -93,19 +93,19 @@ void constructor_tests()
         CopyAssignableWrapper value(true);
         using RetT = decltype(std::bind_front(value, 1));
 
-        static_assert(std::is_move_constructible<RetT>::value, "");
-        static_assert(std::is_copy_constructible<RetT>::value, "");
-        static_assert(std::is_move_assignable<RetT>::value, "");
-        static_assert(std::is_copy_assignable<RetT>::value, "");
+        static_assert(std::is_move_constructible<RetT>::value);
+        static_assert(std::is_copy_constructible<RetT>::value);
+        static_assert(std::is_move_assignable<RetT>::value);
+        static_assert(std::is_copy_assignable<RetT>::value);
     }
     {
         MoveAssignableWrapper value(true);
         using RetT = decltype(std::bind_front(std::move(value), 1));
 
-        static_assert(std::is_move_constructible<RetT>::value, "");
-        static_assert(!std::is_copy_constructible<RetT>::value, "");
-        static_assert(std::is_move_assignable<RetT>::value, "");
-        static_assert(!std::is_copy_assignable<RetT>::value, "");
+        static_assert( std::is_move_constructible<RetT>::value);
+        static_assert(!std::is_copy_constructible<RetT>::value);
+        static_assert( std::is_move_assignable<RetT>::value);
+        static_assert(!std::is_copy_assignable<RetT>::value);
     }
 }
 
@@ -127,7 +127,7 @@ void test_arg_count()
 {
     using T = decltype(std::bind_front(add, 1));
     static_assert(!std::is_invocable<T>::value);
-    static_assert(std::is_invocable<T, int>::value);
+    static_assert( std::is_invocable<T, int>::value);
 }
 
 int main(int, char**)

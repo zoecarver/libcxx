@@ -30,10 +30,8 @@ int main(int, char**)
     static_assert(p() == 1); // expected-error {{static_assert expression is not an integral constant expression}}
 
     auto d = std::bind_front(do_nothing, n); // expected-error {{no matching function for call to 'bind_front'}}
-    assert(d() == n);
 
     auto a = std::bind_front(simple); // expected-error {{static_assert failed "At least one argument must be provided"}}
-    assert(a(1) == 1);
 
     return 0;
 }
