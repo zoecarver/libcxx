@@ -13,6 +13,8 @@
 #include <cassert>
 #include <iostream>
 
+#include "test_macros.h"
+
 using pair_t = std::pair<int, double>;
 
 struct A
@@ -23,12 +25,14 @@ struct A
     A(int a, float b): a(a), b(b) { }
 };
 
-template <class... Args>
-void test_pair (Args&&... args)
+template <class T, class... Args>
+T test_uses_alloc(Args&&... args)
 {
-    auto args_tuple = std::uses_allocator_construction_args<pair_t>(std::forward<Args>(args)...);
+    auto args_tuple = std::uses_allocator_construction_args<T>(std::forward<Args>(args)...);
     auto arg_count = std::tuple_size<decltype(args_tuple)>::value;
     assert(arg_count == 3);
+
+    return std::make_from_tuple<T>(args_tuple);
 }
 
 int main(int, char**)
@@ -37,6 +41,7 @@ int main(int, char**)
     std::allocator<A> alloc;
     auto a = std::make_obj_using_allocator<A>(alloc, 10, 5.0);
 
+    ASSERT_SAME_TYPE(decltype(a), A);
     assert(a.a == 10);
     assert(a.b == 5.0);
 
@@ -45,6 +50,7 @@ int main(int, char**)
     assert(a.a == 20);
     assert(a.b == 10.0);
 
+    ASSERT_SAME_TYPE(decltype(b), A*);
     assert(b->a == 20);
     assert(b->b == 10.0);
 
@@ -54,9 +60,13 @@ int main(int, char**)
     std::allocator<pair_t> p_alloc;
     pair_t p { 10, 5.0 };
 
-    test_pair(p_alloc);
-    test_pair(p_alloc, 10, 5.0);
-    test_pair(p_alloc, p);
+    test_uses_alloc<pair_t>(p_alloc);
+    auto res = test_uses_alloc<pair_t>(p_alloc, 10, 5.0);
+    auto res1 = test_uses_alloc<pair_t>(p_alloc, p);
+    assert(res.first == res1.first &&
+           res.second == res1.second &&
+           res.first == 10 &&
+           res.second == 5.0);
 
     return 0;
 }
