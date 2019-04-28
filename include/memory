@@ -5693,6 +5693,9 @@ template <class _Tp> struct __is_pair : false_type { };
 template <class _T1, class _T2>
 struct __is_pair<pair<_T1, _T2>> : true_type { };
 
+template<class _Tp, class _Alloc, class... _Args>
+auto uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args); // this needs to be forward declared for some __uses_allocator_construction_args_impl overloads
+
 template<class _Tp, class _Un1, class _Un2, class _Alloc, class... _Args>
 auto
 __uses_allocator_construction_args_impl(_Un1, // is pair
@@ -5718,35 +5721,35 @@ auto
  __uses_allocator_construction_args_impl(false_type, // is pair
                                          true_type,  // uses allocator
                                          false_type, // is constructible
-                                         const _Alloc __alloc, _Args&&... __args) {
+                                         const _Alloc __alloc, _Args&&... __args)
+{
     return _VSTD::forward_as_tuple(_VSTD::forward<_Args>(__args)..., __alloc);
 }
 
 template<class _Tp, class _Alloc, class _T1, class _T2>
 auto
-uses_allocator_construction_args(true_type,  // is pair
-                                 true_type,  // uses allocator
-                                 false_type, // is constructible
-                                 const _Alloc& __alloc,
-                                 piecewise_construct_t,
-                                 _T1&& __a, _T2&& __b)
+__uses_allocator_construction_args_impl(true_type,  // is pair
+                                        true_type,  // uses allocator
+                                        false_type, // is constructible
+                                        const _Alloc& __alloc,
+                                        piecewise_construct_t,
+                                        _T1&& __a, _T2&& __b)
 {
-    using _First = _Tp::first_type;
-    using _Second = _Tp::second_type;
+    using _First = typename _Tp::first_type;
+    using _Second = typename _Tp::second_type;
 
-    return _VSTD::tuple_cat(
-        _VSTD::tie(piecewise_construct_t),
-        uses_allocator_construction_args<_First>(__alloc, _VSTD::forward<_T1>(__a)...),
-        uses_allocator_construction_args<_Second>(__alloc, _VSTD::forward<_T2>(__b)...)
+    return _VSTD::tuple_cat(_VSTD::tie(piecewise_construct),
+                            uses_allocator_construction_args<_First>(__alloc, _VSTD::forward<_T1>(__a)),
+                            uses_allocator_construction_args<_Second>(__alloc, _VSTD::forward<_T2>(__b))
     );
 }
 
 template<class _Tp, class _Alloc>
 auto
-uses_allocator_construction_args(true_type,  // is pair
-                                 true_type,  // uses allocator
-                                 false_type, // is constructible
-                                 const _Alloc& __alloc)
+__uses_allocator_construction_args_impl(true_type,  // is pair
+                                        true_type,  // uses allocator
+                                        false_type, // is constructible
+                                        const _Alloc& __alloc)
 {
     return uses_allocator_construction_args<_Tp>(__alloc,
                                                  piecewise_construct,
@@ -5756,11 +5759,11 @@ uses_allocator_construction_args(true_type,  // is pair
 
 template<class _Tp, class _Alloc, class _T1, class _T2>
 auto
-uses_allocator_construction_args(true_type,  // is pair
-                                 true_type,  // uses allocator
-                                 false_type, // is constructible
-                                 const _Alloc& __alloc,
-                                 const _VSTD::pair<_T1, _T2>& __p)
+__uses_allocator_construction_args_impl(true_type,  // is pair
+                                       true_type,  // uses allocator
+                                       false_type, // is constructible
+                                       const _Alloc& __alloc,
+                                       const _VSTD::pair<_T1, _T2>& __p)
 {
     return uses_allocator_construction_args<_Tp>(__alloc,
                                                  piecewise_construct,
@@ -5770,42 +5773,44 @@ uses_allocator_construction_args(true_type,  // is pair
 
 template<class _Tp, class _Alloc, class _T1, class _T2>
 auto
-uses_allocator_construction_args(true_type,  // is pair
-                                 true_type,  // uses allocator
-                                 false_type, // is constructible
-                                 const _Alloc& __alloc,
-                                 const _VSTD::pair<_T1, _T2>&& __p)
+__uses_allocator_construction_args_impl(true_type,  // is pair
+                                        true_type,  // uses allocator
+                                        false_type, // is constructible
+                                        const _Alloc& __alloc,
+                                        const _VSTD::pair<_T1, _T2>&& __p)
 {
     return uses_allocator_construction_args<_Tp>(__alloc,
                                                  piecewise_construct,
                                                  _VSTD::forward_as_tuple(_VSTD::forward<_T1>(__p.first)),
-                                                 _VSTD::forward_as_tuple(_VSTD::foward<_T2>(__p.second)));
+                                                 _VSTD::forward_as_tuple(_VSTD::forward<_T2>(__p.second)));
 }
 
 template<class _Tp, class _Alloc, class... _Args>
 auto
-uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args) {
-    return __uses_allocator_construction_args_impl<_Tp>
-    (__is_pair<_Tp>::value,
-     _VSTD::uses_allocator<_Tp, _Alloc>::value,
-     _VSTD::is_constructible<_Tp, allocator_arg_t, _Alloc, _Args...>::value,
-     __alloc,
-     _VSTD::forward<_Args>(__args)...);
+uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args)
+{
+    return __uses_allocator_construction_args_impl<_Tp>(
+        __is_pair<_Tp>{}, // TODO: vstd::is_pair
+        _VSTD::uses_allocator<_Tp, _Alloc>{},
+        _VSTD::is_constructible<_Tp, allocator_arg_t, _Alloc, _Args...>{},
+        __alloc,
+        _VSTD::forward<_Args>(__args)...);
 }
 
 template<class _Tp, class _Alloc, class... _Args>
 _Tp
-make_obj_using_allocator(const _Alloc& __alloc, _Args&&... __args) {
-    return make_from_tuple<_Tp>(
-        uses_allocator_construction_args<_Tp>(__alloc, _VSTD::forward<_Args>(__args)...));
+make_obj_using_allocator(const _Alloc& __alloc, _Args&&... __args)
+{
+    return make_from_tuple<_Tp>(uses_allocator_construction_args<_Tp>(__alloc,
+                                                                      _VSTD::forward<_Args>(__args)...));
 }
 
 template<class _Tp, class _Alloc, class... _Args>
 _Tp*
-uninitialized_construct_using_allocator(_Tp* __p, const _Alloc& __alloc, _Args&&... __args) {
-    return ::new(static_cast<void*>(__p)) _Tp(
-        make_obj_using_allocator<_Tp>(__alloc, _VSTD::forward<_Args>(__args)...)
-    );
+uninitialized_construct_using_allocator(_Tp* __p, const _Alloc& __alloc, _Args&&... __args)
+{
+    return ::new(static_cast<void*>(__p)) _Tp(make_obj_using_allocator<_Tp>(__alloc,
+                                                                            _VSTD::forward<_Args>(__args)...));
 }
 
 #endif // _LIBCPP_STD_VER > 17
