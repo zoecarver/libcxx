@@ -6,30 +6,24 @@
 //
 //===----------------------------------------------------------------------===//
 
-// <regex>
+// UNSUPPORTED: c++98, c++03
 
-// class match_results<BidirectionalIterator, Allocator>
+// <type_traits>
 
-// match_results(const Allocator& a = Allocator());
 
-#include <regex>
+#include <type_traits>
 #include <cassert>
-#include "test_macros.h"
 
-template <class CharT>
-void
-test()
-{
-    std::match_results<const CharT*> m;
-    assert(m.size() == 0);
-    assert(!m.ready());
-    assert(m.get_allocator() == std::allocator<std::sub_match<const CharT*> >());
-}
+#include "test_macros.h"
 
 int main(int, char**)
 {
-    test<char>();
-    test<wchar_t>();
-
+#ifndef __cpp_lib_is_constant_evaluated
+  // expected-error@+1 {{no member named 'is_constant_evaluated' in namespace 'std'}}
+  bool b = std::is_constant_evaluated();
+#else
+  // expected-error@+1 {{static_assert failed}}
+  static_assert(!std::is_constant_evaluated(), "");
+#endif
   return 0;
 }
