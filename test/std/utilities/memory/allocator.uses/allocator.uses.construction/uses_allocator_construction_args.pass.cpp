@@ -40,6 +40,15 @@ struct D
     using allocator_type = std::allocator<D>;
 };
 
+struct E
+{
+    using allocator_type = std::allocator<E>;
+
+    int i;
+
+    E(std::allocator_arg_t, std::allocator<B>, int i) : i(i) { }
+};
+
 template <class T, class... Args>
 T test_uses_alloc(Args&&... args)
 {
@@ -150,8 +159,8 @@ void test_pair()
                                                                         std::make_tuple(10, 5),
                                                                         std::make_tuple(4, 2));
         const auto arg_count = std::tuple_size<decltype(args_tuple)>::value;
-        const auto arg_count1 = std::tuple_size<decltype(std::get<1>(args_tuple))>::value;
-        const auto arg_count2 = std::tuple_size<decltype(std::get<2>(args_tuple))>::value;
+        const auto arg_count1 = std::tuple_size<std::remove_reference_t<decltype(std::get<1>(args_tuple))>>::value;
+        const auto arg_count2 = std::tuple_size<std::remove_reference_t<decltype(std::get<2>(args_tuple))>>::value;
         static_assert(arg_count == 3);
         static_assert(arg_count1 == 4);
         static_assert(arg_count2 == 4);
@@ -174,13 +183,13 @@ void test_pair()
         assert(p.second.b == 2);
     }
     {
-        auto args_tuple = std::uses_allocator_construction_args<pair_t>(std::allocator<D>{});
+        auto args_tuple = std::uses_allocator_construction_args<pair_t>(std::allocator<B>{});
         const auto arg_count = std::tuple_size<decltype(args_tuple)>::value;
-        const auto arg_count1 = std::tuple_size<decltype(std::get<1>(args_tuple))>::value;
-        const auto arg_count2 = std::tuple_size<decltype(std::get<2>(args_tuple))>::value;
+        const auto arg_count1 = std::tuple_size<std::remove_reference_t<decltype(std::get<1>(args_tuple))>>::value;
+        const auto arg_count2 = std::tuple_size<std::remove_reference_t<decltype(std::get<2>(args_tuple))>>::value;
         static_assert(arg_count == 3);
-        static_assert(arg_count1 == 2);
-        static_assert(arg_count2 == 2);
+        static_assert(arg_count1 == 1);
+        static_assert(arg_count2 == 1);
 
         // ASSERT_SAME_TYPE(decltype(std::get<0>(args_tuple)), decltype(std::piecewise_construct));
         // ASSERT_SAME_TYPE(decltype(std::get<0>(std::get<1>(args_tuple))), std::allocator_arg_t);
@@ -188,21 +197,101 @@ void test_pair()
         // ASSERT_SAME_TYPE(decltype(std::get<0>(std::get<2>(args_tuple))), std::allocator_arg_t);
         // ASSERT_SAME_TYPE(decltype(std::get<1>(std::get<2>(args_tuple))), std::allocator<D>);
     }
-//     {
-//         auto args_tuple = std::uses_allocator_construction_args<pair_t>(std::allocator<pair_t>,
-//                                                                         std::piecewise_construct,
-//                                                                         10, 5.0);
-//         const auto arg_count = std::tuple_size<decltype(args_tuple)>::value;
-//         static_assert(arg_count == 3);
-//
-//         assert(std::get<0>(args_tuple) == std::piecewise_construct);
-//         assert(std::get<1>(args_tuple) == 10);
-//         assert(std::get<2>(args_tuple) == 5.0);
-//
-//         auto p = std::make_from_tuple<pair_t>(args_tuple);
-//         assert(p.first == 10);
-//         assert(p.second == 5.0);
-//     }
+    {
+        using pair_e = std::pair<E, E>;
+        auto args_pair = std::make_pair(10, 5);
+        auto args_tuple = std::uses_allocator_construction_args<pair_e>(std::allocator<E>{},
+                                                                        args_pair);
+        const auto arg_count = std::tuple_size<decltype(args_tuple)>::value;
+        const auto arg_count1 = std::tuple_size<std::remove_reference_t<decltype(std::get<1>(args_tuple))>>::value;
+        const auto arg_count2 = std::tuple_size<std::remove_reference_t<decltype(std::get<2>(args_tuple))>>::value;
+        static_assert(arg_count == 3);
+        static_assert(arg_count1 == 3);
+        static_assert(arg_count2 == 3);
+
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(args_tuple)), decltype(std::piecewise_construct));
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(std::get<1>(args_tuple))), std::allocator_arg_t);
+        // ASSERT_SAME_TYPE(decltype(std::get<1>(std::get<1>(args_tuple))), std::allocator<B>);
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(std::get<2>(args_tuple))), std::allocator_arg_t);
+        // ASSERT_SAME_TYPE(decltype(std::get<1>(std::get<2>(args_tuple))), std::allocator<B>);
+
+        assert(std::get<2>(std::get<1>(args_tuple)) == 10);
+        assert(std::get<2>(std::get<2>(args_tuple)) == 5);
+
+        auto p = std::make_from_tuple<pair_e>(args_tuple);
+        assert(p.first.i == 10);
+        assert(p.second.i == 5);
+    }
+    {
+        using pair_e = std::pair<E, E>;
+        auto args_pair = std::make_pair(10, 5);
+        auto args_tuple = std::uses_allocator_construction_args<pair_e>(std::allocator<E>{},
+                                                                        std::move(args_pair));
+        const auto arg_count = std::tuple_size<decltype(args_tuple)>::value;
+        const auto arg_count1 = std::tuple_size<std::remove_reference_t<decltype(std::get<1>(args_tuple))>>::value;
+        const auto arg_count2 = std::tuple_size<std::remove_reference_t<decltype(std::get<2>(args_tuple))>>::value;
+        static_assert(arg_count == 3);
+        static_assert(arg_count1 == 3);
+        static_assert(arg_count2 == 3);
+
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(args_tuple)), decltype(std::piecewise_construct));
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(std::get<1>(args_tuple))), std::allocator_arg_t);
+        // ASSERT_SAME_TYPE(decltype(std::get<1>(std::get<1>(args_tuple))), std::allocator<B>);
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(std::get<2>(args_tuple))), std::allocator_arg_t);
+        // ASSERT_SAME_TYPE(decltype(std::get<1>(std::get<2>(args_tuple))), std::allocator<B>);
+
+        assert(std::get<2>(std::get<1>(args_tuple)) == 10);
+        assert(std::get<2>(std::get<2>(args_tuple)) == 5);
+
+        auto p = std::make_from_tuple<pair_e>(args_tuple);
+        assert(p.first.i == 10);
+        assert(p.second.i == 5);
+    }
+}
+
+void test_make_obj()
+{
+    using pair_t = std::pair<B, B>;
+
+    {
+        pair_t p = std::make_obj_using_allocator<pair_t>(std::allocator<B>{},
+                                                         std::piecewise_construct,
+                                                         std::make_tuple(10, 5),
+                                                         std::make_tuple(4, 2));
+        assert(p.first.a == 10);
+        assert(p.first.b == 5);
+        assert(p.second.a == 4);
+        assert(p.second.b == 2);
+    }
+    {
+        using pair_e = std::pair<E, E>;
+        auto args_pair = std::make_pair(10, 5);
+        auto p = std::make_obj_using_allocator<pair_e>(std::allocator<E>{}, args_pair);
+
+        assert(p.first.i == 10);
+        assert(p.second.i == 5);
+    }
+    {
+        using pair_e = std::pair<E, E>;
+        auto args_pair = std::make_pair(10, 5);
+        auto p = std::make_obj_using_allocator<pair_e>(std::allocator<E>{},
+                                                       std::move(args_pair));
+
+        assert(p.first.i == 10);
+        assert(p.second.i == 5);
+    }
+    {
+        auto b = std::make_obj_using_allocator<B>(std::allocator<B>{}, 10, 5.0);
+
+        assert(b.a == 10);
+        assert(b.b == 5.0);
+    }
+    {
+        auto c = std::make_obj_using_allocator<C>(std::allocator<C>{}, 10, 5.0);
+
+        assert(c.a == 10);
+        assert(c.b == 5.0);
+    }
 }
 
 int main(int, char**)
@@ -211,6 +300,7 @@ int main(int, char**)
     test_no_allocator();
     test_no_pair();
     test_pair();
+    test_make_obj();
 
     return 0;
 }

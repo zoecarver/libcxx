@@ -5774,10 +5774,10 @@ __uses_allocator_construction_args_impl(true_type,  // is pair
 template<class _Tp, class _Alloc, class _T1, class _T2>
 auto
 __uses_allocator_construction_args_impl(true_type,  // is pair
-                                       true_type,  // uses allocator
-                                       false_type, // is constructible
-                                       const _Alloc& __alloc,
-                                       const _VSTD::pair<_T1, _T2>& __p)
+                                        true_type,  // uses allocator
+                                        false_type, // is constructible
+                                        const _Alloc& __alloc,
+                                        const _VSTD::pair<_T1, _T2>& __p)
 {
     return uses_allocator_construction_args<_Tp>(__alloc,
                                                  piecewise_construct,
@@ -5791,7 +5791,7 @@ __uses_allocator_construction_args_impl(true_type,  // is pair
                                         true_type,  // uses allocator
                                         false_type, // is constructible
                                         const _Alloc& __alloc,
-                                        const _VSTD::pair<_T1, _T2>&& __p)
+                                        _VSTD::pair<_T1, _T2>&& __p)
 {
     return uses_allocator_construction_args<_Tp>(__alloc,
                                                  piecewise_construct,
