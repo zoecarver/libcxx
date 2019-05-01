@@ -2792,29 +2792,29 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
 {
     _VSTD::tuple<_Bound...> __bound;
 
-    template<class... _Args>
-    auto operator()(_Args&&... __args) &
-    noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...)))
-    -> decltype(      _Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...))
-    {return           _Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...);}
+	template<class... _Args>
+	auto operator()(_Args&&... __args) &
+	noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...)))
+	-> decltype(      _Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...))
+	{return           _Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...);}
 
-    template<class... _Args>
-    auto operator()(_Args&&... __args) const&
-    noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...)))
-    -> decltype(      _Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...))
-    {return           _Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...);}
+	template<class... _Args>
+	auto operator()(_Args&&... __args) const&
+	noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...)))
+	-> decltype(      _Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...))
+	{return           _Op::__call(_VSTD::get<_Idxs>(__bound)..., _VSTD::forward<_Args>(__args)...);}
 
-    template<class... _Args>
-    auto operator()(_Args&&... __args) &&
-    noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...)))
-    -> decltype(      _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...))
-    {return           _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...);}
+	template<class... _Args>
+	auto operator()(_Args&&... __args) &&
+	noexcept(noexcept(_Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))..., _VSTD::forward<_Args>(__args)...)))
+	-> decltype(      _Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))..., _VSTD::forward<_Args>(__args)...))
+	{return           _Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))..., _VSTD::forward<_Args>(__args)...);}
 
-    template<class... _Args>
-    auto operator()(_Args&&... __args) const&&
-    noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...)))
-    -> decltype(      _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...))
-    {return           _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...);}
+	template<class... _Args>
+	auto operator()(_Args&&... __args) const&&
+	noexcept(noexcept(_Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))..., _VSTD::forward<_Args>(__args)...)))
+	-> decltype(      _Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))..., _VSTD::forward<_Args>(__args)...))
+	{return           _Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))..., _VSTD::forward<_Args>(__args)...);}
 
 	template<class... _BoundArgs>
     __perfect_forward_impl(_BoundArgs&&... __bound) :
