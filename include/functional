@@ -2806,7 +2806,7 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
 
     template<class... _Args>
     auto operator()(_Args&&... __args) &&
-    noexcept(noexcept(_Op::__call(_VSTD::move(_VSTD::get<_Idxs>(__bound))..., _VSTD::forward<_Args>(__args)...)))
+    noexcept(noexcept(_Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...)))
     -> decltype(      _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...))
     {return           _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...);}
 
@@ -2816,8 +2816,9 @@ struct __perfect_forward_impl<_Op, __tuple_types<_Bound...>, __tuple_indices<_Id
     -> decltype(      _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...))
     {return           _Op::__call(_VSTD::get<_Idxs>(_VSTD::move(__bound))..., _VSTD::forward<_Args>(__args)...);}
 
-    __perfect_forward_impl(_Bound&&... __bound) :
-        __bound(_VSTD::forward<_Bound>(__bound)...) { }
+	template<class... _BoundArgs>
+    __perfect_forward_impl(_BoundArgs&&... __bound) :
+        __bound(_VSTD::forward<_BoundArgs>(__bound)...) { }
 };
 
 template<class _Op, class... _Bound>
@@ -2828,8 +2829,8 @@ struct __not_fn_op
     template<class... _Args>
     static auto __call(_Args&&... __args)
     noexcept(noexcept(!_VSTD::invoke(_VSTD::forward<_Args>(__args)...)))
-    -> decltype(!_VSTD::invoke(_VSTD::forward<_Args>(__args)...))
-    { return !_VSTD::invoke(_VSTD::forward<_Args>(__args)...); }
+    -> decltype(      !_VSTD::invoke(_VSTD::forward<_Args>(__args)...))
+    { return          !_VSTD::invoke(_VSTD::forward<_Args>(__args)...); }
 };
 
 template<class _Fn>
@@ -2847,16 +2848,17 @@ struct __bind_front_op
     template<class... _Args>
     static auto __call(_Args&&... __args)
     noexcept(noexcept(_VSTD::invoke(_VSTD::forward<_Args>(__args)...)))
-    -> decltype(_VSTD::invoke(_VSTD::forward<_Args>(__args)...))
-    { return _VSTD::invoke(_VSTD::forward<_Args>(__args)...); }
+    -> decltype(      _VSTD::invoke(_VSTD::forward<_Args>(__args)...))
+    { return          _VSTD::invoke(_VSTD::forward<_Args>(__args)...); }
 };
 
 template<class _Fn, class... _Args>
 inline auto bind_front(_Fn&& __f, _Args&&... __args)
 {
-    static_assert(sizeof...(_Args) > 0, "At least one argument must be provided");
-    return __perfect_forward<__bind_front_op, _Fn, _Args...>
-        (_VSTD::forward<_Fn>(__f), _VSTD::forward<_Args>(__args)...);
+    return __perfect_forward<__bind_front_op,
+                             decay_t<_Fn>,
+                             typename unwrap_ref_decay<_Args>::type...>(_VSTD::forward<decay_t<_Fn>>(__f),
+                             _VSTD::forward<_Args>(__args)...);
 }
 
 #endif // _LIBCPP_STD_VER > 17

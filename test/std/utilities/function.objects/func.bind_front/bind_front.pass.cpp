@@ -86,8 +86,8 @@ void constructor_tests()
 
         auto ret2 = std::bind_front(std::move(value), 1);
         assert(!ret());
-        assert(ret2());
-        assert(ret2(1, 2, 3));
+        assert(!ret2());
+        assert(!ret2(1, 2, 3));
     }
     {
         CopyAssignableWrapper value(true);
