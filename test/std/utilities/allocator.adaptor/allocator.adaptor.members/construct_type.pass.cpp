@@ -83,7 +83,7 @@ void test_bullet_two() {
         A.construct(ptr, x, cx, std::move(x));
         assert((checkConstruct<int&, int const&, int&&>(*ptr, UA_AllocArg, I)));
         assert((POuter.checkConstruct<std::allocator_arg_t const&,
-                   SA::inner_allocator_type&, int&, int const&, int&&>(O, ptr)));
+                   SA::inner_allocator_type const&, int&, int const&, int&&>(O, ptr)));
         A.destroy(ptr);
         ::operator delete((void*)ptr);
     }
@@ -117,7 +117,7 @@ void test_bullet_three() {
         assert((checkConstruct<int&, int const&, int&&>(*ptr, UA_AllocLast, I)));
         assert((POuter.checkConstruct<
                    int&, int const&, int&&,
-                   SA::inner_allocator_type&>(O, ptr)));
+                   SA::inner_allocator_type const&>(O, ptr)));
         A.destroy(ptr);
         ::operator delete((void*)ptr);
     }

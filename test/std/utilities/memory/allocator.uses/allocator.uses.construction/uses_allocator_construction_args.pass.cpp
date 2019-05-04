@@ -15,6 +15,8 @@
 
 #include "test_macros.h"
 
+// Uses alloc types
+
 struct A
 {
     int a;
@@ -47,6 +49,44 @@ struct E
     int i;
 
     E(std::allocator_arg_t, std::allocator<B>, int i) : i(i) { }
+};
+
+struct F
+{
+    using allocator_type = std::allocator<F>;
+
+    int i;
+
+    F(std::allocator_arg_t, std::allocator<B>, int&& i) : i(i) { }
+};
+
+// Move / Copy only types
+
+struct MoveOnly
+{
+    MoveOnly(MoveOnly const&) { assert(false); }
+    MoveOnly(MoveOnly&&) { }
+
+    MoveOnly() { }
+};
+
+struct CopyOnly
+{
+    CopyOnly(CopyOnly const&) { }
+    CopyOnly(CopyOnly&&) { assert(false); }
+
+    CopyOnly() { }
+};
+
+struct AcceptBoth
+{
+    using allocator_type = std::allocator<AcceptBoth>;
+
+    AcceptBoth(std::allocator_arg_t, std::allocator<AcceptBoth>, CopyOnly const&) { }
+    AcceptBoth(std::allocator_arg_t, std::allocator<AcceptBoth>, MoveOnly&&)      { }
+
+    AcceptBoth(std::allocator_arg_t, std::allocator<AcceptBoth>, CopyOnly const&, CopyOnly const&) { }
+    AcceptBoth(std::allocator_arg_t, std::allocator<AcceptBoth>, MoveOnly&&,      MoveOnly&&)      { }
 };
 
 template <class T, class... Args>
@@ -247,6 +287,32 @@ void test_pair()
         assert(p.first.i == 10);
         assert(p.second.i == 5);
     }
+    {
+        using pair_e = std::pair<E, E>;
+        int x = 42;
+        int y = 101;
+        auto args_tuple = std::uses_allocator_construction_args<pair_e>(std::allocator<E>{},
+                                                                        std::move(x), std::move(y));
+        const auto arg_count = std::tuple_size<decltype(args_tuple)>::value;
+        const auto arg_count1 = std::tuple_size<std::remove_reference_t<decltype(std::get<1>(args_tuple))>>::value;
+        const auto arg_count2 = std::tuple_size<std::remove_reference_t<decltype(std::get<2>(args_tuple))>>::value;
+        static_assert(arg_count == 3);
+        static_assert(arg_count1 == 3);
+        static_assert(arg_count2 == 3);
+
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(args_tuple)), decltype(std::piecewise_construct));
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(std::get<1>(args_tuple))), std::allocator_arg_t);
+        // ASSERT_SAME_TYPE(decltype(std::get<1>(std::get<1>(args_tuple))), std::allocator<B>);
+        // ASSERT_SAME_TYPE(decltype(std::get<0>(std::get<2>(args_tuple))), std::allocator_arg_t);
+        // ASSERT_SAME_TYPE(decltype(std::get<1>(std::get<2>(args_tuple))), std::allocator<B>);
+
+        assert(std::get<2>(std::get<1>(args_tuple)) == 42);
+        assert(std::get<2>(std::get<2>(args_tuple)) == 101);
+
+        auto p = std::make_from_tuple<pair_e>(args_tuple);
+        assert(p.first.i == 42);
+        assert(p.second.i == 101);
+    }
 }
 
 void test_make_obj()
@@ -294,6 +360,44 @@ void test_make_obj()
     }
 }
 
+void test_forwarding()
+{
+    using pair_t = std::pair<AcceptBoth, AcceptBoth>;
+    auto copy_only = CopyOnly();
+
+    {
+        auto move_args = std::make_tuple(MoveOnly(), MoveOnly());
+        auto copy_args = std::make_tuple(copy_only, copy_only);
+        std::uses_allocator_construction_args<pair_t>(std::allocator<AcceptBoth>{},
+                                                      std::piecewise_construct,
+                                                      std::move(move_args),
+                                                      std::move(move_args));
+        std::uses_allocator_construction_args<pair_t>(std::allocator<AcceptBoth>{},
+                                                      std::piecewise_construct,
+                                                      copy_args,
+                                                      copy_args);
+    }
+    {
+        auto args_pair = std::make_pair(copy_only, copy_only);
+        std::uses_allocator_construction_args<pair_t>(std::allocator<AcceptBoth>{},
+                                                                        args_pair);
+    }
+    {
+        auto args_pair = std::make_pair(MoveOnly(), MoveOnly());
+        std::uses_allocator_construction_args<pair_t>(std::allocator<AcceptBoth>{},
+                                                      std::move(args_pair));
+    }
+    {
+        auto x = MoveOnly();
+        auto y = MoveOnly();
+        auto z = CopyOnly();
+        auto w = CopyOnly();
+        std::uses_allocator_construction_args<pair_t>(std::allocator<AcceptBoth>{},
+                                                      std::move(x), std::move(y));
+        std::uses_allocator_construction_args<pair_t>(std::allocator<AcceptBoth>{}, z, w);
+    }
+}
+
 int main(int, char**)
 {
     general_tests();
@@ -301,6 +405,7 @@ int main(int, char**)
     test_no_pair();
     test_pair();
     test_make_obj();
+    test_forwarding();
 
     return 0;
 }

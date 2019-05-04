@@ -498,9 +498,23 @@ public:
     template <class _Tp, class... _Args>
         _LIBCPP_INLINE_VISIBILITY
         void construct(_Tp* __p, _Args&& ...__args)
-            {__construct(__uses_alloc_ctor<_Tp, inner_allocator_type&, _Args...>(),
-                         __p, _VSTD::forward<_Args>(__args)...);}
+        {
 
+#if _LIBCPP_STD_VER > 17
+            using _OM = __outermost<outer_allocator_type>;
+            _VSTD::apply([__p, this](auto&&... __alloc_args) {
+                allocator_traits<typename _OM::type>::construct(
+                    _OM()(outer_allocator()), __p,
+                    _VSTD::forward<decltype(__alloc_args)>(__alloc_args)...);
+            }, _VSTD::uses_allocator_construction_args<_Tp>(inner_allocator(),
+                                                            _VSTD::forward<_Args>(__args)...));
+#else
+            __construct(__uses_alloc_ctor<_Tp, inner_allocator_type&, _Args...>(),
+                         __p, _VSTD::forward<_Args>(__args)...);
+#endif // _LIBCPP_STD_VER > 17
+        }
+
+#if _LIBCPP_STD_VER <= 17
     template <class _T1, class _T2, class... _Args1, class... _Args2>
     void construct(pair<_T1, _T2>* __p, piecewise_construct_t,
                        tuple<_Args1...> __x, tuple<_Args2...> __y)
@@ -549,6 +563,7 @@ public:
                   _VSTD::forward_as_tuple(_VSTD::forward<_Up>(__x.first)),
                   _VSTD::forward_as_tuple(_VSTD::forward<_Vp>(__x.second)));
     }
+#endif // _LIBCPP_STD_VER <= 17
 
     template <class _Tp>
         _LIBCPP_INLINE_VISIBILITY

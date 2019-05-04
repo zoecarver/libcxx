@@ -5707,8 +5707,8 @@ auto uses_allocator_construction_args(const _Alloc& __alloc, _Args&&... __args);
 
 template<class _Tp, class _Un1, class _Un2, class _Alloc, class... _Args>
 auto
-__uses_allocator_construction_args_impl(_Un1, // is pair
-                                        false_type, // uses allocator
+__uses_allocator_construction_args_impl(_Un1,        // is pair
+                                        false_type,  // uses allocator
                                         _Un2,        // is constructible
                                         const _Alloc&, _Args&&... __args)
 {
@@ -5758,11 +5758,11 @@ __uses_allocator_construction_args_impl(true_type,  // is pair
                              }, _VSTD::forward<_T2>(__b)));
 }
 
-template<class _Tp, class _Alloc>
+template<class _Tp, class _Alloc, class _Un>
 auto
 __uses_allocator_construction_args_impl(true_type,  // is pair
                                         true_type,  // uses allocator
-                                        false_type, // is constructible
+                                        _Un,        // is constructible
                                         const _Alloc& __alloc)
 {
     return uses_allocator_construction_args<_Tp>(__alloc,
@@ -5771,11 +5771,11 @@ __uses_allocator_construction_args_impl(true_type,  // is pair
                                                  _VSTD::tuple<>{});
 }
 
-template<class _Tp, class _Alloc, class _T1, class _T2>
+template<class _Tp, class _Alloc, class _T1, class _T2, class _Un>
 auto
 __uses_allocator_construction_args_impl(true_type,  // is pair
                                         true_type,  // uses allocator
-                                        false_type, // is constructible
+                                        _Un,        // is constructible
                                         const _Alloc& __alloc,
                                         const _VSTD::pair<_T1, _T2>& __p)
 {
@@ -5785,11 +5785,11 @@ __uses_allocator_construction_args_impl(true_type,  // is pair
                                                  _VSTD::forward_as_tuple(__p.second));
 }
 
-template<class _Tp, class _Alloc, class _T1, class _T2>
+template<class _Tp, class _Alloc, class _T1, class _T2, class _Un>
 auto
 __uses_allocator_construction_args_impl(true_type,  // is pair
                                         true_type,  // uses allocator
-                                        false_type, // is constructible
+                                        _Un,        // is constructible
                                         const _Alloc& __alloc,
                                         _VSTD::pair<_T1, _T2>&& __p)
 {
@@ -5797,6 +5797,20 @@ __uses_allocator_construction_args_impl(true_type,  // is pair
                                                  piecewise_construct,
                                                  _VSTD::forward_as_tuple(_VSTD::forward<_T1>(__p.first)),
                                                  _VSTD::forward_as_tuple(_VSTD::forward<_T2>(__p.second)));
+}
+
+template<class _Tp, class _Alloc, class _T1, class _T2, class _Un>
+auto
+__uses_allocator_construction_args_impl(true_type,  // is pair
+                                        true_type,  // uses allocator
+                                        _Un,        // is constructible
+                                        const _Alloc& __alloc,
+                                        _T1&& __a, _T2&& __b)
+{
+    return uses_allocator_construction_args<_Tp>(__alloc,
+                                                 piecewise_construct,
+                                                 _VSTD::forward_as_tuple(_VSTD::forward<_T1>(__a)),
+                                                 _VSTD::forward_as_tuple(_VSTD::forward<_T2>(__b)));
 }
 
 template<class _Tp, class _Alloc, class... _Args>

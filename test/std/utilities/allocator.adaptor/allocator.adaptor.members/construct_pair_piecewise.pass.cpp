@@ -49,9 +49,9 @@ void test_no_inner_alloc()
                     std::forward_as_tuple(std::move(y)));
         assert(checkConstruct<int&>(ptr->first, UA_AllocArg, CA));
         assert(checkConstruct<int const&&>(ptr->second, UA_AllocLast, CA));
-        assert((P.checkConstruct<std::piecewise_construct_t const&,
-                                 std::tuple<std::allocator_arg_t, SA&, int&>&&,
-                                 std::tuple<int const&&, SA&>&&
+        assert((P.checkConstruct<std::piecewise_construct_t&&,
+                                 std::tuple<std::allocator_arg_t const&, SA const&, int&>&&,
+                                 std::tuple<int const&&, SA const&>&&
               >(CA, ptr)));
         A.destroy(ptr);
         std::free(ptr);
@@ -76,8 +76,8 @@ void test_no_inner_alloc()
                     std::forward_as_tuple(y));
         assert(checkConstruct<int&&>(ptr->first, UA_AllocArg, CA));
         assert(checkConstruct<int const&>(ptr->second, UA_None));
-        assert((P.checkConstruct<std::piecewise_construct_t const&,
-                                 std::tuple<std::allocator_arg_t, SA&, int&&>&&,
+        assert((P.checkConstruct<std::piecewise_construct_t&&,
+                                 std::tuple<std::allocator_arg_t const&, SA const&, int&&>&&,
                                  std::tuple<int const&>&&
                    >(CA, ptr)));
         A.destroy(ptr);
@@ -113,9 +113,9 @@ void test_with_inner_alloc()
                     std::forward_as_tuple(std::move(y)));
         assert(checkConstruct<int&>(ptr->first, UA_AllocArg, I));
         assert(checkConstruct<int &&>(ptr->second, UA_AllocLast));
-        assert((POuter.checkConstruct<std::piecewise_construct_t const&,
-                                 std::tuple<std::allocator_arg_t, SAInner&, int&>&&,
-                                 std::tuple<int &&, SAInner&>&&
+        assert((POuter.checkConstruct<std::piecewise_construct_t&&,
+                                 std::tuple<std::allocator_arg_t const&, SAInner const&, int&>&&,
+                                 std::tuple<int &&, SAInner const&>&&
               >(O, ptr)));
         A.destroy(ptr);
         std::free(ptr);
@@ -144,8 +144,8 @@ void test_with_inner_alloc()
                     std::forward_as_tuple(std::move(y)));
         assert(checkConstruct<int&&>(ptr->first, UA_AllocArg, I));
         assert(checkConstruct<int const&&>(ptr->second, UA_None));
-        assert((POuter.checkConstruct<std::piecewise_construct_t const&,
-                                 std::tuple<std::allocator_arg_t, SAInner&, int&&>&&,
+        assert((POuter.checkConstruct<std::piecewise_construct_t&&,
+                                 std::tuple<std::allocator_arg_t const&, SAInner const&, int&&>&&,
                                  std::tuple<int const&&>&&
               >(O, ptr)));
         A.destroy(ptr);

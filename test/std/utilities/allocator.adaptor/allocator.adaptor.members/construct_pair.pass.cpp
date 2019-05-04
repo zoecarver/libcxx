@@ -44,9 +44,9 @@ void test_no_inner_alloc()
         A.construct(ptr);
         assert(checkConstruct<>(ptr->first, UA_AllocArg, CA));
         assert(checkConstruct<>(ptr->second, UA_AllocLast, CA));
-        assert((P.checkConstruct<std::piecewise_construct_t const&,
-                                 std::tuple<std::allocator_arg_t, SA&>&&,
-                                 std::tuple<SA&>&&
+        assert((P.checkConstruct<std::piecewise_construct_t&&,
+                                 std::tuple<std::allocator_arg_t const&, SA const&>&&,
+                                 std::tuple<SA const&>&&
               >(CA, ptr)));
         A.destroy(ptr);
         std::free(ptr);
@@ -67,8 +67,8 @@ void test_no_inner_alloc()
         A.construct(ptr);
         assert(checkConstruct<>(ptr->first, UA_AllocArg, CA));
         assert(checkConstruct<>(ptr->second, UA_None));
-        assert((P.checkConstruct<std::piecewise_construct_t const&,
-                                 std::tuple<std::allocator_arg_t, SA&>&&,
+        assert((P.checkConstruct<std::piecewise_construct_t&&,
+                                 std::tuple<std::allocator_arg_t const&, SA const&>&&,
                                  std::tuple<>&&
                    >(CA, ptr)));
         A.destroy(ptr);
@@ -100,9 +100,9 @@ void test_with_inner_alloc()
         A.construct(ptr);
         assert(checkConstruct<>(ptr->first, UA_AllocArg, I));
         assert(checkConstruct<>(ptr->second, UA_AllocLast));
-        assert((POuter.checkConstruct<std::piecewise_construct_t const&,
-                                 std::tuple<std::allocator_arg_t, SAInner&>&&,
-                                 std::tuple<SAInner&>&&
+        assert((POuter.checkConstruct<std::piecewise_construct_t&&,
+                                 std::tuple<std::allocator_arg_t const&, SAInner const&>&&,
+                                 std::tuple<SAInner const&>&&
               >(O, ptr)));
         A.destroy(ptr);
         std::free(ptr);
@@ -127,8 +127,8 @@ void test_with_inner_alloc()
         A.construct(ptr);
         assert(checkConstruct<>(ptr->first, UA_AllocArg, I));
         assert(checkConstruct<>(ptr->second, UA_None));
-        assert((POuter.checkConstruct<std::piecewise_construct_t const&,
-                                 std::tuple<std::allocator_arg_t, SAInner&>&&,
+        assert((POuter.checkConstruct<std::piecewise_construct_t&&,
+                                 std::tuple<std::allocator_arg_t const&, SAInner const&>&&,
                                  std::tuple<>&&
               >(O, ptr)));
         A.destroy(ptr);
