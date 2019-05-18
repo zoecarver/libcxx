@@ -6,7 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-// UNSUPPORTED: sanitizer-new-delete
+// UNSUPPORTED: sanitizer-new-delete, c++98, c++03
+
 
 // <memory>
 
@@ -49,6 +50,20 @@ void fn ( const std::shared_ptr<B> &) { assert (false); }
 template <typename T>
 void assert_deleter ( T * ) { assert(false); }
 
+template<class T>
+struct StatefulDeleter
+{
+    int state = 0;
+
+    StatefulDeleter(int val = 0) : state(val) {}
+    StatefulDeleter(StatefulDeleter const&) { assert(false); }
+
+    void operator()(T* ptr) {
+        assert(state == 42);
+        delete ptr;
+    }
+};
+
 int main(int, char**)
 {
     {
@@ -74,20 +89,31 @@ int main(int, char**)
         }
         catch (...)
         {
-#if TEST_STD_VER >= 11
             assert(A::count == 1);
             assert(B::count == 1);
             assert(ptr.get() == raw_ptr);
-#else
-            (void) raw_ptr; // silence 'unused variable' warning
-            assert(A::count == 0);
-            assert(B::count == 0);
-            assert(ptr.get() == 0);
-#endif
         }
     }
 #endif
+
+#if TEST_STD_VER > 14
+    {
+        std::unique_ptr<int> ptr;
+        std::shared_ptr<int> p(std::move(ptr));
+        assert(p.use_count() == 0);
+        assert(p.get() == nullptr);
+    }
+#endif
+
+    {
+        StatefulDeleter<A> d;
+        std::unique_ptr<A, StatefulDeleter<A>&> u(new A, d);
+        std::shared_ptr<A> p(std::move(u));
+        d.state = 42;
+        assert(A::count == 1);
+    }
     assert(A::count == 0);
+
     { // LWG 2399
         fn(std::unique_ptr<int>(new int));
     }

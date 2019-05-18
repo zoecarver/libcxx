@@ -13,11 +13,30 @@
 #include <memory>
 #include <cassert>
 
+struct A { };
+
+template<class T>
+void test()
+{
+    {
+        std::shared_ptr<T> p;
+        assert(p.use_count() == 0);
+        assert(p.get() == 0);
+    }
+    {
+        std::shared_ptr<T> p {};
+        assert(p.use_count() == 0);
+        assert(p.get() == 0);
+    }
+}
+
 int main(int, char**)
 {
-    std::shared_ptr<int> p;
-    assert(p.use_count() == 0);
-    assert(p.get() == 0);
+    test<int>();
+    test<A>();
+    test<int*>();
+    test<int[]>();
+    test<int[8]>();
 
-  return 0;
+    return 0;
 }
