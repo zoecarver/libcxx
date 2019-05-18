@@ -675,6 +675,8 @@ void* align(size_t alignment, size_t size, void*& ptr, size_t& space);
 _LIBCPP_PUSH_MACROS
 #include <__undef_macros>
 
+#define _LIBCPP_NEW_SHARED_PTR false
+
 
 _LIBCPP_BEGIN_NAMESPACE_STD
 
