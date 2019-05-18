@@ -19,33 +19,42 @@ struct __default_deleter
 template<class _Tp, class _Deleter = __default_deleter<_Tp>>
 struct __counter
 {
-    size_t __count = 1;
     _Tp* __ptr;
     _Deleter __deleter;
 
-// public:
+public:
+    size_t __count = 1;
+
     __counter(_Tp* __ptr, _Deleter __deleter = _Deleter {})
         : __ptr(__ptr), __deleter(__deleter) {}
 
     void __destroy() { __deleter(__ptr); }
     void __inc()
     { __count++; }
-    void __dec()
+    bool __dec()
     {
         __count--;
         cout << __count << endl;
         if (__count == 0)
+        {
             __destroy();
+            return true; // it's okay to destroy me
+        }
+
+        return false; // don't delete me
     }
 };
 
 template<class _Tp>
 class shared_ptr
 {
-    _Tp* __ptr;
-    __counter<_Tp> __count;
-
 public:
+    _Tp* __ptr;
+    __counter<_Tp>* __count;
+
+    bool __empty() const
+    { return get() == 0; }
+
 #if _LIBCPP_STD_VER > 14
     using element_type = remove_extent_t<_Tp>;
     using weak_type = weak_ptr<_Tp>;
@@ -53,29 +62,124 @@ public:
     typedef _Tp element_type;
 #endif
 
-    template<class _Yp>
-    shared_ptr(_Yp* __ptr) : __ptr(__ptr), __count(__counter<_Yp>(__ptr)) {}
+// construction
+    constexpr shared_ptr() noexcept : __ptr(nullptr), __count(new __counter<_Tp>(nullptr)) {}
 
-    shared_ptr(const shared_ptr& __r) : __ptr(__r.__ptr), __count(__r.__count)
+    template<class _Yp>
+    shared_ptr(_Yp* __ptr) : __ptr(__ptr), __count(new __counter<_Yp>(__ptr)) {}
+
+    template<class _Yp, class _Deleter>
+    shared_ptr(_Yp* __ptr, _Deleter __deleter)
+        : __ptr(__ptr), __count(new __counter<_Yp, _Deleter>(__ptr, __deleter)) {}
+
+    template<class _Yp, class _Deleter, class _Alloc>
+    shared_ptr(_Yp* __ptr, _Deleter __deleter, _Alloc /*TODO: implement this*/)
+        : __ptr(__ptr), __count(new __counter<_Yp, _Deleter>(__ptr, __deleter)) {}
+
+    template<class _Deleter>
+    shared_ptr(nullptr_t __ptr, _Deleter __deleter)
+        : __ptr(__ptr), __count(new __counter<_Tp, _Deleter>(__ptr, __deleter)) {}
+
+    template<class _Deleter, class _Alloc>
+    shared_ptr(nullptr_t __ptr, _Deleter __deleter, _Alloc /*TODO: implement this*/)
+        : __ptr(__ptr), __count(new __counter<_Tp, _Deleter>(__ptr, __deleter)) {}
+
+    shared_ptr(shared_ptr const& __r) noexcept
+        : __ptr(__r.__ptr), __count(__r.__count)
     {
         cout << "copy called (1)" << endl;
-        __count.__inc();
+        __count->__inc();
     }
 
     template<class _Yp>
-    shared_ptr(const shared_ptr<_Yp>& __r) : __ptr(__r.__ptr), __count(__r.__count)
+    shared_ptr(shared_ptr<_Yp> const& __r) noexcept
+        : __ptr(__r.__ptr), __count((__counter<_Tp>*)__r.__count)
     {
         cout << "copy called (2)" << endl;
-        __count.__inc();
+        __count->__inc();
     }
 
+    template<class _Yp>
+    shared_ptr(shared_ptr<_Yp>&& __r) noexcept
+        : __ptr(__r.__ptr), __count(__r.__count)
+    {
+        __r.__ptr = nullptr;
+
+        cout << "move called" << endl;
+        __count->__inc();
+    }
+
+// destruction
     ~shared_ptr() {
         cout << "delete called" << endl;
-        __count.__dec();
+        if (__count->__dec()) // __dec will return true if the pointer has been destroyed
+            delete __count;
     }
+
+// assignment
+    shared_ptr& operator=(shared_ptr const& __r) noexcept
+    {
+        shared_ptr(__r).swap(*this);
+        return *this;
+    }
+
+    template<class _Yp>
+    shared_ptr& operator=(shared_ptr<_Yp> const& __r) noexcept
+    {
+        shared_ptr(__r).swap(*this);
+        return *this;
+    }
+
+    shared_ptr& operator=(shared_ptr&& __r) noexcept
+    {
+        shared_ptr(_VSTD::move(__r)).swap(*this);
+        return *this;
+    }
+
+    template<class _Yp>
+    shared_ptr& operator=(shared_ptr<_Yp> const& __r) noexcept
+    {
+        shared_ptr(_VSTD::move(__r)).swap(*this);
+        return *this;
+    }
+
+    template<class _Yp, class _Deleter>
+    shared_ptr& operator=(unique_ptr<_Yp, _Deleter>&& __r) noexcept
+    {
+        shared_ptr(_VSTD::move(__r)).swap(*this);
+        return *this;
+    }
+
+// methods
+    _Tp* get() const noexcept { return __ptr; }
 
     _Tp* operator->() const { return  __ptr; }
     _Tp& operator* () const { return *__ptr; }
+
+    long use_count() const noexcept
+    {
+        if (__empty()) return 0;
+        return __count->__count;
+    }
+
+    explicit operator bool() const noexcept
+    {
+        return get() != 0;
+    }
+
+// modifiers
+    void swap(shared_ptr& __r) noexcept
+    {
+        _VSTD::swap(__ptr, __r.__ptr);
+        _VSTD::swap(__count, __r.__count);
+    }
+
+    void reset() noexcept
+    { shared_ptr().swap(*this); }
+
+    template<class _Yp>
+    void reset(_Yp* __p) noexcept
+    { shared_ptr(__p).swap(*this); }
 };
 
 }
