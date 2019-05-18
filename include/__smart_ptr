@@ -1,0 +1,83 @@
+#include<memory>
+#include<type_traits>
+#include<iostream>
+
+_LIBCPP_BEGIN_NAMESPACE_STD
+
+namespace __smart
+{
+
+template<class _Tp>
+struct __default_deleter
+{
+    void operator()(_Tp* __ptr) const { delete __ptr; }
+
+//     template<size_t _S>
+//     void operator()(*(_Tp(&__ptr)__ptr)) const { delete[] __p; }
+};
+
+template<class _Tp, class _Deleter = __default_deleter<_Tp>>
+struct __counter
+{
+    size_t __count = 1;
+    _Tp* __ptr;
+    _Deleter __deleter;
+
+// public:
+    __counter(_Tp* __ptr, _Deleter __deleter = _Deleter {})
+        : __ptr(__ptr), __deleter(__deleter) {}
+
+    void __destroy() { __deleter(__ptr); }
+    void __inc()
+    { __count++; }
+    void __dec()
+    {
+        __count--;
+        cout << __count << endl;
+        if (__count == 0)
+            __destroy();
+    }
+};
+
+template<class _Tp>
+class shared_ptr
+{
+    _Tp* __ptr;
+    __counter<_Tp> __count;
+
+public:
+#if _LIBCPP_STD_VER > 14
+    using element_type = remove_extent_t<_Tp>;
+    using weak_type = weak_ptr<_Tp>;
+#else
+    typedef _Tp element_type;
+#endif
+
+    template<class _Yp>
+    shared_ptr(_Yp* __ptr) : __ptr(__ptr), __count(__counter<_Yp>(__ptr)) {}
+
+    shared_ptr(const shared_ptr& __r) : __ptr(__r.__ptr), __count(__r.__count)
+    {
+        cout << "copy called (1)" << endl;
+        __count.__inc();
+    }
+
+    template<class _Yp>
+    shared_ptr(const shared_ptr<_Yp>& __r) : __ptr(__r.__ptr), __count(__r.__count)
+    {
+        cout << "copy called (2)" << endl;
+        __count.__inc();
+    }
+
+    ~shared_ptr() {
+        cout << "delete called" << endl;
+        __count.__dec();
+    }
+
+    _Tp* operator->() const { return  __ptr; }
+    _Tp& operator* () const { return *__ptr; }
+};
+
+}
+
+_LIBCPP_END_NAMESPACE_STD
