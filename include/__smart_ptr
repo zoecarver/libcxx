@@ -27,7 +27,24 @@ public:
     size_t __count = 1;
 
     __counter(_Tp* __ptr, _Deleter __deleter = _Deleter {}, _Alloc __alloc = _Alloc {})
-        : __ptr(__ptr), __deleter(__deleter), __alloc(__alloc) {}
+        : __ptr(__ptr), __deleter(__deleter), __alloc(__alloc)
+    {
+        try {
+            typedef typename __allocator_traits_rebind<_Alloc, __counter>::type _A2;
+            typedef __allocator_destructor<_A2> _D2;
+
+            _A2 __a2(__a);
+            unique_ptr<__counter, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
+
+            ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+                __counter(__p, __d, __a);
+
+            __count = _VSTD::addressof(*__hold2.release());
+        } catch(...) {
+            __d(__p);
+            throw;
+        }
+    }
 
     void __destroy()
     {

@@ -4016,6 +4016,50 @@ private:
 
     template <class _Up> friend class _LIBCPP_TEMPLATE_VIS shared_ptr;
     template <class _Up> friend class _LIBCPP_TEMPLATE_VIS weak_ptr;
+
+    template<class _Yp, class _Deleter = default_delete<_Yp>, class _Alloc = allocator<_Yp>>
+    static __counter_parent*
+    __allocate_shared(_Yp* __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
+    {
+        try {
+            typedef __counter<_Yp, _Deleter, _Alloc> _CT;
+            typedef typename __allocator_traits_rebind<_Alloc, _CT>::type _A2;
+            typedef __allocator_destructor<_A2> _D2;
+
+            _A2 __a2(__a);
+            unique_ptr<_CT, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
+
+            ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+                _CT(__p, __d, __a);
+
+            return _VSTD::addressof(*__hold2.release());
+        } catch (...) {
+            __d(__p);
+            throw;
+        }
+    }
+
+    template<class _Deleter = default_delete<_Tp>, class _Alloc = allocator<_Tp>>
+    static __counter_parent*
+    __allocate_shared(nullptr_t __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
+    {
+        try {
+            typedef __counter<_Tp, _Deleter, _Alloc> _CT;
+            typedef typename __allocator_traits_rebind<_Alloc, _CT>::type _A2;
+            typedef __allocator_destructor<_A2> _D2;
+
+            _A2 __a2(__a);
+            unique_ptr<_CT, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
+
+            ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+                _CT(__p, __d, __a);
+
+            return _VSTD::addressof(*__hold2.release());
+        } catch (...) {
+            __d(__p);
+            throw;
+        }
+    }
 };
 
 
@@ -4038,55 +4082,33 @@ template<class _Yp>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p,
                             typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type)
     : __ptr(__p),
-      __count(new __counter(__ptr)) {}
+    __count(__allocate_shared(__p)) {}
 
 template<class _Tp>
 template<class _Yp, class _Dp>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p, _Dp __d,
                             typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type)
     : __ptr(__p),
-      __count(new __counter(__ptr, __d)) {}
+    __count(__allocate_shared(__p, __d)) {}
 
 template<class _Tp>
 template<class _Dp>
-shared_ptr<_Tp>::shared_ptr(nullptr_t __ptr, _Dp __d)
-    : __ptr(__ptr),
-    __count((__counter<_Tp>*) new __counter<_Tp, _Dp>(__ptr, __d)) {}
+shared_ptr<_Tp>::shared_ptr(nullptr_t __p, _Dp __d)
+    : __ptr(__p),
+    __count(__allocate_shared(__p, __d)) {}
 
 template<class _Tp>
 template<class _Yp, class _Dp, class _Alloc>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p, _Dp __d, _Alloc __a,
                             typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type)
     : __ptr(__p),
-    __count(0)
-{
-    typedef __counter<_Yp, _Dp, _Alloc> _CntrlBlk;
-    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _A2;
-    typedef __allocator_destructor<_A2> _D2;
-
-    _A2 __a2(__a);
-    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
-    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
-        _CntrlBlk(__p, __d, __a);
-    __count = _VSTD::addressof(*__hold2.release());
-}
+    __count(__allocate_shared(__p, __d, __a)) {}
 
 template<class _Tp>
 template<class _Dp, class _Alloc>
-shared_ptr<_Tp>::shared_ptr(nullptr_t, _Dp __d, _Alloc __a)
+shared_ptr<_Tp>::shared_ptr(nullptr_t __p, _Dp __d, _Alloc __a)
     : __ptr(0),
-    __count(0)
-{
-    typedef __counter<_Tp, _Dp, _Alloc> _CntrlBlk;
-    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _A2;
-    typedef __allocator_destructor<_A2> _D2;
-
-    _A2 __a2(__a);
-    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
-    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
-        _CntrlBlk(nullptr, __d, __a);
-    __count = _VSTD::addressof(*__hold2.release());
-}
+    __count(__allocate_shared(__p, __d, __a)) {}
 
 template<class _Tp>
 template<class _Yp>
