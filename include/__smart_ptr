@@ -16,19 +16,25 @@ struct __default_deleter
 //     void operator()(*(_Tp(&__ptr)__ptr)) const { delete[] __p; }
 };
 
-template<class _Tp, class _Deleter = __default_deleter<_Tp>>
+template<class _Tp, class _Deleter = __default_deleter<_Tp>, class _Alloc = allocator<_Tp>>
 struct __counter
 {
     _Tp* __ptr;
     _Deleter __deleter;
+    _Alloc __alloc;
 
 public:
     size_t __count = 1;
 
-    __counter(_Tp* __ptr, _Deleter __deleter = _Deleter {})
-        : __ptr(__ptr), __deleter(__deleter) {}
+    __counter(_Tp* __ptr, _Deleter __deleter = _Deleter {}, _Alloc __alloc = allocator<_Tp> {})
+        : __ptr(__ptr), __deleter(__deleter), __alloc(__alloc) {}
 
-    void __destroy() { __deleter(__ptr); }
+    void __destroy()
+    {
+        __deleter(__ptr);
+        // TODO: use __alloc to deallocate "this" without using rebind
+    }
+
     void __inc()
     { __count++; }
     bool __dec()
@@ -66,23 +72,23 @@ public:
     constexpr shared_ptr() noexcept : __ptr(nullptr), __count(new __counter<_Tp>(nullptr)) {}
 
     template<class _Yp>
-    shared_ptr(_Yp* __ptr) : __ptr(__ptr), __count(new __counter<_Yp>(__ptr)) {}
+    shared_ptr(_Yp* __ptr) : __ptr(__ptr), __count(new __counter(__ptr)) {}
 
     template<class _Yp, class _Deleter>
     shared_ptr(_Yp* __ptr, _Deleter __deleter)
-        : __ptr(__ptr), __count(new __counter<_Yp, _Deleter>(__ptr, __deleter)) {}
+        : __ptr(__ptr), __count(new __counter(__ptr, __deleter)) {}
 
     template<class _Yp, class _Deleter, class _Alloc>
-    shared_ptr(_Yp* __ptr, _Deleter __deleter, _Alloc /*TODO: implement this*/)
-        : __ptr(__ptr), __count(new __counter<_Yp, _Deleter>(__ptr, __deleter)) {}
+    shared_ptr(_Yp* __ptr, _Deleter __deleter, _Alloc __alloc)
+        : __ptr(__ptr), __count(new __counter(__ptr, __deleter, __alloc)) {}
 
     template<class _Deleter>
     shared_ptr(nullptr_t __ptr, _Deleter __deleter)
-        : __ptr(__ptr), __count(new __counter<_Tp, _Deleter>(__ptr, __deleter)) {}
+        : __ptr(__ptr), __count(new __counter(__ptr, __deleter)) {}
 
     template<class _Deleter, class _Alloc>
     shared_ptr(nullptr_t __ptr, _Deleter __deleter, _Alloc /*TODO: implement this*/)
-        : __ptr(__ptr), __count(new __counter<_Tp, _Deleter>(__ptr, __deleter)) {}
+        : __ptr(__ptr), __count(new __counter(__ptr, __deleter)) {}
 
     shared_ptr(shared_ptr const& __r) noexcept
         : __ptr(__r.__ptr), __count(__r.__count)
@@ -137,7 +143,7 @@ public:
     }
 
     template<class _Yp>
-    shared_ptr& operator=(shared_ptr<_Yp> const& __r) noexcept
+    shared_ptr& operator=(shared_ptr<_Yp>&& __r) noexcept
     {
         shared_ptr(_VSTD::move(__r)).swap(*this);
         return *this;
@@ -150,11 +156,27 @@ public:
         return *this;
     }
 
-// methods
+// observers
     _Tp* get() const noexcept { return __ptr; }
 
-    _Tp* operator->() const { return  __ptr; }
-    _Tp& operator* () const { return *__ptr; }
+    _Tp& operator* () const noexcept
+    {
+        if (!__empty())
+            return *get();
+        return 0;
+    }
+
+    _Tp* operator->() const noexcept
+    {
+        return get(); // if __empty() is true nullptr will be returned anyway
+    }
+
+    _Tp& operator[](ptrdiff_t __i) const
+    {
+        if (!__empty() && __i >= 0)
+            return get()[__i];
+        return 0;
+    }
 
     long use_count() const noexcept
     {
@@ -166,6 +188,14 @@ public:
     {
         return get() != 0;
     }
+
+    template<class _Yp>
+    bool owner_before(shared_ptr<_Yp> const& __r) const noexcept
+    { return __count < __r.__count; }
+
+    template<class _Yp>
+    bool owner_before(weak_ptr<_Yp>   const& __r) const noexcept
+    { return __count < __r.__cntrl_; }
 
 // modifiers
     void swap(shared_ptr& __r) noexcept
@@ -180,6 +210,14 @@ public:
     template<class _Yp>
     void reset(_Yp* __p) noexcept
     { shared_ptr(__p).swap(*this); }
+
+    template<class _Yp, class _Deleter>
+    void reset(_Yp* __p, _Deleter __deleter) noexcept
+    { shared_ptr(__p, __deleter).swap(*this); }
+
+    template<class _Yp, class _Deleter, class _Alloc>
+    void reset(_Yp* __p, _Deleter __deleter, _Alloc __alloc) noexcept
+    { shared_ptr(__p, __deleter, __alloc).swap(*this); }
 };
 
 }
