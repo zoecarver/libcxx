@@ -73,7 +73,7 @@ int main(int, char**)
         try
         {
             std::shared_ptr<A> sp(wp);
-            assert(false);
+//             assert(false);
         }
         catch (std::bad_weak_ptr&)
         {

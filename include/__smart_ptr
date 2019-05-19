@@ -16,7 +16,7 @@ struct __default_deleter
 //     void operator()(*(_Tp(&__ptr)__ptr)) const { delete[] __p; }
 };
 
-template<class _Tp, class _Deleter = __default_deleter<_Tp>, class _Alloc = allocator<_Tp>>
+template<class _Tp, class _Deleter = default_deleter<_Tp>, class _Alloc = allocator<_Tp>>
 struct __counter
 {
     _Tp* __ptr;
@@ -26,7 +26,7 @@ struct __counter
 public:
     size_t __count = 1;
 
-    __counter(_Tp* __ptr, _Deleter __deleter = _Deleter {}, _Alloc __alloc = allocator<_Tp> {})
+    __counter(_Tp* __ptr, _Deleter __deleter = _Deleter {}, _Alloc __alloc = _Alloc {})
         : __ptr(__ptr), __deleter(__deleter), __alloc(__alloc) {}
 
     void __destroy()

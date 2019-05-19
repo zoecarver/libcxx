@@ -35,8 +35,8 @@ int main(int, char**)
     test<int>();
     test<A>();
     test<int*>();
-    test<int[]>();
-    test<int[8]>();
+//     test<int[]>();
+//     test<int[8]>();
 
     return 0;
 }
