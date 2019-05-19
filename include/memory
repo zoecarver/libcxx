@@ -3737,6 +3737,17 @@ public:
 
 template<class _Tp> class _LIBCPP_TEMPLATE_VIS enable_shared_from_this;
 
+template<typename _Tp, class _Up, typename = std::void_t<>>
+struct __libcpp_has_call_op
+    : std::false_type
+{};
+
+template<typename _Tp, class _Up>
+struct __libcpp_has_call_op<_Tp, _Up,
+                            std::void_t<decltype(std::declval<_Tp>()(std::declval<_Up>()))>>
+    : std::true_type
+{};
+
 // this must be polymorphic so that it can be a member pointer type
 struct __counter_parent
 {
@@ -3980,7 +3991,7 @@ public:
     _LIBCPP_INLINE_VISIBILITY
     long use_count() const _NOEXCEPT
     {
-        return get() != 0 && __count ?
+        return __count ? // get() != 0 &&
                __count->__count : 0;
     }
     _LIBCPP_INLINE_VISIBILITY
@@ -4025,6 +4036,11 @@ private:
     static __counter_parent*
     __allocate_shared(_Yp* __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
     {
+        static_assert(__libcpp_has_call_op<_Deleter, _Yp*>::value,
+                      "__d must contain call operator that accepts __p.");
+        static_assert(_VSTD::is_move_constructible<_Deleter>::value,
+                      "_Deleter must be move constructible.");
+
         try {
             typedef __counter<_Yp, _Deleter, _Alloc> _CT;
             typedef typename __allocator_traits_rebind<_Alloc, _CT>::type _A2;
@@ -4047,6 +4063,11 @@ private:
     static __counter_parent*
     __allocate_shared(nullptr_t __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
     {
+        static_assert(__libcpp_has_call_op<_Deleter, nullptr_t>::value,
+                      "__d must contain call operator that accepts __p");
+        static_assert(_VSTD::is_move_constructible<_Deleter>::value,
+                      "_Deleter must be move constructible.");
+
         try {
             typedef __counter<_Tp, _Deleter, _Alloc> _CT;
             typedef typename __allocator_traits_rebind<_Alloc, _CT>::type _A2;
@@ -4651,7 +4672,7 @@ public:
     typedef _Tp element_type;
 private:
     element_type*         __ptr;
-    __counter<_Tp>*       __count;
+    __counter_parent*     __count;
 
 public:
     _LIBCPP_INLINE_VISIBILITY

@@ -35,9 +35,10 @@ int main(int, char**)
 {
     {
         int* ptr = new int;
+        // expected-error@memory:* {{static_assert failed due to requirement '__libcpp_has_call_op<NotDeleter, int *>::value' "__d must contain call operator that accepts __p."}}
         // expected-error@memory:* {{type 'NotDeleter' does not provide a call operator}}
         std::shared_ptr<int> bp0(ptr, NotDeleter()); // expected-error@memory:* {{type 'NotDeleter' does not provide a call operator}}
-        std::shared_ptr<int> bp1(ptr, NoMoveDeleter<int>()); // expected-error@memory:* {{call to deleted constructor of 'NoMoveDeleter<int>'}}
+        std::shared_ptr<int> bp1(ptr, NoMoveDeleter<int>()); // expected-error@memory:* {{"_Deleter must be move constructible."}}
     }
 
     return 0;
