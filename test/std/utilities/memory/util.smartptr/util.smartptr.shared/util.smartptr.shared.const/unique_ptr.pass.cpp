@@ -100,8 +100,8 @@ int main(int, char**)
     {
         std::unique_ptr<int> ptr;
         std::shared_ptr<int> p(std::move(ptr));
+        assert(p.get() == 0);
         assert(p.use_count() == 0);
-        assert(p.get() == nullptr);
     }
 #endif
 

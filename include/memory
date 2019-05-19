@@ -3867,7 +3867,7 @@ public:
             is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
             element_type*>::value,
             __nat
-        >::type);
+        >::type = __nat());
 
     template <class _Yp, class _Dp>
     shared_ptr(unique_ptr<_Yp, _Dp&>&& __r,
@@ -3877,7 +3877,7 @@ public:
             is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
             element_type*>::value,
             __nat
-        >::type);
+        >::type = __nat());
 
     ~shared_ptr();
 
@@ -3978,7 +3978,11 @@ public:
     _LIBCPP_INLINE_VISIBILITY
     element_type* operator->() const _NOEXCEPT {return __ptr;}
     _LIBCPP_INLINE_VISIBILITY
-    long use_count() const _NOEXCEPT {return __count ? __count->__count : 0;}
+    long use_count() const _NOEXCEPT
+    {
+        return get() != 0 && __count ?
+               __count->__count : 0;
+    }
     _LIBCPP_INLINE_VISIBILITY
     bool unique() const _NOEXCEPT {return use_count() == 1;}
     _LIBCPP_INLINE_VISIBILITY
@@ -4181,32 +4185,40 @@ shared_ptr<_Tp>::shared_ptr(auto_ptr<_Yp> __r,
 #endif
                             typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type)
     : __ptr(__r.get()),
-    __count(new __counter(__ptr)) {}
+    __count(__allocate_shared(__ptr)) {}
 #endif
 
 template<class _Tp>
 template <class _Yp, class _Dp>
 shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp>&& __r,
-                            typename enable_if
-                            <
-                                !is_array<_Yp>::value &&
-                                is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
-                                element_type*>::value,
-                                __nat
-                            >::type)
-    : __ptr(__r.__ptr), __count(new __counter(__ptr, __r.get_deleter())) {}
+        typename enable_if<
+            !is_array<_Yp>::value &&
+            is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
+            element_type*>::value,
+            __nat
+        >::type)
+    : __ptr(__r.get()),
+      __count(__ptr ? new __counter(__r.get(), __r.get_deleter(),
+                                    typename __shared_ptr_default_allocator<_Yp>::type())
+                    : 0)
+{
+    __r.release();
+}
 
 template<class _Tp>
 template <class _Yp, class _Dp>
 shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp&>&& __r,
-                            typename enable_if
-                            <
-                                !is_array<_Yp>::value &&
-                                is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
-                                element_type*>::value,
-                                __nat
-                            >::type)
-    : __ptr(__r.__ptr), __count(new __counter(__ptr, ref(__r.get_deleter()))) {}
+        typename enable_if<
+            !is_array<_Yp>::value &&
+            is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
+            element_type*>::value,
+            __nat
+        >::type)
+    : __ptr(__r.get()),
+      __count(__ptr ? new __counter(__r.get(), ref(__r.get_deleter()),
+                                    typename __shared_ptr_default_allocator<_Yp>::type())
+                    : 0)
+{ __r.release(); }
 
 template<class _Tp>
 shared_ptr<_Tp>::~shared_ptr()
