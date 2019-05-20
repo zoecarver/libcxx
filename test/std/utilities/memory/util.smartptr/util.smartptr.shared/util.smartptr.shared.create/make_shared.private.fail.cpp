@@ -26,5 +26,5 @@ int main(int, char**)
 {
     std::shared_ptr<S> p = std::make_shared<S>();
 
-  return 0;
+    return 0;
 }

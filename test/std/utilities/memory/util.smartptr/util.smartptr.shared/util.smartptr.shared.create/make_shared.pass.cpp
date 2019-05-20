@@ -13,6 +13,7 @@
 // template<class T, class... Args> shared_ptr<T> make_shared(Args&&... args);
 
 #include <memory>
+#include <iostream>
 #include <cassert>
 
 #include "test_macros.h"
@@ -80,7 +81,7 @@ int main(int, char**)
     int i = 67;
     char c = 'e';
     std::shared_ptr<A> p = std::make_shared<A>(i, c);
-    assert(globalMemCounter.checkOutstandingNewEq(nc+1));
+    assert(globalMemCounter.checkOutstandingNewEq(nc+2)); // one for make_shared (create type ptr) and one for creation of control block.
     assert(A::count == 1);
     assert(p->get_int() == 67);
     assert(p->get_char() == 'e');
@@ -100,7 +101,7 @@ int main(int, char**)
     {
     char c = 'e';
     std::shared_ptr<A> p = std::make_shared<A>(67, c);
-    assert(globalMemCounter.checkOutstandingNewEq(nc+1));
+    assert(globalMemCounter.checkOutstandingNewEq(nc+2));
     assert(A::count == 1);
     assert(p->get_int() == 67);
     assert(p->get_char() == 'e');

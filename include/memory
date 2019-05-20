@@ -3759,7 +3759,7 @@ public:
     virtual void __inc() = 0;
     virtual bool __dec() = 0;
 
-    virtual void* __get_deleter() = 0;
+    virtual const void* __get_deleter(type_info const& __t) const noexcept = 0;
 };
 
 template<class _Tp, class _Deleter = default_delete<_Tp>, class _Alloc = allocator<_Tp>>
@@ -3807,8 +3807,11 @@ public:
         return false; // don't delete me
     }
 
-    void* __get_deleter()
-    { return reinterpret_cast<void*>(_VSTD::addressof(__deleter)); }
+    const void* __get_deleter(type_info const& __t) const noexcept // TODO: use is_same?
+    {
+        if (__t == typeid(_Deleter)) return _VSTD::addressof(__deleter);
+        return nullptr;
+    }
 };
 
 template<class _Tp>
@@ -4014,7 +4017,9 @@ public:
     template <class _Dp>
     _LIBCPP_INLINE_VISIBILITY
     _Dp* __get_deleter() const _NOEXCEPT
-        {return static_cast<_Dp*>(__count ? __count->__get_deleter() : nullptr);}
+        {return static_cast<_Dp*>(__count
+            ? const_cast<void*>(__count->__get_deleter(typeid(_Dp)))
+            : nullptr);}
 
 private:
     template <class _Yp, bool = is_function<_Yp>::value>
@@ -4032,7 +4037,8 @@ private:
     template <class _Up> friend class _LIBCPP_TEMPLATE_VIS shared_ptr;
     template <class _Up> friend class _LIBCPP_TEMPLATE_VIS weak_ptr;
 
-    template<class _Yp, class _Deleter = default_delete<_Yp>, class _Alloc = allocator<_Yp>>
+    template<class _Yp, class _Deleter = default_delete<_Yp>,
+                        class _Alloc = typename __shared_ptr_default_allocator<_Yp>::type>
     static __counter_parent*
     __allocate_shared(_Yp* __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
     {
@@ -4059,7 +4065,8 @@ private:
         }
     }
 
-    template<class _Deleter = default_delete<_Tp>, class _Alloc = allocator<_Tp>>
+    template<class _Deleter = default_delete<_Tp>,
+             class _Alloc = typename __shared_ptr_default_allocator<_Tp>::type>
     static __counter_parent*
     __allocate_shared(nullptr_t __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
     {
@@ -4448,14 +4455,9 @@ allocate_shared(const _Alloc& __alloc, _Args&& ...__args)
 {
     static_assert(is_constructible<_Tp, _Args...>::value, "Can't construct object in allocate_shared");
 
-    typedef allocator_traits<_Alloc> _AT;
-    typedef default_delete<_Alloc> _DD;
-
-    _Alloc __a(__alloc);
-    auto __ptr = _AT::allocate(__a, 1);
-    _AT::construct(__a, addressof(*__ptr), _VSTD::forward<_Args>(__args)...);
-
-    return shared_ptr<_Tp>(__ptr, _DD(__a), __a);
+    typedef default_delete<_Tp> _DD;
+    return shared_ptr<_Tp>(new _Tp(_VSTD::forward<_Args>(__args)...),
+                           _DD(), __alloc);
 }
 
 template<class _Tp, class _Up>
