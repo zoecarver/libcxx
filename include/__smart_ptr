@@ -24,7 +24,8 @@ struct __counter
     _Alloc __alloc;
 
 public:
-    size_t __count = 1;
+    size_t __count_shared = 1;
+    size_t __count_weak = 1;
 
     __counter(_Tp* __ptr, _Deleter __deleter = _Deleter {}, _Alloc __alloc = _Alloc {})
         : __ptr(__ptr), __deleter(__deleter), __alloc(__alloc)
@@ -52,13 +53,28 @@ public:
         // TODO: use __alloc to deallocate "this" without using rebind
     }
 
-    void __inc()
-    { __count++; }
-    bool __dec()
+    // shared_ptrs
+    void __inc_shared()
+    { __count_shared++; }
+    bool __dec_shared()
     {
-        __count--;
-        cout << __count << endl;
-        if (__count == 0)
+        __count_shared--;
+        if (__count_shared == 0)
+        {
+            __destroy();
+            return true; // it's okay to destroy me
+        }
+
+        return false; // don't delete me
+    }
+
+    // weak_ptrs
+    void __inc_shared()
+    { __count_weak++; }
+    bool __dec_shared()
+    {
+        __count_weak--;
+        if (__count_weak == 0)
         {
             __destroy();
             return true; // it's okay to destroy me
@@ -110,16 +126,14 @@ public:
     shared_ptr(shared_ptr const& __r) noexcept
         : __ptr(__r.__ptr), __count(__r.__count)
     {
-        cout << "copy called (1)" << endl;
-        __count->__inc();
+        __count->__inc_shared();
     }
 
     template<class _Yp>
     shared_ptr(shared_ptr<_Yp> const& __r) noexcept
         : __ptr(__r.__ptr), __count((__counter<_Tp>*)__r.__count)
     {
-        cout << "copy called (2)" << endl;
-        __count->__inc();
+        __count->__inc_shared();
     }
 
     template<class _Yp>
@@ -128,14 +142,12 @@ public:
     {
         __r.__ptr = nullptr;
 
-        cout << "move called" << endl;
-        __count->__inc();
+        __count->__inc_shared();
     }
 
 // destruction
     ~shared_ptr() {
-        cout << "delete called" << endl;
-        if (__count->__dec()) // __dec will return true if the pointer has been destroyed
+        if (__count->__dec_shared()) // __dec will return true if the pointer has been destroyed
             delete __count;
     }
 

@@ -3585,10 +3585,13 @@ struct __counter_parent
 public:
 //     virtual ~__counter_parent();
 
-    size_t __count = 1;
+    size_t __count_shared = 0;
+    size_t __count_weak = 0;
 
-    virtual void __inc() = 0;
-    virtual bool __dec() = 0;
+    virtual void __inc_shared() = 0;
+    virtual void __inc_weak() = 0;
+    virtual bool __dec_shared() = 0;
+    virtual bool __dec_weak() = 0;
 
     virtual const void* __get_deleter(type_info const& __t) const noexcept = 0;
 };
@@ -3624,12 +3627,26 @@ public:
         __deleter.~_Deleter();
     }
 
-    void __inc()
-    { __count++; }
-    bool __dec()
+    void __inc_shared()
+    { __count_shared++; }
+    bool __dec_shared()
     {
-        __count--;
-        if (__count == 0)
+        __count_shared--;
+        if (__count_shared == 0 && __count_weak == 0)
+        {
+            __destroy();
+            return true; // it's okay to destroy me
+        }
+
+        return false; // don't delete me
+    }
+
+    void __inc_weak()
+    { __count_weak++; }
+    bool __dec_weak()
+    {
+        __count_weak--;
+        if (__count_weak == 0 && __count_shared == 0)
         {
             __destroy();
             return true; // it's okay to destroy me
@@ -3826,7 +3843,7 @@ public:
     long use_count() const _NOEXCEPT
     {
         return __count ? // get() != 0 &&
-               __count->__count : 0;
+               __count->__count_shared : 0;
     }
     _LIBCPP_INLINE_VISIBILITY
     bool unique() const _NOEXCEPT {return use_count() == 1;}
@@ -3945,33 +3962,53 @@ template<class _Yp>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p,
                             typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type)
     : __ptr(__p),
-    __count(__allocate_shared(__p)) {}
+    __count(__allocate_shared(__p))
+{
+    if (__count)
+        __count->__inc_shared();
+}
 
 template<class _Tp>
 template<class _Yp, class _Dp>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p, _Dp __d,
                             typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type)
     : __ptr(__p),
-    __count(__allocate_shared(__p, __d)) {}
+    __count(__allocate_shared(__p, __d))
+{
+    if (__count)
+        __count->__inc_shared();
+}
 
 template<class _Tp>
 template<class _Dp>
 shared_ptr<_Tp>::shared_ptr(nullptr_t __p, _Dp __d)
     : __ptr(__p),
-    __count(__allocate_shared(__p, __d)) {}
+    __count(__allocate_shared(__p, __d))
+{
+    if (__count)
+        __count->__inc_shared();
+}
 
 template<class _Tp>
 template<class _Yp, class _Dp, class _Alloc>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p, _Dp __d, _Alloc __a,
                             typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type)
     : __ptr(__p),
-    __count(__allocate_shared(__p, __d, __a)) {}
+    __count(__allocate_shared(__p, __d, __a))
+{
+    if (__count)
+        __count->__inc_shared();
+}
 
 template<class _Tp>
 template<class _Dp, class _Alloc>
 shared_ptr<_Tp>::shared_ptr(nullptr_t __p, _Dp __d, _Alloc __a)
     : __ptr(0),
-    __count(__allocate_shared(__p, __d, __a)) {}
+    __count(__allocate_shared(__p, __d, __a))
+{
+    if (__count)
+        __count->__inc_shared();
+}
 
 template<class _Tp>
 template<class _Yp>
@@ -3981,7 +4018,7 @@ shared_ptr<_Tp>::shared_ptr(const shared_ptr<_Yp>& __r, element_type *__p) _NOEX
     __count(__r.__count)
 {
     if (__count)
-        __count->__inc();
+        __count->__inc_shared();
 }
 
 template<class _Tp>
@@ -3991,7 +4028,7 @@ shared_ptr<_Tp>::shared_ptr(const shared_ptr& __r) _NOEXCEPT
       __count(__r.__count)
 {
     if (__count)
-        __count->__inc();
+        __count->__inc_shared();
 }
 
 template<class _Tp>
@@ -4004,7 +4041,7 @@ shared_ptr<_Tp>::shared_ptr(const shared_ptr<_Yp>& __r,
       __count(__r.__count)
 {
     if (__count)
-        __count->__inc();
+        __count->__inc_shared();
 }
 
 #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
@@ -4083,7 +4120,7 @@ template<class _Tp>
 shared_ptr<_Tp>::~shared_ptr()
 {
     if (__count)
-        __count->__dec();
+        __count->__dec_shared();
 //         if (__count->__dec())
 //             delete __count;
 }
@@ -4503,7 +4540,7 @@ class _LIBCPP_TEMPLATE_VIS weak_ptr
 {
 public:
     typedef _Tp element_type;
-private:
+// private:
     element_type*         __ptr;
     __counter_parent*     __count;
 
@@ -4570,7 +4607,7 @@ public:
 
     _LIBCPP_INLINE_VISIBILITY
     long use_count() const _NOEXCEPT
-        {return __count ? __count->__count : 0;}
+        {return __count ? __count->__count_shared : 0;}
     _LIBCPP_INLINE_VISIBILITY
     bool expired() const _NOEXCEPT
         {return use_count() == 0;}
@@ -4593,9 +4630,7 @@ inline
 _LIBCPP_CONSTEXPR
 weak_ptr<_Tp>::weak_ptr() _NOEXCEPT
     : __ptr(0),
-      __count(0)
-{
-}
+      __count(0) {}
 
 template<class _Tp>
 inline
@@ -4604,7 +4639,7 @@ weak_ptr<_Tp>::weak_ptr(weak_ptr const& __r) _NOEXCEPT
       __count(__r.__count)
 {
     if (__count)
-        __count->__inc();
+        __count->__inc_weak();
 }
 
 template<class _Tp>
@@ -4617,7 +4652,7 @@ weak_ptr<_Tp>::weak_ptr(shared_ptr<_Yp> const& __r,
       __count(__r.__count)
 {
     if (__count)
-        __count->__inc();
+        __count->__inc_weak();
 }
 
 template<class _Tp>
@@ -4630,7 +4665,7 @@ weak_ptr<_Tp>::weak_ptr(weak_ptr<_Yp> const& __r,
       __count(__r.__count)
 {
     if (__count)
-        __count->__inc();
+        __count->__inc_weak();
 }
 
 #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
@@ -4664,7 +4699,7 @@ template<class _Tp>
 weak_ptr<_Tp>::~weak_ptr()
 {
     if (__count)
-        __count->__dec();
+        __count->__dec_weak();
 }
 
 template<class _Tp>
@@ -4763,7 +4798,7 @@ shared_ptr<_Tp>::shared_ptr(const weak_ptr<_Yp>& __r,
     : __ptr(__r.__ptr),
       __count(__r.__count)
 {
-    if (__count == 0)
+    if (__r.expired())
         __throw_bad_weak_ptr();
 }
 
@@ -4771,7 +4806,7 @@ template<class _Tp>
 shared_ptr<_Tp>
 weak_ptr<_Tp>::lock() const _NOEXCEPT
 {
-    return __count ? shared_ptr<_Tp>() : shared_ptr<_Tp>(*this);
+    return expired() ? shared_ptr<_Tp>() : shared_ptr<_Tp>(*this);
 }
 
 #if _LIBCPP_STD_VER > 14

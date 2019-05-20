@@ -14,6 +14,7 @@
 
 #include <memory>
 #include <cassert>
+#include <iostream>
 
 struct A
 {
@@ -43,6 +44,7 @@ int main(int, char**)
             assert(w2.lock().get() == ptr1);
             assert(A::count == 2);
         }
+        assert(p1.use_count() == 0);
     }
     assert(A::count == 0);
 
