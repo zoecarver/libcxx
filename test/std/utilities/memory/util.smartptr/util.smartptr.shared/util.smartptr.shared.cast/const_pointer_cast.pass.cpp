@@ -54,5 +54,5 @@ int main(int, char**)
         assert(!pB.owner_before(pA) && !pA.owner_before(pB));
     }
 
-  return 0;
+    return 0;
 }
