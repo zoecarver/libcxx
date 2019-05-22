@@ -3726,15 +3726,7 @@ struct __ref_not_void<void>
 
 template<class _Tp, class _Up>
 struct __compatible_with
-    : is_convertible<_Tp, _Up> {};
-
-template<class _Tp, class _Up>
-struct __compatible_with<_Tp[], _Up[]>
-    : __compatible_with<_Tp, _Up> {};
-
-template<class _Tp, size_t _TS, class _Up, size_t _US>
-struct __compatible_with<_Tp[_TS], _Up[_US]>
-    : __compatible_with<_Tp, _Up> {};
+    : is_convertible<remove_extent_t<_Tp>*, remove_extent_t<_Up>*> {};
 
 template<class _Tp>
 class _LIBCPP_TEMPLATE_VIS shared_ptr
@@ -3758,13 +3750,13 @@ public:
     _LIBCPP_CONSTEXPR shared_ptr(nullptr_t) _NOEXCEPT;
     template<class _Yp>
         explicit shared_ptr(_Yp* __p,
-                            typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type = __nat());
+                            typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat());
     template<class _Yp, class _Dp>
         shared_ptr(_Yp* __p, _Dp __d,
-                   typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type = __nat());
+                   typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat());
     template<class _Yp, class _Dp, class _Alloc>
         shared_ptr(_Yp* __p, _Dp __d, _Alloc __a,
-                   typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type = __nat());
+                   typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat());
     template <class _Dp> shared_ptr(nullptr_t __p, _Dp __d);
     template <class _Dp, class _Alloc> shared_ptr(nullptr_t __p, _Dp __d, _Alloc __a);
     template<class _Yp> _LIBCPP_INLINE_VISIBILITY shared_ptr(const shared_ptr<_Yp>& __r, element_type* __p) _NOEXCEPT;
@@ -3773,13 +3765,13 @@ public:
     template<class _Yp>
         _LIBCPP_INLINE_VISIBILITY
         shared_ptr(const shared_ptr<_Yp>& __r,
-                   typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type = __nat())
+                   typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat())
                        _NOEXCEPT;
 #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
     _LIBCPP_INLINE_VISIBILITY
     shared_ptr(shared_ptr&& __r) _NOEXCEPT;
     template<class _Yp> _LIBCPP_INLINE_VISIBILITY  shared_ptr(shared_ptr<_Yp>&& __r,
-                   typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type = __nat())
+                   typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat())
                        _NOEXCEPT;
 #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
     template<class _Yp> explicit shared_ptr(const weak_ptr<_Yp>& __r,
@@ -3788,11 +3780,11 @@ public:
 #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
     template<class _Yp>
         shared_ptr(auto_ptr<_Yp>&& __r,
-                   typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type = __nat());
+                   typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat());
 #else
     template<class _Yp>
         shared_ptr(auto_ptr<_Yp> __r,
-                   typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type = __nat());
+                   typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat());
 #endif
 #endif
     template <class _Yp, class _Dp>
@@ -3821,7 +3813,7 @@ public:
     template<class _Yp>
         typename enable_if
         <
-            __compatible_with<_Yp*, element_type*>::value,
+            __compatible_with<_Yp, element_type>::value,
             shared_ptr&
         >::type
         _LIBCPP_INLINE_VISIBILITY
@@ -3832,7 +3824,7 @@ public:
     template<class _Yp>
         typename enable_if
         <
-            __compatible_with<_Yp*, element_type*>::value,
+            __compatible_with<_Yp, element_type>::value,
             shared_ptr&
         >::type
         _LIBCPP_INLINE_VISIBILITY
@@ -3883,7 +3875,7 @@ public:
     template<class _Yp>
         typename enable_if
         <
-            __compatible_with<_Yp*, element_type*>::value,
+            __compatible_with<_Yp, element_type>::value,
             void
         >::type
         _LIBCPP_INLINE_VISIBILITY
@@ -3891,7 +3883,7 @@ public:
     template<class _Yp, class _Dp>
         typename enable_if
         <
-            __compatible_with<_Yp*, element_type*>::value,
+            __compatible_with<_Yp, element_type>::value,
             void
         >::type
         _LIBCPP_INLINE_VISIBILITY
@@ -3899,7 +3891,7 @@ public:
     template<class _Yp, class _Dp, class _Alloc>
         typename enable_if
         <
-            __compatible_with<_Yp*, element_type*>::value,
+            __compatible_with<_Yp, element_type>::value,
             void
         >::type
         _LIBCPP_INLINE_VISIBILITY
@@ -4057,7 +4049,7 @@ shared_ptr<_Tp>::shared_ptr(nullptr_t) _NOEXCEPT
 template<class _Tp>
 template<class _Yp>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p,
-                            typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type)
+                            typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type)
     : __ptr_(__p),
       __cntrl_(__allocate_shared(__p))
 {
@@ -4067,7 +4059,7 @@ shared_ptr<_Tp>::shared_ptr(_Yp* __p,
 template<class _Tp>
 template<class _Yp, class _Dp>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p, _Dp __d,
-                            typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type)
+                            typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type)
     : __ptr_(__p),
       __cntrl_(__allocate_shared(__p, __d))
 {
@@ -4083,7 +4075,7 @@ shared_ptr<_Tp>::shared_ptr(nullptr_t __p, _Dp __d)
 template<class _Tp>
 template<class _Yp, class _Dp, class _Alloc>
 shared_ptr<_Tp>::shared_ptr(_Yp* __p, _Dp __d, _Alloc __a,
-                            typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type)
+                            typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type)
     : __ptr_(__p),
       __cntrl_(__allocate_shared(__p, __d, __a))
 {
@@ -4121,7 +4113,7 @@ template<class _Tp>
 template<class _Yp>
 inline
 shared_ptr<_Tp>::shared_ptr(const shared_ptr<_Yp>& __r,
-                            typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type)
+                            typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type)
          _NOEXCEPT
     : __ptr_(__r.__ptr_),
       __cntrl_(__r.__cntrl_)
@@ -4146,7 +4138,7 @@ template<class _Tp>
 template<class _Yp>
 inline
 shared_ptr<_Tp>::shared_ptr(shared_ptr<_Yp>&& __r,
-                            typename enable_if<__compatible_with<_Yp*, element_type*>::value, __nat>::type)
+                            typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type)
          _NOEXCEPT
     : __ptr_(__r.__ptr_),
       __cntrl_(__r.__cntrl_)
@@ -4294,7 +4286,7 @@ template<class _Yp>
 inline
 typename enable_if
 <
-    __compatible_with<_Yp*, typename shared_ptr<_Tp>::element_type*>::value,
+    __compatible_with<_Yp, typename shared_ptr<_Tp>::element_type>::value,
     shared_ptr<_Tp>&
 >::type
 shared_ptr<_Tp>::operator=(const shared_ptr<_Yp>& __r) _NOEXCEPT
@@ -4319,7 +4311,7 @@ template<class _Yp>
 inline
 typename enable_if
 <
-    __compatible_with<_Yp*, typename shared_ptr<_Tp>::element_type*>::value,
+    __compatible_with<_Yp, typename shared_ptr<_Tp>::element_type>::value,
     shared_ptr<_Tp>&
 >::type
 shared_ptr<_Tp>::operator=(shared_ptr<_Yp>&& __r)
@@ -4420,7 +4412,7 @@ template<class _Yp>
 inline
 typename enable_if
 <
-    __compatible_with<_Yp*, typename shared_ptr<_Tp>::element_type*>::value,
+    __compatible_with<_Yp, typename shared_ptr<_Tp>::element_type>::value,
     void
 >::type
 shared_ptr<_Tp>::reset(_Yp* __p)
@@ -4433,7 +4425,7 @@ template<class _Yp, class _Dp>
 inline
 typename enable_if
 <
-    __compatible_with<_Yp*, typename shared_ptr<_Tp>::element_type*>::value,
+    __compatible_with<_Yp, typename shared_ptr<_Tp>::element_type>::value,
     void
 >::type
 shared_ptr<_Tp>::reset(_Yp* __p, _Dp __d)
@@ -4446,7 +4438,7 @@ template<class _Yp, class _Dp, class _Alloc>
 inline
 typename enable_if
 <
-    __compatible_with<_Yp*, typename shared_ptr<_Tp>::element_type*>::value,
+    __compatible_with<_Yp, typename shared_ptr<_Tp>::element_type>::value,
     void
 >::type
 shared_ptr<_Tp>::reset(_Yp* __p, _Dp __d, _Alloc __a)
@@ -4708,11 +4700,7 @@ swap(shared_ptr<_Tp>& __x, shared_ptr<_Tp>& __y) _NOEXCEPT
 
 template<class _Tp, class _Up>
 inline _LIBCPP_INLINE_VISIBILITY
-typename enable_if
-<
-    !is_array<_Tp>::value && !is_array<_Up>::value,
-    shared_ptr<_Tp>
->::type
+shared_ptr<_Tp>
 static_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 {
     return shared_ptr<_Tp>(__r, static_cast<remove_extent_t<_Tp>*>(__r.get()));
@@ -4720,11 +4708,7 @@ static_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 
 template<class _Tp, class _Up>
 inline _LIBCPP_INLINE_VISIBILITY
-typename enable_if
-<
-    !is_array<_Tp>::value && !is_array<_Up>::value,
-    shared_ptr<_Tp>
->::type
+shared_ptr<_Tp>
 dynamic_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 {
     _Tp* __p = dynamic_cast<remove_extent_t<_Tp>*>(__r.get());
@@ -4732,11 +4716,7 @@ dynamic_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 }
 
 template<class _Tp, class _Up>
-typename enable_if
-<
-    is_array<_Tp>::value == is_array<_Up>::value,
-    shared_ptr<_Tp>
->::type
+shared_ptr<_Tp>
 const_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 {
     typedef typename remove_extent<_Tp>::type _RTp;
