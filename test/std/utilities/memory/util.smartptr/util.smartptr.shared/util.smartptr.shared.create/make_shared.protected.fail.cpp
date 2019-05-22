@@ -24,8 +24,7 @@ protected:
 
 int main(int, char**)
 {
-    // expected-error@memory:* {{static_assert failed due to requirement 'is_constructible<S>::value' "Can't construct object in make_shared"}}
-    std::shared_ptr<S> p = std::make_shared<S>(); // expected-error@memory:* {{calling a protected constructor of class 'S'}}
+    std::shared_ptr<S> p = std::make_shared<S>(); // expected-error@memory:* {{static_assert failed due to requirement 'is_constructible<S>::value' "Can't construct object in make_shared"}}
 
   return 0;
 }
