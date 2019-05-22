@@ -3606,16 +3606,11 @@ template <class _Tp, class _Dp, class _Alloc>
 class __shared_ptr_pointer
     : public __shared_weak_count
 {
-    _Tp __pointee;
-    _Dp __deleter;
-    _Alloc __alloc;
-
+    __compressed_pair<__compressed_pair<_Tp, _Dp>, _Alloc> __data_;
 public:
     _LIBCPP_INLINE_VISIBILITY
     __shared_ptr_pointer(_Tp __p, _Dp __d, _Alloc __a)
-        :  __pointee(__p),
-           __deleter(_VSTD::move(__d)),
-           __alloc(_VSTD::move(__a)) {}
+        :  __data_(__compressed_pair<_Tp, _Dp>(__p, _VSTD::move(__d)), _VSTD::move(__a)) {}
 
 #ifndef _LIBCPP_NO_RTTI
     virtual const void* __get_deleter(const type_info&) const _NOEXCEPT;
@@ -3632,7 +3627,7 @@ template <class _Tp, class _Dp, class _Alloc>
 const void*
 __shared_ptr_pointer<_Tp, _Dp, _Alloc>::__get_deleter(const type_info& __t) const _NOEXCEPT
 {
-    return __t == typeid(_Dp) ? _VSTD::addressof(__deleter) : nullptr;
+    return __t == typeid(_Dp) ? _VSTD::addressof(__data_.first().second()) : nullptr;
 }
 
 #endif  // _LIBCPP_NO_RTTI
@@ -3641,8 +3636,8 @@ template <class _Tp, class _Dp, class _Alloc>
 void
 __shared_ptr_pointer<_Tp, _Dp, _Alloc>::__on_zero_shared() _NOEXCEPT
 {
-    __deleter(__pointee);
-    __deleter.~_Dp();
+    __data_.first().second()(__data_.first().first());
+    __data_.first().second().~_Dp();
 }
 
 template <class _Tp, class _Dp, class _Alloc>
@@ -3653,8 +3648,8 @@ __shared_ptr_pointer<_Tp, _Dp, _Alloc>::__on_zero_shared_weak() _NOEXCEPT
     typedef allocator_traits<_Al> _ATraits;
     typedef pointer_traits<typename _ATraits::pointer> _PTraits;
 
-    _Al __a(__alloc);
-    __alloc.~_Alloc();
+    _Al __a(__data_.second());
+    __data_.second().~_Alloc();
     __a.deallocate(_PTraits::pointer_to(*this), 1);
 }
 
@@ -3662,8 +3657,8 @@ template <class _Tp, class _Alloc>
 class __shared_ptr_emplace
     : public __shared_weak_count
 {
-    _Tp __pointee;
-    _Alloc __alloc;
+private:
+    __compressed_pair<_Alloc, _Tp> __data_;
 
     virtual void __on_zero_shared() _NOEXCEPT;
     virtual void __on_zero_shared_weak() _NOEXCEPT;
@@ -3671,23 +3666,23 @@ class __shared_ptr_emplace
 public:
     _LIBCPP_INLINE_VISIBILITY
     __shared_ptr_emplace(_Alloc __a)
-        :  __alloc(_VSTD::move(__a)) {}
+        :  __data_(_VSTD::move(__a)) {}
 
     template <class ..._Args>
         _LIBCPP_INLINE_VISIBILITY
         __shared_ptr_emplace(_Alloc __a, _Args&& ...__args)
-            :   __pointee(_Tp(_VSTD::forward<_Args>(__args)...)),
-                __alloc(_VSTD::move(__a)) {}
+            :  __data_(piecewise_construct, _VSTD::forward_as_tuple(__a),
+                   _VSTD::forward_as_tuple(_VSTD::forward<_Args>(__args)...)) {}
 
     _LIBCPP_INLINE_VISIBILITY
-    _Tp* get() _NOEXCEPT {return _VSTD::addressof(__pointee);}
+    _Tp* get() _NOEXCEPT {return _VSTD::addressof(__data_.second());}
 };
 
 template <class _Tp, class _Alloc>
 void
 __shared_ptr_emplace<_Tp, _Alloc>::__on_zero_shared() _NOEXCEPT
 {
-    __pointee.~_Tp();
+    __data_.second().~_Tp();
 }
 
 template <class _Tp, class _Alloc>
@@ -3697,8 +3692,8 @@ __shared_ptr_emplace<_Tp, _Alloc>::__on_zero_shared_weak() _NOEXCEPT
     typedef typename __allocator_traits_rebind<_Alloc, __shared_ptr_emplace>::type _Al;
     typedef allocator_traits<_Al> _ATraits;
     typedef pointer_traits<typename _ATraits::pointer> _PTraits;
-    _Al __a(__alloc);
-    __alloc.~_Alloc();
+    _Al __a(__data_.first());
+    __data_.first().~_Alloc();
     __a.deallocate(_PTraits::pointer_to(*this), 1);
 }
 
