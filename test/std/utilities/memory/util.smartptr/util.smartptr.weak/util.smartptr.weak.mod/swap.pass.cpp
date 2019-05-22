@@ -14,7 +14,6 @@
 
 #include <memory>
 #include <cassert>
-#include <iostream>
 
 struct A
 {
