@@ -3919,8 +3919,6 @@ public:
                       : nullptr);}
 #endif  // _LIBCPP_NO_RTTI
 
-#ifndef _LIBCPP_HAS_NO_VARIADICS
-
     template<class ..._Args>
         static
         shared_ptr<_Tp>
@@ -3930,37 +3928,6 @@ public:
         static
         shared_ptr<_Tp>
         allocate_shared(const _Alloc& __a, _Args&& ...__args);
-
-#else  // _LIBCPP_HAS_NO_VARIADICS
-
-    static shared_ptr<_Tp> make_shared();
-
-    template<class _A0>
-        static shared_ptr<_Tp> make_shared(_A0&);
-
-    template<class _A0, class _A1>
-        static shared_ptr<_Tp> make_shared(_A0&, _A1&);
-
-    template<class _A0, class _A1, class _A2>
-        static shared_ptr<_Tp> make_shared(_A0&, _A1&, _A2&);
-
-    template<class _Alloc>
-        static shared_ptr<_Tp>
-        allocate_shared(const _Alloc& __a);
-
-    template<class _Alloc, class _A0>
-        static shared_ptr<_Tp>
-        allocate_shared(const _Alloc& __a, _A0& __a0);
-
-    template<class _Alloc, class _A0, class _A1>
-        static shared_ptr<_Tp>
-        allocate_shared(const _Alloc& __a, _A0& __a0, _A1& __a1);
-
-    template<class _Alloc, class _A0, class _A1, class _A2>
-        static shared_ptr<_Tp>
-        allocate_shared(const _Alloc& __a, _A0& __a0, _A1& __a1, _A2& __a2);
-
-#endif  // _LIBCPP_HAS_NO_VARIADICS
 
 private:
     template <class _Yp, bool = is_function<_Yp>::value>
