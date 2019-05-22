@@ -3727,9 +3727,10 @@ private:
 public:
 #if _LIBCPP_STD_VER > 14
     typedef weak_ptr<_Tp> weak_type;
-#endif
-
+    typedef remove_extent_t<_Tp> element_type;
+#else
     typedef _Tp element_type;
+#endif
 
     _LIBCPP_INLINE_VISIBILITY
     _LIBCPP_CONSTEXPR shared_ptr() _NOEXCEPT;
@@ -3812,7 +3813,7 @@ public:
         typename enable_if
         <
             is_convertible<_Yp*, element_type*>::value,
-            shared_ptr<_Tp>&
+            shared_ptr<element_type>&
         >::type
         _LIBCPP_INLINE_VISIBILITY
         operator=(shared_ptr<_Yp>&& __r);
