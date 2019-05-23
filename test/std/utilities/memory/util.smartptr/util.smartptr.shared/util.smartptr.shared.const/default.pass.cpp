@@ -24,9 +24,11 @@ void test()
         assert(p.get() == 0);
     }
     {
+#if TEST_STD_VER >= 11
         std::shared_ptr<T> p {};
         assert(p.use_count() == 0);
         assert(p.get() == 0);
+#endif
     }
 }
 

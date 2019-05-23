@@ -24,7 +24,7 @@ struct ADel : std::default_delete<A>
 
 int main(int, char**)
 {
-    static_assert(!std::is_convertible<A, int>::value);
+    static_assert(!(std::is_convertible<A, int>::value), "");
 
     {
         std::shared_ptr<A> pA;

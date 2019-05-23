@@ -34,7 +34,7 @@ int main(int, char**)
     }
     {
         std::shared_ptr<A> basePtr = std::make_shared<B>();
-        std::shared_ptr<B> sp = std::dynamic_pointer_cast<B>(basePtr)
+        std::shared_ptr<B> sp = std::dynamic_pointer_cast<B>(basePtr);
         assert(sp);
     }
 

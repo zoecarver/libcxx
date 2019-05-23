@@ -20,6 +20,7 @@
 
 #include "test_macros.h"
 
+#if TEST_STD_VER > 14
 template<typename T, typename = std::void_t<>>
 struct has_less
     : std::false_type
@@ -29,23 +30,26 @@ template<typename T>
 struct has_less<T, std::void_t<decltype(std::declval<T>() < std::declval<T>())>>
     : std::true_type
 {};
+#endif
 
 struct A;  // purposefully incomplete
-struct B { int x = 42; };
+struct B
+{
+    int x;
+    B() = default;
+};
 
 template<class T>
 void test()
 {
-    static_assert(std::is_same<typename std::shared_ptr<T>::element_type, T>::value);
+    static_assert((std::is_same<typename std::shared_ptr<T>::element_type, T>::value), "");
 #if TEST_STD_VER > 14
-    static_assert(std::is_same<typename std::shared_ptr<T>::weak_type, std::weak_ptr<T>>::value);
-    static_assert(std::is_copy_constructible<std::shared_ptr<T>>::value);
-    static_assert(std::is_copy_assignable<std::shared_ptr<T>>::value);
+    static_assert(std::is_same<typename std::shared_ptr<T>::weak_type, std::weak_ptr<T>>::value, "");
+    static_assert(std::is_copy_constructible<std::shared_ptr<T>>::value, "");
+    static_assert(std::is_copy_assignable<std::shared_ptr<T>>::value, "");
     static_assert(has_less<std::shared_ptr<T>>::value);
-#if _LIBCPP_NEW_SHARED_PTR
-    static_assert(std::is_same<std::shared_ptr<T[]> ::element_type, T>::value);
-    static_assert(std::is_same<std::shared_ptr<T[8]>::element_type, T>::value);
-#endif
+//     static_assert(std::is_same<std::shared_ptr<T[]> ::element_type, T>::value, "");
+//     static_assert(std::is_same<std::shared_ptr<T[8]>::element_type, T>::value, "");
 #endif
 }
 
