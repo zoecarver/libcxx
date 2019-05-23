@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-// UNSUPPORTED: sanitizer-new-delete, c++98, c++03
+// UNSUPPORTED: sanitizer-new-delete
 
 
 // <memory>
