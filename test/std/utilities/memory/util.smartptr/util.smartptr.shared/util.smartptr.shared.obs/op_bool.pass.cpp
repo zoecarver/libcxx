@@ -33,13 +33,9 @@ int main(int, char**)
         assert(!p);
     }
     {
-        bool check = false;
         std::shared_ptr<A> basePtr = std::make_shared<B>();
-
-        if (std::shared_ptr<B> sp = std::dynamic_pointer_cast<B>(basePtr))
-        { check = true; }
-
-        assert(check);
+        std::shared_ptr<B> sp = std::dynamic_pointer_cast<B>(basePtr)
+        assert(sp);
     }
 
     return 0;

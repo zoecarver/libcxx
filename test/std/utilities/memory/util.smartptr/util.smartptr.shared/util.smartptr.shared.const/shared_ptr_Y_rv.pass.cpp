@@ -59,7 +59,6 @@ int main(int, char**)
     static_assert(( std::is_convertible<std::shared_ptr<A>, std::shared_ptr<B> >::value), "");
     static_assert((!std::is_convertible<std::shared_ptr<B>, std::shared_ptr<A> >::value), "");
     static_assert((!std::is_convertible<std::shared_ptr<A>, std::shared_ptr<C> >::value), "");
-
     {
         std::shared_ptr<A> pA(new A);
         assert(pA.use_count() == 1);
@@ -70,20 +69,31 @@ int main(int, char**)
             std::shared_ptr<B> pB(std::move(pA));
             assert(B::count == 1);
             assert(A::count == 1);
+#if TEST_STD_VER >= 11
             assert(pB.use_count() == 1);
             assert(pA.use_count() == 0);
+#else
+            assert(pB.use_count() == 2);
+            assert(pA.use_count() == 2);
+#endif
             assert(p == pB.get());
         }
+#if TEST_STD_VER >= 11
         assert(pA.use_count() == 0);
         assert(B::count == 0);
         assert(A::count == 0);
+#else
+        assert(pA.use_count() == 1);
+        assert(B::count == 1);
+        assert(A::count == 1);
+#endif
     }
     assert(B::count == 0);
     assert(A::count == 0);
-
     {
         std::shared_ptr<A> pA;
         assert(pA.use_count() == 0);
+        assert(pA.get() == nullptr);
         assert(B::count == 0);
         assert(A::count == 0);
         {
@@ -93,7 +103,7 @@ int main(int, char**)
             assert(pB.use_count() == 0);
             assert(pA.use_count() == 0);
             assert(pA.get() == pB.get());
-            assert(pA.get() == nullptr);
+            assert(pB.get() == nullptr);
         }
         assert(pA.use_count() == 0);
         assert(B::count == 0);
@@ -102,5 +112,5 @@ int main(int, char**)
     assert(B::count == 0);
     assert(A::count == 0);
 
-    return 0;
+  return 0;
 }
