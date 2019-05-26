@@ -13,8 +13,6 @@
 // 'test_library_hash_specializations_available()' function returns false
 // by default, unless a STL header providing hash has already been included.
 
-#include "test_macros.h"
-
 #include "poisoned_hash_helper.hpp"
 
 template <class T, size_t = sizeof(T)>

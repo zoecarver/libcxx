@@ -6,7 +6,6 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 //
 //===----------------------------------------------------------------------===//
-#include "test_macros.h"
 #include "demangle.h"
 #include <typeinfo>
 #include <cassert>
