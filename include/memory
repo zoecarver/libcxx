@@ -3740,17 +3740,19 @@ template<class _Tp> class _LIBCPP_TEMPLATE_VIS enable_shared_from_this;
 template<class _Tp>
 class _LIBCPP_TEMPLATE_VIS shared_ptr
 {
-private:
-    _Tp*                 __ptr_;
-    __shared_weak_count* __cntrl_;
-
-    struct __nat {int __for_bool_;};
 public:
 #if _LIBCPP_STD_VER > 14
     typedef weak_ptr<_Tp> weak_type;
 #endif
 
     typedef _Tp element_type;
+
+private:
+    element_type*        __ptr_;
+    __shared_weak_count* __cntrl_;
+
+    struct __nat {int __for_bool_;};
+public:
 
     _LIBCPP_INLINE_VISIBILITY
     _LIBCPP_CONSTEXPR shared_ptr() _NOEXCEPT;
