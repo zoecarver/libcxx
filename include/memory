@@ -3741,12 +3741,11 @@ template<class _Tp>
 class _LIBCPP_TEMPLATE_VIS shared_ptr
 {
 public:
+    typedef _Tp element_type;
+
 #if _LIBCPP_STD_VER > 14
     typedef weak_ptr<_Tp> weak_type;
 #endif
-
-    typedef _Tp element_type;
-
 private:
     element_type*        __ptr_;
     __shared_weak_count* __cntrl_;
