@@ -13,6 +13,8 @@
 #include <memory>
 #include <cassert>
 
+#include "test_macros.h"
+
 struct A
 {
     static int count;
@@ -42,6 +44,15 @@ int main(int, char**)
     assert(p.get() == ptr);
     }
     assert(A::count == 0);
+
+#if TEST_STD_VER > 14
+    {
+        std::shared_ptr<A[8]> pA(new A[8]);
+        assert(pA.use_count() == 1);
+        assert(A::count == 8);
+    }
+    assert(A::count == 0);
+#endif
 
   return 0;
 }

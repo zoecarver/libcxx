@@ -48,8 +48,8 @@ void test()
     static_assert(std::is_copy_constructible<std::shared_ptr<T>>::value, "");
     static_assert(std::is_copy_assignable<std::shared_ptr<T>>::value, "");
     static_assert(has_less<std::shared_ptr<T>>::value);
-//     static_assert(std::is_same<std::shared_ptr<T[]> ::element_type, T>::value, "");
-//     static_assert(std::is_same<std::shared_ptr<T[8]>::element_type, T>::value, "");
+    static_assert(std::is_same<typename std::shared_ptr<T[]> ::element_type, T>::value, "");
+    static_assert(std::is_same<typename std::shared_ptr<T[8]>::element_type, T>::value, "");
 #endif
 }
 

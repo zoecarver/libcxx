@@ -3747,7 +3747,11 @@ struct __ref_not_void<void>
 
 template<class _Tp, class _Up>
 struct __compatible_with
+#if _LIBCPP_STD_VER > 14
     : is_convertible<remove_extent_t<_Tp>*, remove_extent_t<_Up>*> {};
+#else
+    : is_convertible<_Tp*, _Up*> {};
+#endif // _LIBCPP_STD_VER > 14
 
 template<class _Tp>
 class _LIBCPP_TEMPLATE_VIS shared_ptr
@@ -3802,11 +3806,11 @@ public:
 #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
     template<class _Yp>
         shared_ptr(auto_ptr<_Yp>&& __r,
-                   typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat());
+                   typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type = __nat());
 #else
     template<class _Yp>
         shared_ptr(auto_ptr<_Yp> __r,
-                   typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat());
+                   typename enable_if<is_convertible<_Yp*, element_type*>::value, __nat>::type = __nat());
 #endif
 #endif
 
@@ -4017,7 +4021,7 @@ private:
     template <class _Up> friend class _LIBCPP_TEMPLATE_VIS shared_ptr;
     template <class _Up> friend class _LIBCPP_TEMPLATE_VIS weak_ptr;
 
-    template<class _Yp, class _Deleter = default_delete<_Yp>,
+    template<class _Yp, class _Deleter = default_delete<_Tp>,
                         class _Alloc = typename __shared_ptr_default_allocator<_Yp>::type>
     static __shared_weak_count*
     __allocate_shared(_Yp* __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
@@ -4789,7 +4793,9 @@ inline _LIBCPP_INLINE_VISIBILITY
 shared_ptr<_Tp>
 static_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 {
-    return shared_ptr<_Tp>(__r, static_cast<remove_extent_t<_Tp>*>(__r.get()));
+    return shared_ptr<_Tp>(__r,
+                           static_cast<
+                               typename shared_ptr<_Tp>::element_type*>(__r.get()));
 }
 
 template<class _Tp, class _Up>
@@ -4797,7 +4803,7 @@ inline _LIBCPP_INLINE_VISIBILITY
 shared_ptr<_Tp>
 dynamic_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 {
-    _Tp* __p = dynamic_cast<remove_extent_t<_Tp>*>(__r.get());
+    _Tp* __p = dynamic_cast<typename shared_ptr<_Tp>::element_type*>(__r.get());
     return __p ? shared_ptr<_Tp>(__r, __p) : shared_ptr<_Tp>();
 }
 
@@ -4805,7 +4811,7 @@ template<class _Tp, class _Up>
 shared_ptr<_Tp>
 const_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 {
-    typedef typename remove_extent<_Tp>::type _RTp;
+    typedef typename shared_ptr<_Tp>::element_type _RTp;
     return shared_ptr<_Tp>(__r, const_cast<_RTp*>(__r.get()));
 }
 
@@ -4813,7 +4819,9 @@ template<class _Tp, class _Up>
 shared_ptr<_Tp>
 reinterpret_pointer_cast(const shared_ptr<_Up>& __r) noexcept
 {
-    return shared_ptr<_Tp>(__r, reinterpret_cast<remove_extent_t<_Tp>*>(__r.get()));
+    return shared_ptr<_Tp>(__r,
+                           reinterpret_cast<
+                               typename shared_ptr<_Tp>::element_type*>(__r.get()));
 }
 
 #ifndef _LIBCPP_NO_RTTI
@@ -5214,7 +5222,7 @@ struct _LIBCPP_TEMPLATE_VIS hash<shared_ptr<_Tp> >
     _LIBCPP_INLINE_VISIBILITY
     result_type operator()(const argument_type& __ptr) const _NOEXCEPT
     {
-        return hash<remove_extent_t<_Tp>*>()(__ptr.get());
+        return hash<typename shared_ptr<_Tp>::element_type*>()(__ptr.get());
     }
 };
 
