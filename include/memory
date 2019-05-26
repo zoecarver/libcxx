@@ -3752,7 +3752,6 @@ private:
 
     struct __nat {int __for_bool_;};
 public:
-
     _LIBCPP_INLINE_VISIBILITY
     _LIBCPP_CONSTEXPR shared_ptr() _NOEXCEPT;
     _LIBCPP_INLINE_VISIBILITY
