@@ -105,5 +105,5 @@ int main(int, char**)
     assert(B::count == 0);
     assert(A::count == 0);
 
-  return 0;
+    return 0;
 }

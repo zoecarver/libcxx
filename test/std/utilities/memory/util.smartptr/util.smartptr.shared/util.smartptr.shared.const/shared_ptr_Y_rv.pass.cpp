@@ -93,6 +93,7 @@ int main(int, char**)
     {
         std::shared_ptr<A> pA;
         assert(pA.use_count() == 0);
+        assert(pA.get() == nullptr);
         assert(B::count == 0);
         assert(A::count == 0);
         {
@@ -102,6 +103,7 @@ int main(int, char**)
             assert(pB.use_count() == 0);
             assert(pA.use_count() == 0);
             assert(pA.get() == pB.get());
+            assert(pB.get() == nullptr);
         }
         assert(pA.use_count() == 0);
         assert(B::count == 0);
