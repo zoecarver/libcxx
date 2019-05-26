@@ -3664,6 +3664,9 @@ private:
     virtual void __on_zero_shared_weak() _NOEXCEPT;
 
 public:
+
+#ifndef _LIBCPP_HAS_NO_VARIADICS
+
     _LIBCPP_INLINE_VISIBILITY
     __shared_ptr_emplace(_Alloc __a)
         :  __data_(_VSTD::move(__a)) {}
@@ -3673,6 +3676,29 @@ public:
         __shared_ptr_emplace(_Alloc __a, _Args&& ...__args)
             :  __data_(piecewise_construct, _VSTD::forward_as_tuple(__a),
                    _VSTD::forward_as_tuple(_VSTD::forward<_Args>(__args)...)) {}
+
+#else  // _LIBCPP_HAS_NO_VARIADICS
+
+    _LIBCPP_INLINE_VISIBILITY
+    __shared_ptr_emplace(_Alloc __a)
+        :  __data_(__a) {}
+
+    template <class _A0>
+        _LIBCPP_INLINE_VISIBILITY
+        __shared_ptr_emplace(_Alloc __a, _A0& __a0)
+            :  __data_(__a, _Tp(__a0)) {}
+
+    template <class _A0, class _A1>
+        _LIBCPP_INLINE_VISIBILITY
+        __shared_ptr_emplace(_Alloc __a, _A0& __a0, _A1& __a1)
+            :  __data_(__a, _Tp(__a0, __a1)) {}
+
+    template <class _A0, class _A1, class _A2>
+        _LIBCPP_INLINE_VISIBILITY
+        __shared_ptr_emplace(_Alloc __a, _A0& __a0, _A1& __a1, _A2& __a2)
+            :  __data_(__a, _Tp(__a0, __a1, __a2)) {}
+
+#endif  // _LIBCPP_HAS_NO_VARIADICS
 
     _LIBCPP_INLINE_VISIBILITY
     _Tp* get() _NOEXCEPT {return _VSTD::addressof(__data_.second());}
@@ -3726,11 +3752,6 @@ struct __compatible_with
 template<class _Tp>
 class _LIBCPP_TEMPLATE_VIS shared_ptr
 {
-private:
-    _Tp*                 __ptr_;
-    __shared_weak_count* __cntrl_;
-
-    struct __nat {int __for_bool_;};
 public:
 #if _LIBCPP_STD_VER > 14
     typedef weak_ptr<_Tp> weak_type;
@@ -3739,6 +3760,12 @@ public:
     typedef _Tp element_type;
 #endif
 
+private:
+    element_type*        __ptr_;
+    __shared_weak_count* __cntrl_;
+
+    struct __nat {int __for_bool_;};
+public:
     _LIBCPP_INLINE_VISIBILITY
     _LIBCPP_CONSTEXPR shared_ptr() _NOEXCEPT;
     _LIBCPP_INLINE_VISIBILITY
@@ -3782,24 +3809,34 @@ public:
                    typename enable_if<__compatible_with<_Yp, element_type>::value, __nat>::type = __nat());
 #endif
 #endif
-    template <class _Yp, class _Dp>
-    shared_ptr(unique_ptr<_Yp, _Dp>&& __r,
-        typename enable_if
-        <
-            !is_array<_Yp>::value &&
-            is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
-                                element_type*>::value,
-            __nat
-        >::type = __nat());
-    template <class _Yp, class _Dp>
-    shared_ptr(unique_ptr<_Yp, _Dp&>&& __r,
-        typename enable_if
-        <
-            !is_array<_Yp>::value &&
-            is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
-                                element_type*>::value,
-            __nat
-        >::type = __nat());
+
+    template<class _Yp, class _Dp>
+#ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        shared_ptr(unique_ptr<_Yp, _Dp&>&& __r,
+#else
+        shared_ptr(unique_ptr<_Yp, _Dp&> __r,
+#endif
+            typename enable_if
+            <
+                !is_array<_Yp>::value &&
+                is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
+                                    element_type*>::value,
+                __nat
+            >::type = __nat());
+
+    template<class _Yp, class _Dp>
+#ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        shared_ptr(unique_ptr<_Yp, _Dp>&& __r,
+#else
+        shared_ptr(unique_ptr<_Yp, _Dp> __r,
+#endif
+            typename enable_if
+            <
+                !is_array<_Yp>::value &&
+                is_convertible<typename unique_ptr<_Yp, _Dp>::pointer,
+                                    element_type*>::value,
+                __nat
+            >::type = __nat());
 
     ~shared_ptr();
 
@@ -3934,15 +3971,16 @@ public:
                       : nullptr);}
 #endif  // _LIBCPP_NO_RTTI
 
-    template<class ..._Args>
-        static
-        shared_ptr<_Tp>
-        make_shared(_Args&& ...__args);
-
-    template<class _Alloc, class ..._Args>
-        static
-        shared_ptr<_Tp>
-        allocate_shared(const _Alloc& __a, _Args&& ...__args);
+    template<class _Yp, class _CntrlBlk>
+    static shared_ptr<_Tp>
+    __create_with_cntrl_block(_Yp* __p, _CntrlBlk* __cntrl)
+    {
+        shared_ptr<_Tp> __r;
+        __r.__ptr_ = __p;
+        __r.__cntrl_ = __cntrl;
+        __r.__enable_weak_this(__r.__ptr_, __r.__ptr_);
+        return __r;
+    }
 
 private:
     template <class _Yp, bool = is_function<_Yp>::value>
@@ -4164,7 +4202,11 @@ shared_ptr<_Tp>::shared_ptr(auto_ptr<_Yp> __r,
 
 template<class _Tp>
 template <class _Yp, class _Dp>
-shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp>&& __r,
+#ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp&>&& __r,
+#else
+shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp&> __r,
+#endif
                             typename enable_if
                             <
                                 !is_array<_Yp>::value &&
@@ -4192,7 +4234,11 @@ shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp>&& __r,
 
 template<class _Tp>
 template <class _Yp, class _Dp>
-shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp&>&& __r,
+#ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp>&& __r,
+#else
+shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp> __r,
+#endif
                             typename enable_if
                             <
                                 !is_array<_Yp>::value &&
@@ -4214,50 +4260,6 @@ shared_ptr<_Tp>::shared_ptr(unique_ptr<_Yp, _Dp&>&& __r,
         __enable_weak_this(__r.get(), __r.get());
     }
     __r.release();
-}
-
-template<class _Tp>
-template<class ..._Args>
-shared_ptr<_Tp>
-shared_ptr<_Tp>::make_shared(_Args&& ...__args)
-{
-    static_assert( is_constructible<_Tp, _Args...>::value, "Can't construct object in make_shared" );
-    typedef __shared_ptr_emplace<_Tp, allocator<_Tp> > _CntrlBlk;
-    typedef allocator<_CntrlBlk> _A2;
-    typedef __allocator_destructor<_A2> _D2;
-
-    _A2 __a2;
-    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
-    ::new(__hold2.get()) _CntrlBlk(__a2, _VSTD::forward<_Args>(__args)...);
-
-    shared_ptr<_Tp> __r;
-    __r.__ptr_ = __hold2.get()->get();
-    __r.__cntrl_ = __hold2.release();
-    __r.__enable_weak_this(__r.__ptr_, __r.__ptr_);
-    return __r;
-}
-
-template<class _Tp>
-template<class _Alloc, class ..._Args>
-shared_ptr<_Tp>
-shared_ptr<_Tp>::allocate_shared(const _Alloc& __a, _Args&& ...__args)
-{
-    static_assert(is_constructible<_Tp, _Args...>::value, "Can't construct object in allocate_shared");
-
-    typedef __shared_ptr_emplace<_Tp, _Alloc> _CntrlBlk;
-    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _A2;
-    typedef __allocator_destructor<_A2> _D2;
-
-    _A2 __a2(__a);
-    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
-    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
-        _CntrlBlk(__a, _VSTD::forward<_Args>(__args)...);
-
-    shared_ptr<_Tp> __r;
-    __r.__ptr_ = __hold2.get()->get();
-    __r.__cntrl_ = _VSTD::addressof(*__hold2.release());
-    __r.__enable_weak_this(__r.__ptr_, __r.__ptr_);
-    return __r;
 }
 
 template<class _Tp>
@@ -4452,7 +4454,17 @@ typename enable_if
 >::type
 make_shared(_Args&& ...__args)
 {
-    return shared_ptr<_Tp>::make_shared(_VSTD::forward<_Args>(__args)...);
+    static_assert(is_constructible<_Tp, _Args...>::value, "Can't construct object in make_shared");
+    typedef __shared_ptr_emplace<_Tp, allocator<_Tp> > _CntrlBlk;
+    typedef allocator<_CntrlBlk> _A2;
+    typedef __allocator_destructor<_A2> _D2;
+
+    _A2 __a2;
+    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
+    ::new(__hold2.get()) _CntrlBlk(__a2, _VSTD::forward<_Args>(__args)...);
+
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      __hold2.release());
 }
 
 template<class _Tp, class _Alloc, class ..._Args>
@@ -4464,73 +4476,152 @@ typename enable_if
 >::type
 allocate_shared(const _Alloc& __a, _Args&& ...__args)
 {
-    return shared_ptr<_Tp>::allocate_shared(__a, _VSTD::forward<_Args>(__args)...);
+    static_assert(is_constructible<_Tp, _Args...>::value, "Can't construct object in allocate_shared");
+
+    typedef __shared_ptr_emplace<_Tp, _Alloc> _CntrlBlk;
+    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _A2;
+    typedef __allocator_destructor<_A2> _D2;
+
+    _A2 __a2(__a);
+    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
+    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+        _CntrlBlk(__a, _VSTD::forward<_Args>(__args)...);
+
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      _VSTD::addressof(*__hold2.release()));
 }
 
 #else  // _LIBCPP_HAS_NO_VARIADICS
 
 template<class _Tp>
-inline _LIBCPP_INLINE_VISIBILITY
 shared_ptr<_Tp>
 make_shared()
 {
-    return shared_ptr<_Tp>::make_shared();
+    static_assert((is_constructible<_Tp>::value), "Can't construct object in make_shared" );
+    typedef __shared_ptr_emplace<_Tp, allocator<_Tp> > _CntrlBlk;
+    typedef allocator<_CntrlBlk> _Alloc2;
+    typedef __allocator_destructor<_Alloc2> _D2;
+    _Alloc2 __alloc2;
+    unique_ptr<_CntrlBlk, _D2> __hold2(__alloc2.allocate(1), _D2(__alloc2, 1));
+    ::new(__hold2.get()) _CntrlBlk(__alloc2);
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      __hold2.release());
 }
 
-template<class _Tp, class _A0>
-inline _LIBCPP_INLINE_VISIBILITY
+template<class _Tp>
+template<class _A0>
 shared_ptr<_Tp>
 make_shared(_A0& __a0)
 {
-    return shared_ptr<_Tp>::make_shared(__a0);
+    static_assert((is_constructible<_Tp, _A0>::value), "Can't construct object in make_shared" );
+    typedef __shared_ptr_emplace<_Tp, allocator<_Tp> > _CntrlBlk;
+    typedef allocator<_CntrlBlk> _Alloc2;
+    typedef __allocator_destructor<_Alloc2> _D2;
+    _Alloc2 __alloc2;
+    unique_ptr<_CntrlBlk, _D2> __hold2(__alloc2.allocate(1), _D2(__alloc2, 1));
+    ::new(__hold2.get()) _CntrlBlk(__alloc2, __a0);
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      __hold2.release());
 }
 
-template<class _Tp, class _A0, class _A1>
-inline _LIBCPP_INLINE_VISIBILITY
+template<class _Tp>
+template<class _A0, class _A1>
 shared_ptr<_Tp>
 make_shared(_A0& __a0, _A1& __a1)
 {
-    return shared_ptr<_Tp>::make_shared(__a0, __a1);
+    static_assert((is_constructible<_Tp, _A0, _A1>::value), "Can't construct object in make_shared" );
+    typedef __shared_ptr_emplace<_Tp, allocator<_Tp> > _CntrlBlk;
+    typedef allocator<_CntrlBlk> _Alloc2;
+    typedef __allocator_destructor<_Alloc2> _D2;
+    _Alloc2 __alloc2;
+    unique_ptr<_CntrlBlk, _D2> __hold2(__alloc2.allocate(1), _D2(__alloc2, 1));
+    ::new(__hold2.get()) _CntrlBlk(__alloc2, __a0, __a1);
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      __hold2.release());
 }
 
-template<class _Tp, class _A0, class _A1, class _A2>
-inline _LIBCPP_INLINE_VISIBILITY
+template<class _Tp>
+template<class _A0, class _A1, class _A2>
 shared_ptr<_Tp>
 make_shared(_A0& __a0, _A1& __a1, _A2& __a2)
 {
-    return shared_ptr<_Tp>::make_shared(__a0, __a1, __a2);
+    static_assert((is_constructible<_Tp, _A0, _A1, _A2>::value), "Can't construct object in make_shared" );
+    typedef __shared_ptr_emplace<_Tp, allocator<_Tp> > _CntrlBlk;
+    typedef allocator<_CntrlBlk> _Alloc2;
+    typedef __allocator_destructor<_Alloc2> _D2;
+    _Alloc2 __alloc2;
+    unique_ptr<_CntrlBlk, _D2> __hold2(__alloc2.allocate(1), _D2(__alloc2, 1));
+    ::new(__hold2.get()) _CntrlBlk(__alloc2, __a0, __a1, __a2);
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      __hold2.release());
 }
 
-template<class _Tp, class _Alloc>
-inline _LIBCPP_INLINE_VISIBILITY
+template<class _Tp>
+template<class _Alloc>
 shared_ptr<_Tp>
 allocate_shared(const _Alloc& __a)
 {
-    return shared_ptr<_Tp>::allocate_shared(__a);
+    static_assert((is_constructible<_Tp>::value), "Can't construct object in allocate_shared" );
+    typedef __shared_ptr_emplace<_Tp, _Alloc> _CntrlBlk;
+    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _Alloc2;
+    typedef __allocator_destructor<_Alloc2> _D2;
+    _Alloc2 __alloc2(__a);
+    unique_ptr<_CntrlBlk, _D2> __hold2(__alloc2.allocate(1), _D2(__alloc2, 1));
+    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+        _CntrlBlk(__a);
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      _VSTD::addressof(*__hold2.release()));
 }
 
-template<class _Tp, class _Alloc, class _A0>
-inline _LIBCPP_INLINE_VISIBILITY
+template<class _Tp>
+template<class _Alloc, class _A0>
 shared_ptr<_Tp>
 allocate_shared(const _Alloc& __a, _A0& __a0)
 {
-    return shared_ptr<_Tp>::allocate_shared(__a, __a0);
+    static_assert((is_constructible<_Tp, _A0>::value), "Can't construct object in allocate_shared" );
+    typedef __shared_ptr_emplace<_Tp, _Alloc> _CntrlBlk;
+    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _Alloc2;
+    typedef __allocator_destructor<_Alloc2> _D2;
+    _Alloc2 __alloc2(__a);
+    unique_ptr<_CntrlBlk, _D2> __hold2(__alloc2.allocate(1), _D2(__alloc2, 1));
+    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+        _CntrlBlk(__a, __a0);
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      _VSTD::addressof(*__hold2.release()));
 }
 
-template<class _Tp, class _Alloc, class _A0, class _A1>
-inline _LIBCPP_INLINE_VISIBILITY
+template<class _Tp>
+template<class _Alloc, class _A0, class _A1>
 shared_ptr<_Tp>
 allocate_shared(const _Alloc& __a, _A0& __a0, _A1& __a1)
 {
-    return shared_ptr<_Tp>::allocate_shared(__a, __a0, __a1);
+    static_assert((is_constructible<_Tp, _A0, _A1>::value), "Can't construct object in allocate_shared" );
+    typedef __shared_ptr_emplace<_Tp, _Alloc> _CntrlBlk;
+    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _Alloc2;
+    typedef __allocator_destructor<_Alloc2> _D2;
+    _Alloc2 __alloc2(__a);
+    unique_ptr<_CntrlBlk, _D2> __hold2(__alloc2.allocate(1), _D2(__alloc2, 1));
+    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+        _CntrlBlk(__a, __a0, __a1);
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      _VSTD::addressof(*__hold2.release()));
 }
 
-template<class _Tp, class _Alloc, class _A0, class _A1, class _A2>
-inline _LIBCPP_INLINE_VISIBILITY
+template<class _Tp>
+template<class _Alloc, class _A0, class _A1, class _A2>
 shared_ptr<_Tp>
 allocate_shared(const _Alloc& __a, _A0& __a0, _A1& __a1, _A2& __a2)
 {
-    return shared_ptr<_Tp>::allocate_shared(__a, __a0, __a1, __a2);
+    static_assert((is_constructible<_Tp, _A0, _A1, _A2>::value), "Can't construct object in allocate_shared" );
+    typedef __shared_ptr_emplace<_Tp, _Alloc> _CntrlBlk;
+    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _Alloc2;
+    typedef __allocator_destructor<_Alloc2> _D2;
+    _Alloc2 __alloc2(__a);
+    unique_ptr<_CntrlBlk, _D2> __hold2(__alloc2.allocate(1), _D2(__alloc2, 1));
+    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+        _CntrlBlk(__a, __a0, __a1, __a2);
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      _VSTD::addressof(*__hold2.release()));
 }
 
 #endif  // _LIBCPP_HAS_NO_VARIADICS
