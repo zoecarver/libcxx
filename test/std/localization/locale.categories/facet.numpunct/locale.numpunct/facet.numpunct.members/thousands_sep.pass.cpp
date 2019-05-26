@@ -12,6 +12,8 @@
 
 // char_type thousands_sep() const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

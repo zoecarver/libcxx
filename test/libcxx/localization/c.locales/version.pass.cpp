@@ -8,6 +8,8 @@
 
 // <clocale>
 
+#include "test_macros.h"
+
 #include <clocale>
 
 #ifndef _LIBCPP_VERSION

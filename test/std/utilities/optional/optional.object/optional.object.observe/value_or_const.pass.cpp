@@ -11,6 +11,8 @@
 
 // template <class U> constexpr T optional<T>::value_or(U&& v) const&;
 
+#include "test_macros.h"
+
 #include <optional>
 #include <type_traits>
 #include <cassert>

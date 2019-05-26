@@ -11,6 +11,8 @@
 
 // void push_back(const value_type& x);
 
+#include "test_macros.h"
+
 #include <list>
 #include <cassert>
 

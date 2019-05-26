@@ -14,6 +14,8 @@
 
 // Stress testing large arities with tuple and array.
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <array>
 #include <utility>

@@ -11,6 +11,8 @@
 
 // void rethrow_exception [[noreturn]] (exception_ptr p);
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cassert>
 

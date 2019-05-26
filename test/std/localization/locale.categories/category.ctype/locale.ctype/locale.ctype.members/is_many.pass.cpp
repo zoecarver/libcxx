@@ -12,6 +12,8 @@
 
 // const charT* do_is(const charT* low, const charT* high, mask* vec) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <string>
 #include <vector>

@@ -6,6 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "test_macros.h"
+
 #include <string_view>
 
 int main(int, char**) {

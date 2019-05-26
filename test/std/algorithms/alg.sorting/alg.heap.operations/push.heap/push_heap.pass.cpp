@@ -14,6 +14,8 @@
 //   void
 //   push_heap(Iter first, Iter last);
 
+#include "test_macros.h"
+
 #include <algorithm>
 #include <random>
 #include <cassert>

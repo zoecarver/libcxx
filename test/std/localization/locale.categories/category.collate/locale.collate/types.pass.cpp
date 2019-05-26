@@ -18,6 +18,8 @@
 //     static locale::id id;
 // };
 
+#include "test_macros.h"
+
 #include <locale>
 #include <type_traits>
 #include <cassert>

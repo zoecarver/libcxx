@@ -13,6 +13,8 @@
 
 // https://bugs.llvm.org/show_bug.cgi?id=16816
 
+#include "test_macros.h"
+
 #include <vector>
 #include <algorithm>
 #include <cassert>

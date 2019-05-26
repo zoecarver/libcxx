@@ -12,6 +12,8 @@
 
 // template <ObjectType T> reference_wrapper<T> ref(T& t);
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

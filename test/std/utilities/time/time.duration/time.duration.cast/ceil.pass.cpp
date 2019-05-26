@@ -17,6 +17,8 @@
 //   ToDuration
 //   ceil(const duration<Rep, Period>& d);
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <type_traits>
 #include <cassert>

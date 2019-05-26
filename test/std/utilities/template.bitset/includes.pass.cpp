@@ -8,6 +8,8 @@
 
 // test that <bitset> includes <string> and <iosfwd>
 
+#include "test_macros.h"
+
 #include <bitset>
 
 template <class> void test_typedef() {}

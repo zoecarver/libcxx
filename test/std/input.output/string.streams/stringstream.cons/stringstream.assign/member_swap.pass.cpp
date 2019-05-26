@@ -13,6 +13,8 @@
 
 // void swap(basic_stringstream& rhs);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

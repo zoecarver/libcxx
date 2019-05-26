@@ -12,6 +12,8 @@
 
 // void freeze(bool freezefl = true);
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 

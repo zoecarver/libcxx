@@ -13,6 +13,8 @@
 // void
 // __tree_right_rotate(_NodePtr __x);
 
+#include "test_macros.h"
+
 #include <__tree>
 #include <cassert>
 

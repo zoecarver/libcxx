@@ -14,6 +14,8 @@
 
 // future(future&& rhs);
 
+#include "test_macros.h"
+
 #include <future>
 #include <cassert>
 

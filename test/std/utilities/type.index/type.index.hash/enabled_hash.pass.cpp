@@ -13,6 +13,8 @@
 // Test that <typeindex> provides all of the arithmetic, enum, and pointer
 // hash specializations.
 
+#include "test_macros.h"
+
 #include <typeindex>
 
 #include "poisoned_hash_helper.hpp"

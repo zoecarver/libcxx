@@ -14,6 +14,8 @@
 
 // thread(thread&& t);
 
+#include "test_macros.h"
+
 #include <thread>
 #include <new>
 #include <cstdlib>

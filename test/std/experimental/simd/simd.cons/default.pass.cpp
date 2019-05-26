@@ -13,6 +13,8 @@
 // [simd.class]
 // simd() = default;
 
+#include "test_macros.h"
+
 #include <cstdint>
 #include <experimental/simd>
 

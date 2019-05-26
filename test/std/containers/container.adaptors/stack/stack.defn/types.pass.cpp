@@ -23,6 +23,8 @@
 // ...
 // };
 
+#include "test_macros.h"
+
 #include <stack>
 #include <vector>
 #include <type_traits>

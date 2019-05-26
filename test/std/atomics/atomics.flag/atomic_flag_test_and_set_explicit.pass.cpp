@@ -15,6 +15,8 @@
 // bool atomic_flag_test_and_set_explicit(volatile atomic_flag*, memory_order);
 // bool atomic_flag_test_and_set_explicit(atomic_flag*, memory_order);
 
+#include "test_macros.h"
+
 #include <atomic>
 #include <cassert>
 

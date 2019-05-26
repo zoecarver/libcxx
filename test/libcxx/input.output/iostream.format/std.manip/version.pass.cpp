@@ -8,6 +8,8 @@
 
 // <iomanip>
 
+#include "test_macros.h"
+
 #include <iomanip>
 
 #ifndef _LIBCPP_VERSION

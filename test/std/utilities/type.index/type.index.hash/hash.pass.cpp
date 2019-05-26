@@ -17,6 +17,8 @@
 //     size_t operator()(type_index index) const;
 // };
 
+#include "test_macros.h"
+
 #include <typeindex>
 #include <type_traits>
 #include <cassert>

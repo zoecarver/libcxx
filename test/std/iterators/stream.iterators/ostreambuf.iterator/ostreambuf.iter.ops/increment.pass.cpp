@@ -13,6 +13,8 @@
 // ostreambuf_iterator<charT,traits>& operator++();
 // ostreambuf_iterator<charT,traits>& operator++(int);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <sstream>
 #include <cassert>

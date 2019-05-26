@@ -13,6 +13,8 @@
 
 // Test that <experimental/coroutine> includes <new>
 
+#include "test_macros.h"
+
 #include <experimental/coroutine>
 
 int main(int, char**) {

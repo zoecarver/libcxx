@@ -18,6 +18,8 @@
 // This test checks that we do not evaluate __make_tuple_types
 // on the array when it doesn't match the size of the tuple.
 
+#include "test_macros.h"
+
 #include <array>
 #include <tuple>
 

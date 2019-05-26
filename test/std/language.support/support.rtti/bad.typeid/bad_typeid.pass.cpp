@@ -8,6 +8,8 @@
 
 // test bad_typeid
 
+#include "test_macros.h"
+
 #include <typeinfo>
 #include <type_traits>
 #include <cassert>

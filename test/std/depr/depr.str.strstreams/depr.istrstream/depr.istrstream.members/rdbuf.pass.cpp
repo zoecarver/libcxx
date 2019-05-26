@@ -12,6 +12,8 @@
 
 // strstreambuf* rdbuf() const;
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 

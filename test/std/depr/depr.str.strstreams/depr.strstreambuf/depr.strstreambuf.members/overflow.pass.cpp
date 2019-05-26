@@ -16,6 +16,8 @@
 // UNSUPPORTED: with_system_cxx_lib=macosx10.8
 // UNSUPPORTED: with_system_cxx_lib=macosx10.7
 
+#include "test_macros.h"
+
 #include <iostream>
 #include <string>
 #include <strstream>

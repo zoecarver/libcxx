@@ -13,6 +13,8 @@
 // front_insert_iterator<Cont>&
 //   operator=(const Cont::value_type& value);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <list>
 #include <cassert>

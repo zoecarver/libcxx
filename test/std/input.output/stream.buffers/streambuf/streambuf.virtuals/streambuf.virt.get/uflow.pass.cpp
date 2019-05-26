@@ -13,6 +13,8 @@
 
 // int_type uflow();
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

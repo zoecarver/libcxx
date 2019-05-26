@@ -13,6 +13,8 @@
 
 // streamsize showmanyc();
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

@@ -12,6 +12,8 @@
 
 // mask_array<value_type> operator[](const valarray<bool>& vb);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

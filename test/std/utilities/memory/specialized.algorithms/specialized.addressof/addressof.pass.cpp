@@ -10,6 +10,8 @@
 
 // template <ObjectType T> T* addressof(T& r);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

@@ -19,6 +19,8 @@
 //     template <class _Up> struct rebind {typedef allocator<_Up> other;};
 // };
 
+#include "test_macros.h"
+
 #include <memory>
 #include <type_traits>
 

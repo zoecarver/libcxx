@@ -29,6 +29,8 @@
 // static const fmtflags basefield   = dec | oct | hex;
 // static const fmtflags floatfield  = scientific | fixed;
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

@@ -15,6 +15,8 @@
 // void type(file_type) noexcept;
 // void permissions(perms) noexcept;
 
+#include "test_macros.h"
+
 #include "filesystem_include.hpp"
 #include <type_traits>
 #include <cassert>

@@ -16,6 +16,8 @@
 //   swap(basic_istringstream<charT, traits, Allocator>& x,
 //        basic_istringstream<charT, traits, Allocator>& y);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

@@ -12,6 +12,8 @@
 
 // const char* tolower(char* low, const char* high) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <string>
 #include <cassert>

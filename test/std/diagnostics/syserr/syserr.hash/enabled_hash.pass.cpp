@@ -13,6 +13,8 @@
 // Test that <system_error> provides all of the arithmetic, enum, and pointer
 // hash specializations.
 
+#include "test_macros.h"
+
 #include <system_error>
 
 #include "poisoned_hash_helper.hpp"

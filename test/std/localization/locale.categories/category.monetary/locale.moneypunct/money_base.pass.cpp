@@ -15,6 +15,8 @@
 //     struct pattern {char field[4];};
 // };
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

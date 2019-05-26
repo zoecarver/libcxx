@@ -10,6 +10,8 @@
 
 // explicit queue(const container_type& c);
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 #include <cstddef>

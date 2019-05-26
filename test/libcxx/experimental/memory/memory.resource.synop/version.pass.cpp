@@ -10,6 +10,8 @@
 
 // <experimental/memory_resource>
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 
 #ifndef _LIBCPP_VERSION

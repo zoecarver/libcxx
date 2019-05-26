@@ -12,6 +12,8 @@
 //  Tuples of smart pointers; based on bug #18350
 //  auto_ptr doesn't have a copy constructor that takes a const &, but tuple does.
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <memory>
 

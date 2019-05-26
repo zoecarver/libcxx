@@ -14,6 +14,8 @@
 
 // template <class U, class V> pair(pair<U, V>&& p);
 
+#include "test_macros.h"
+
 #include <utility>
 #include <memory>
 #include <cassert>

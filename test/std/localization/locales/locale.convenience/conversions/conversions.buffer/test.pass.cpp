@@ -10,6 +10,8 @@
 
 // wbuffer_convert<Codecvt, Elem, Tr>
 
+#include "test_macros.h"
+
 #include <fstream>
 #include <locale>
 #include <codecvt>

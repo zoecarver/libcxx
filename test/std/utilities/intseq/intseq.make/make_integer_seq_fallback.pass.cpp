@@ -14,4 +14,6 @@
 // UNSUPPORTED: c++98, c++03, c++11
 
 #define _LIBCPP_TESTING_FALLBACK_MAKE_INTEGER_SEQUENCE
+#include "test_macros.h"
+
 #include "make_integer_seq.pass.cpp"

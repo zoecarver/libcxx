@@ -10,6 +10,8 @@
 
 // void pop();
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

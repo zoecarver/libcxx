@@ -12,6 +12,8 @@
 
 // template<class T, class U> shared_ptr<T> dynamic_pointer_cast(const shared_ptr<U>& r);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <type_traits>
 #include <cassert>

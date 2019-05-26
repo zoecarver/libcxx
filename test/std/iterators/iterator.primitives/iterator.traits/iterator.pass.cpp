@@ -18,6 +18,8 @@
 //   typedef typename Iter::iterator_category iterator_category;
 // };
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <type_traits>
 

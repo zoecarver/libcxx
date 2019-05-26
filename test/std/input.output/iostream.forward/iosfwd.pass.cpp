@@ -8,6 +8,8 @@
 
 // <iosfwd>
 
+#include "test_macros.h"
+
 #include <iosfwd>
 #include <cwchar>  // for mbstate_t
 

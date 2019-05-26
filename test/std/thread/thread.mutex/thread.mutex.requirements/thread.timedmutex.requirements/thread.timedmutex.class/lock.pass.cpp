@@ -14,6 +14,8 @@
 
 // void lock();
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <thread>
 #include <cstdlib>

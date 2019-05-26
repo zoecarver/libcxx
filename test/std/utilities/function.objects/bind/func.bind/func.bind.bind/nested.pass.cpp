@@ -17,6 +17,8 @@
 
 // https://bugs.llvm.org/show_bug.cgi?id=16343
 
+#include "test_macros.h"
+
 #include <cmath>
 #include <functional>
 #include <cassert>

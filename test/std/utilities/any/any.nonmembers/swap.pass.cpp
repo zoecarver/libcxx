@@ -16,6 +16,8 @@
 
 // swap(...) just wraps any::swap(...). That function is tested elsewhere.
 
+#include "test_macros.h"
+
 #include <any>
 #include <cassert>
 

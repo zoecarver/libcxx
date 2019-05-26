@@ -12,6 +12,8 @@
 
 // charT toupper(charT) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

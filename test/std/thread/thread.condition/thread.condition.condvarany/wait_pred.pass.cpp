@@ -15,6 +15,8 @@
 // template <class Lock, class Predicate>
 //   void wait(Lock& lock, Predicate pred);
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

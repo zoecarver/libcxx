@@ -8,6 +8,8 @@
 
 // <unordered_set>
 
+#include "test_macros.h"
+
 #include <unordered_set>
 
 #ifndef _LIBCPP_VERSION

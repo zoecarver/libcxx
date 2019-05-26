@@ -17,6 +17,8 @@
 
 // bool try_lock_shared();
 
+#include "test_macros.h"
+
 #include <shared_mutex>
 #include <thread>
 #include <vector>

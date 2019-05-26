@@ -16,6 +16,8 @@
 // bool operator!(const lognormal_distribution& x,
 //                const lognormal_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

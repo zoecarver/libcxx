@@ -23,6 +23,8 @@
 
 // More convenient to test it here.
 
+#include "test_macros.h"
+
 #include <limits>
 #include <complex>
 

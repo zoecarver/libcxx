@@ -13,6 +13,8 @@
 
 // chi_squared_distribution& operator=(const chi_squared_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

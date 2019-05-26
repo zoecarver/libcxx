@@ -12,6 +12,8 @@
 // basic_ostream<charT, traits>&
 // operator<<(basic_ostream<charT, traits>& os, const bitset<N>& x);
 
+#include "test_macros.h"
+
 #include <bitset>
 #include <sstream>
 #include <cassert>

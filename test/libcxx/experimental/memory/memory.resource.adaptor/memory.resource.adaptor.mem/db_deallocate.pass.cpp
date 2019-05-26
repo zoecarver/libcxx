@@ -18,6 +18,8 @@ int AssertCount = 0;
 
 #define _LIBCPP_ASSERT(x, m) ((x) ? (void)0 : (void)::AssertCount++)
 #define _LIBCPP_DEBUG 0
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

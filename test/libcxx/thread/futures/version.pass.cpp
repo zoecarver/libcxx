@@ -10,6 +10,8 @@
 
 // <future>
 
+#include "test_macros.h"
+
 #include <future>
 
 #ifndef _LIBCPP_VERSION

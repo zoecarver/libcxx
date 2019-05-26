@@ -12,6 +12,8 @@
 
 // char_type widen(char c) const;
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

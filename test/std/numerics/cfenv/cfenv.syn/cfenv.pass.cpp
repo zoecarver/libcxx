@@ -10,6 +10,8 @@
 
 // <cfenv>
 
+#include "test_macros.h"
+
 #include <cfenv>
 #include <type_traits>
 

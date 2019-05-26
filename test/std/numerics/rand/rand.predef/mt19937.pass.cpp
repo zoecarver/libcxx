@@ -15,6 +15,8 @@
 //                                 15, 0xefc60000,
 //                                 18, 1812433253>                      mt19937;
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

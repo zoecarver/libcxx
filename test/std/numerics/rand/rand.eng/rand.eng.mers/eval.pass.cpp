@@ -15,6 +15,8 @@
 
 // result_type operator()();
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

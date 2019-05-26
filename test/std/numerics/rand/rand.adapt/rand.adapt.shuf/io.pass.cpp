@@ -23,6 +23,8 @@
 // operator>>(basic_istream<charT, traits>& is,
 //            shuffle_order_engine<Engine, k>& x);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

@@ -13,6 +13,8 @@
 
 // operator<<(unsigned int val);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

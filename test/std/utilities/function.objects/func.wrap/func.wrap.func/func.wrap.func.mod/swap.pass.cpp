@@ -12,6 +12,8 @@
 
 // void swap(function& other);
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

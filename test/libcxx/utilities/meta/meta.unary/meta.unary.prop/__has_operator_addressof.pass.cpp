@@ -15,6 +15,8 @@
 // template <typename _Tp> struct __has_operator_addressof
 
 
+#include "test_macros.h"
+
 #include <type_traits>
 
 

@@ -18,6 +18,8 @@
 
 // shared_lock(mutex_type& m, try_to_lock_t);
 
+#include "test_macros.h"
+
 #include <shared_mutex>
 #include <thread>
 #include <vector>

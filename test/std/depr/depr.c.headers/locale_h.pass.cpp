@@ -8,6 +8,8 @@
 
 // <locale.h>
 
+#include "test_macros.h"
+
 #include <locale.h>
 #include <type_traits>
 

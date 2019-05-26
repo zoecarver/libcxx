@@ -9,6 +9,8 @@
 
 // test <cerrno>
 
+#include "test_macros.h"
+
 #include <cerrno>
 
 #ifndef _LIBCPP_VERSION

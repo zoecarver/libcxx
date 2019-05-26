@@ -14,6 +14,8 @@
 
 // static time_point now();
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <cassert>
 

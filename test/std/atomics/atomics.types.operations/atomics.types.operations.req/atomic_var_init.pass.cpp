@@ -13,6 +13,8 @@
 
 // #define ATOMIC_VAR_INIT(value)
 
+#include "test_macros.h"
+
 #include <atomic>
 #include <type_traits>
 #include <cassert>

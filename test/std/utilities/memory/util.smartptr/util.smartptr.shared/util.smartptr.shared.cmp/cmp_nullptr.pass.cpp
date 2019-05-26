@@ -35,6 +35,8 @@
 // template <class T>
 //     bool operator>=(nullptr_t, const shared_ptr<T>& y) noexcept;
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

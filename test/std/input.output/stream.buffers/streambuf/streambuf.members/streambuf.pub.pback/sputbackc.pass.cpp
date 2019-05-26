@@ -13,6 +13,8 @@
 
 // int_type sputbackc(char_type c);
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

@@ -15,6 +15,8 @@
 // bool test_and_set(memory_order = memory_order_seq_cst);
 // bool test_and_set(memory_order = memory_order_seq_cst) volatile;
 
+#include "test_macros.h"
+
 #include <atomic>
 #include <cassert>
 

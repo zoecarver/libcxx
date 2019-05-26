@@ -12,6 +12,8 @@
 // template <class T, class... Args>
 //   constexpr optional<T> make_optional(Args&&... args);
 
+#include "test_macros.h"
+
 #include <optional>
 #include <string>
 #include <memory>

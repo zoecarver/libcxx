@@ -21,6 +21,8 @@
 // operator>>(basic_istream<CharT, Traits>& is,
 //            weibull_distribution<RealType>& x);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

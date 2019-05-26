@@ -22,6 +22,8 @@
 // template <MoveConstructible  R, MoveConstructible ... ArgTypes>
 //   bool operator!=(nullptr_t, const function<R(ArgTypes...)>&);
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

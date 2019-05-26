@@ -15,6 +15,8 @@
 //     bad_weak_ptr();
 // };
 
+#include "test_macros.h"
+
 #include <memory>
 #include <type_traits>
 #include <cassert>

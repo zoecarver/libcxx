@@ -12,6 +12,8 @@
 
 // istream_iterator operator++(int);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <sstream>
 #include <cassert>

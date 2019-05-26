@@ -8,6 +8,8 @@
 
 // <ctype.h>
 
+#include "test_macros.h"
+
 #include <ctype.h>
 #include <type_traits>
 #include <cassert>

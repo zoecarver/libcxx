@@ -18,6 +18,8 @@
 // constexpr try_to_lock_t try_to_lock{};
 // constexpr adopt_lock_t  adopt_lock{};
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <type_traits>
 

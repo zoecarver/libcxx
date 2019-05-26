@@ -12,6 +12,8 @@
 
 // static constexpr bool eq_int_type(int_type c1, int_type c2);
 
+#include "test_macros.h"
+
 #include <string>
 #include <cassert>
 

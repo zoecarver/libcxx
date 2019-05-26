@@ -13,6 +13,8 @@
 
 // struct monostate {};
 
+#include "test_macros.h"
+
 #include <type_traits>
 #include <variant>
 

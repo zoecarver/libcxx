@@ -14,6 +14,8 @@
 // template<class traits>
 //   basic_ostream<char,traits>& operator<<(basic_ostream<char,traits>& out, const unsigned char* s);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

@@ -11,6 +11,8 @@
 
 // optional<T>& operator=(optional<T>&& rhs);
 
+#include "test_macros.h"
+
 #include <optional>
 #include <string>
 #include <type_traits>

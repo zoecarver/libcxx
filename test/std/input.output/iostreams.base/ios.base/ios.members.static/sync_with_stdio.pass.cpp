@@ -10,6 +10,8 @@
 
 // bool sync_with_stdio(bool sync = true);
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

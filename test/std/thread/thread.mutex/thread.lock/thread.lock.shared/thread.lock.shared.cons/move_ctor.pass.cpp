@@ -16,6 +16,8 @@
 
 // shared_lock(shared_lock&& u);
 
+#include "test_macros.h"
+
 #include <shared_mutex>
 #include <cassert>
 #include "nasty_containers.hpp"

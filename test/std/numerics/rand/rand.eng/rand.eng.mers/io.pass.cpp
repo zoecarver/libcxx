@@ -29,6 +29,8 @@
 // operator>>(basic_istream<charT, traits>& is,
 //            mersenne_twister_engine<UIntType, w, n, m, r, a, u, d, s, b, t, c, l, f>& x);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

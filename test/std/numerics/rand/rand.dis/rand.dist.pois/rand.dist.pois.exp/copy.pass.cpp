@@ -13,6 +13,8 @@
 
 // exponential_distribution(const exponential_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

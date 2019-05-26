@@ -12,6 +12,8 @@
 
 // template <class T> constexpr size_t tuple_size_v = tuple_size<T>::value;
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <utility>
 #include <array>

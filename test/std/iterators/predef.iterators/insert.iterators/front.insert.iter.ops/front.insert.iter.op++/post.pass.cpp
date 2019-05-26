@@ -12,6 +12,8 @@
 
 // front_insert_iterator<Cont> operator++(int);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <list>
 #include <cassert>

@@ -14,6 +14,8 @@
 
 // class bad_optional_access is default constructible
 
+#include "test_macros.h"
+
 #include <optional>
 #include <type_traits>
 

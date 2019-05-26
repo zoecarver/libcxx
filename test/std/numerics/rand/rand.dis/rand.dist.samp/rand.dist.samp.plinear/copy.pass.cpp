@@ -13,6 +13,8 @@
 
 // piecewise_linear_distribution(const piecewise_linear_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

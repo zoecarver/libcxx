@@ -15,6 +15,8 @@
 // template <class Mutex>
 //   void swap(unique_lock<Mutex>& x, unique_lock<Mutex>& y);
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <cassert>
 

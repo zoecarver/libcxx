@@ -13,6 +13,8 @@
 
 // cauchy_distribution(const cauchy_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

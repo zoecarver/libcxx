@@ -9,6 +9,8 @@
 // UNSUPPORTED: libcpp-no-exceptions
 // test uncaught_exception
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cassert>
 

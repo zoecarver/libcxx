@@ -11,6 +11,8 @@
 // template<Returnable R, class T, CopyConstructible... Args>
 //   unspecified mem_fn(R (T::* pm)(Args...) const);
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

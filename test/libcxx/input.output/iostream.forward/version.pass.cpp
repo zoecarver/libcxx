@@ -8,6 +8,8 @@
 
 // <iosfwd>
 
+#include "test_macros.h"
+
 #include <iosfwd>
 
 #ifndef _LIBCPP_VERSION

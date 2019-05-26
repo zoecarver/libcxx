@@ -16,6 +16,8 @@
 // template <class U1, class U2, class Tp, class Vp>
 // void scoped_allocator_adaptor::construct(pair<U1, U2>*, Tp&&, Up&&)
 
+#include "test_macros.h"
+
 #include <scoped_allocator>
 #include <type_traits>
 #include <utility>

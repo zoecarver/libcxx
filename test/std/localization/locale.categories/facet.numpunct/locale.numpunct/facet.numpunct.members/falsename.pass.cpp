@@ -12,6 +12,8 @@
 
 // string_type falsename() const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

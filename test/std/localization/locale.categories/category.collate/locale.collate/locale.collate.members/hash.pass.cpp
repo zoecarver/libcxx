@@ -14,6 +14,8 @@
 
 //   This test is not portable
 
+#include "test_macros.h"
+
 #include <locale>
 #include <string>
 #include <cassert>

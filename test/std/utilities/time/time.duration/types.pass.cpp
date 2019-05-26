@@ -15,6 +15,8 @@
 // typedef Rep rep;
 // typedef Period period;
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <type_traits>
 

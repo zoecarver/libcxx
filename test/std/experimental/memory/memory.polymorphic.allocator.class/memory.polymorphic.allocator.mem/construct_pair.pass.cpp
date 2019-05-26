@@ -15,6 +15,8 @@
 // template <class U1, class U2>
 // void polymorphic_allocator<T>::construct(pair<U1, U2>*)
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <utility>

@@ -8,6 +8,8 @@
 
 // test bool none() const;
 
+#include "test_macros.h"
+
 #include <bitset>
 #include <type_traits>
 #include <cassert>

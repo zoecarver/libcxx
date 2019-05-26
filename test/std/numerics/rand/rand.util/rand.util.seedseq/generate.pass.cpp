@@ -13,6 +13,8 @@
 // template<class RandomAccessIterator>
 //     void generate(RandomAccessIterator begin, RandomAccessIterator end);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 
 // operator<<(const void* val);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

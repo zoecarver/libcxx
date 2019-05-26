@@ -12,6 +12,8 @@
 
 // ostream_iterator(ostream_type& s);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <sstream>
 #include <cassert>

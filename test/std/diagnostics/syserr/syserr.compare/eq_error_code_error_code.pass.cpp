@@ -17,6 +17,8 @@
 // bool operator!=(const error_condition& lhs, const error_code&      rhs);
 // bool operator!=(const error_condition& lhs, const error_condition& rhs);
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 

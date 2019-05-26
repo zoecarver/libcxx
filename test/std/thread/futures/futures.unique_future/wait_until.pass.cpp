@@ -17,6 +17,8 @@
 //   future_status
 //   wait_until(const chrono::time_point<Clock, Duration>& abs_time) const;
 
+#include "test_macros.h"
+
 #include <future>
 #include <atomic>
 #include <cassert>

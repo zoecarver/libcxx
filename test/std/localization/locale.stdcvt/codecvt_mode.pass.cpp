@@ -15,6 +15,8 @@
 //     little_endian = 1
 // };
 
+#include "test_macros.h"
+
 #include <codecvt>
 #include <cassert>
 

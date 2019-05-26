@@ -12,6 +12,8 @@
 
 // rep should be signed
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <cassert>
 

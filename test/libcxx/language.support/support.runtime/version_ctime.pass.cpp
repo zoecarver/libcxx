@@ -8,6 +8,8 @@
 
 // <ctime>
 
+#include "test_macros.h"
+
 #include <ctime>
 
 #ifndef _LIBCPP_VERSION

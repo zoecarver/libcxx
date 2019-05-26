@@ -12,6 +12,8 @@
 
 // streambuf *rdbuf(streambuf *bytebuf);
 
+#include "test_macros.h"
+
 #include <locale>
 #include <codecvt>
 #include <sstream>

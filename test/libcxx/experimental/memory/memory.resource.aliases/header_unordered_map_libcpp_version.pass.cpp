@@ -10,6 +10,8 @@
 
 // <experimental/unordered_map>
 
+#include "test_macros.h"
+
 #include <experimental/unordered_map>
 
 #ifndef _LIBCPP_VERSION

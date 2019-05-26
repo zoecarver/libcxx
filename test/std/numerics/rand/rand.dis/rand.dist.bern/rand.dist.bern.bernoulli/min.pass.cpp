@@ -12,6 +12,8 @@
 
 // result_type min() const;
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

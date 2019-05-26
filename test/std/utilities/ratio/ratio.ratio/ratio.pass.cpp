@@ -9,6 +9,8 @@
 // test ratio:  The static data members num and den shall have the common
 //    divisor of the absolute values of N and D:
 
+#include "test_macros.h"
+
 #include <ratio>
 
 template <long long N, long long D, long long eN, long long eD>

@@ -13,6 +13,8 @@
 
 // explicit shuffle_order_engine(const Engine& e);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

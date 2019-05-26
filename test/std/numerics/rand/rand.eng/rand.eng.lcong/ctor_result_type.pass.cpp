@@ -13,6 +13,8 @@
 
 // explicit linear_congruential_engine(result_type s = default_seed);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

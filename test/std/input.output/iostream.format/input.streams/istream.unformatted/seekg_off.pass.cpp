@@ -14,6 +14,8 @@
 
 // basic_istream<charT,traits>& seekg(off_type off, ios_base::seekdir dir);
 
+#include "test_macros.h"
+
 #include <istream>
 #include <cassert>
 

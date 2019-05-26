@@ -8,6 +8,8 @@
 
 // <iso646.h>
 
+#include "test_macros.h"
+
 #include <iso646.h>
 
 int main(int, char**)

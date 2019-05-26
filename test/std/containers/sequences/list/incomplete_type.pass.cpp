@@ -11,6 +11,8 @@
 // Check that std::list and its iterators can be instantiated with an incomplete
 // type.
 
+#include "test_macros.h"
+
 #include <list>
 
 struct A {

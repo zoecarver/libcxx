@@ -12,6 +12,8 @@
 
 // explicit operator bool() const;
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <string>
 #include <cassert>

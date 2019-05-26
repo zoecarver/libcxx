@@ -10,6 +10,8 @@
 
 // <condition_variable>
 
+#include "test_macros.h"
+
 #include <condition_variable>
 
 #ifndef _LIBCPP_VERSION

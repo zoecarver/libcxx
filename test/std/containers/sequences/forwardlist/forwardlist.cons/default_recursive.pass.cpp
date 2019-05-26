@@ -12,6 +12,8 @@
 
 // forward_list();
 
+#include "test_macros.h"
+
 #include <forward_list>
 
 struct X

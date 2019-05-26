@@ -8,6 +8,8 @@
 
 // <unordered_map>
 
+#include "test_macros.h"
+
 #include <unordered_map>
 
 #ifndef _LIBCPP_VERSION

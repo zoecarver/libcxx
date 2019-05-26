@@ -13,6 +13,8 @@
 
 // int pubsync();
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

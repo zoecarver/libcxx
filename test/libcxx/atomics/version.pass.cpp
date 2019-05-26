@@ -10,6 +10,8 @@
 
 // <atomic>
 
+#include "test_macros.h"
+
 #include <atomic>
 
 #ifndef _LIBCPP_VERSION

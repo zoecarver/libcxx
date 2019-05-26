@@ -14,6 +14,8 @@
 
 // This test is not entirely portable
 
+#include "test_macros.h"
+
 #include <locale>
 #include <codecvt>
 #include <fstream>

@@ -12,6 +12,8 @@
 
 // template<class Y> void reset(Y* p);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

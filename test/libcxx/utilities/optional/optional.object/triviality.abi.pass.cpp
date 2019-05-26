@@ -20,6 +20,8 @@
 // constexpr optional<T>& operator=(const optional& rhs);
 // constexpr optional<T>& operator=(optional&& rhs) noexcept(see below);
 
+#include "test_macros.h"
+
 #include <optional>
 #include <type_traits>
 #include <cassert>

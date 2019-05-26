@@ -16,6 +16,8 @@
 
 #define _LIBCPP_DEBUG 0
 
+#include "test_macros.h"
+
 #include <csignal>
 #include <cstdlib>
 #include <__debug>

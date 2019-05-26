@@ -13,6 +13,8 @@
 
 // subtract_with_carry_engine& operator=(const subtract_with_carry_engine&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

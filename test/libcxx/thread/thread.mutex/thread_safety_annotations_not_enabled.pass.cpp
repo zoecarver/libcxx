@@ -14,6 +14,8 @@
 // should compile without any warnings or errors even though this pattern is not
 // understood by the thread safety annotations.
 
+#include "test_macros.h"
+
 #include <mutex>
 
 int main(int, char**) {

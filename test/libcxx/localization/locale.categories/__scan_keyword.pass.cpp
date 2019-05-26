@@ -35,6 +35,8 @@
 //                const _Ctype& __ct, ios_base::iostate& __err,
 //                bool __case_sensitive = true);
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

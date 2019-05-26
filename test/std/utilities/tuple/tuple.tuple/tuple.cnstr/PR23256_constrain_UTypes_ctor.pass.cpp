@@ -20,6 +20,8 @@
 // instead. This happens 'sizeof...(UTypes) == 1' and the first element of
 // 'UTypes...' is an instance of the tuple itself. See PR23256.
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <memory>
 #include <type_traits>

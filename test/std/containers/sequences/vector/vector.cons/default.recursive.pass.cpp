@@ -10,6 +10,8 @@
 // class vector
 // vector();
 
+#include "test_macros.h"
+
 #include <vector>
 
 struct X

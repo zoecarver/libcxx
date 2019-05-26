@@ -18,6 +18,8 @@
 
 // bool always_noconv() const throw();
 
+#include "test_macros.h"
+
 #include <codecvt>
 #include <cassert>
 

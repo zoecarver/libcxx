@@ -9,6 +9,8 @@
 
 // Test that the __libcpp_version file matches the value of _LIBCPP_VERSION
 
+#include "test_macros.h"
+
 #include <__config>
 
 #ifndef _LIBCPP_VERSION

@@ -16,6 +16,8 @@
 //   ...
 // };
 
+#include "test_macros.h"
+
 #include <complex>
 #include <type_traits>
 

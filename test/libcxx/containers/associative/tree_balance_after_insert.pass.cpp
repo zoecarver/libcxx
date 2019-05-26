@@ -13,6 +13,8 @@
 // void
 // __tree_balance_after_insert(_NodePtr __root, _NodePtr __x)
 
+#include "test_macros.h"
+
 #include <__tree>
 #include <cassert>
 

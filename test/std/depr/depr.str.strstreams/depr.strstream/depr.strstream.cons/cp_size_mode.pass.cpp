@@ -12,6 +12,8 @@
 
 // strstream(char* s, int n, ios_base::openmode mode = ios_base::in | ios_base::out);
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 #include <string>

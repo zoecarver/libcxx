@@ -12,6 +12,8 @@
 
 // basic_streambuf<charT,traits>* rdbuf() const;
 
+#include "test_macros.h"
+
 #include <ios>
 #include <streambuf>
 #include <cassert>

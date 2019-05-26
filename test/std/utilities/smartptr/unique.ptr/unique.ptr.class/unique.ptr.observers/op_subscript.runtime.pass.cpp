@@ -12,6 +12,8 @@
 
 // test op[](size_t)
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

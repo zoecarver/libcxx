@@ -8,6 +8,8 @@
 
 // <ios>
 
+#include "test_macros.h"
+
 #include <ios>
 
 int main(int, char**)

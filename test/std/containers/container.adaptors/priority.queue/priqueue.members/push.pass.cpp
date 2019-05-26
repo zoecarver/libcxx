@@ -12,6 +12,8 @@
 
 // void push(const value_type& v);
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

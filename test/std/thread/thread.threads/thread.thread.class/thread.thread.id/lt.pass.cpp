@@ -17,6 +17,8 @@
 // bool operator> (thread::id x, thread::id y);
 // bool operator>=(thread::id x, thread::id y);
 
+#include "test_macros.h"
+
 #include <thread>
 #include <cassert>
 

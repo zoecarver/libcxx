@@ -15,6 +15,8 @@
 // This test attempts to create a race condition surrounding use_count()
 // with the hope that TSAN will diagnose it.
 
+#include "test_macros.h"
+
 #include <memory>
 #include <atomic>
 #include <thread>

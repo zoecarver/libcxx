@@ -12,6 +12,8 @@
 
 // static const mask* classic_table() throw();
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

@@ -14,6 +14,8 @@
 // basic_istream<charT,traits>& operator>>(basic_istream<charT,traits>&
 //                                         (*pf)(basic_istream<charT,traits>&));
 
+#include "test_macros.h"
+
 #include <istream>
 #include <cassert>
 

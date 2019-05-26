@@ -12,6 +12,8 @@
 
 // strstreambuf(void* (*palloc_arg)(size_t), void (*pfree_arg)(void*));
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 

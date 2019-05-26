@@ -10,6 +10,8 @@
 
 // typedef subtract_with_carry_engine<uint_fast64_t, 48,  5, 12>  ranlux48_base;
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

@@ -15,6 +15,8 @@
 // This test compiles but never completes when compiled against the MSVC STL
 // UNSUPPORTED: msvc
 
+#include "test_macros.h"
+
 #include <ios>
 #include <string>
 #include <cassert>

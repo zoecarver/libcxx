@@ -20,6 +20,8 @@
 // UNSUPPORTED: c++98, c++03
 // XFAIL: gcc
 
+#include "test_macros.h"
+
 #include <cmath>
 
 static_assert(std::__libcpp_isnan_or_builtin(0.) == false, "");

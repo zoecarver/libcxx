@@ -15,6 +15,8 @@
 
 // shared_future(shared_future&& rhs);
 
+#include "test_macros.h"
+
 #include <future>
 #include <cassert>
 

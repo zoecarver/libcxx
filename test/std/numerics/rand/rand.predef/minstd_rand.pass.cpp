@@ -11,6 +11,8 @@
 // typedef linear_congruential_engine<uint_fast32_t, 48271, 0, 2147483647>
 //                                                                 minstd_rand;
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

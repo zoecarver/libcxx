@@ -8,6 +8,8 @@
 
 // test bad_array_new_length
 
+#include "test_macros.h"
+
 #include <new>
 #include <type_traits>
 #include <cassert>

@@ -16,6 +16,8 @@
 
 // native_handle_type native_handle();
 
+#include "test_macros.h"
+
 #include <thread>
 #include <new>
 #include <cstdlib>

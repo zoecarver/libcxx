@@ -11,6 +11,8 @@
 
 // #include <initializer_list>
 
+#include "test_macros.h"
+
 #include <optional>
 
 int main(int, char**)

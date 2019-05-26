@@ -19,6 +19,8 @@
 //     wait_for(unique_lock<mutex>& lock,
 //              const chrono::duration<Rep, Period>& rel_time);
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

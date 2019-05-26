@@ -14,6 +14,8 @@
 
 // id& operator=(const id&) = default;
 
+#include "test_macros.h"
+
 #include <thread>
 #include <cassert>
 

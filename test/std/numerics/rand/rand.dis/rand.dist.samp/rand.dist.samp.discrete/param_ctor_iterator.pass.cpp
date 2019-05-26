@@ -14,6 +14,8 @@
 // template<class InputIterator>
 //     param_type(InputIterator firstW, InputIterator lastW);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

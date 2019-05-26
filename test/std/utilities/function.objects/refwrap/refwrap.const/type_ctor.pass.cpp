@@ -12,6 +12,8 @@
 
 // reference_wrapper(T& t);
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

@@ -21,6 +21,8 @@
 // #define ATOMIC_LLONG_LOCK_FREE unspecified
 // #define ATOMIC_POINTER_LOCK_FREE unspecified
 
+#include "test_macros.h"
+
 #include <atomic>
 #include <cassert>
 

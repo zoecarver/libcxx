@@ -24,6 +24,8 @@
 
 // check clock invariants
 
+#include "test_macros.h"
+
 #include <chrono>
 
 template <class T>

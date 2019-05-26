@@ -13,6 +13,8 @@
 // Make sure we properly generate special member functions for optional<T>
 // based on the properties of T itself.
 
+#include "test_macros.h"
+
 #include <optional>
 #include <type_traits>
 

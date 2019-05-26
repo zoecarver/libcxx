@@ -10,6 +10,8 @@
 
 // size_type size() const;
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

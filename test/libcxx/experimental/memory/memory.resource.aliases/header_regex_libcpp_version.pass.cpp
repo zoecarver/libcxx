@@ -10,6 +10,8 @@
 
 // <experimental/regex>
 
+#include "test_macros.h"
+
 #include <experimental/regex>
 
 #ifndef _LIBCPP_VERSION

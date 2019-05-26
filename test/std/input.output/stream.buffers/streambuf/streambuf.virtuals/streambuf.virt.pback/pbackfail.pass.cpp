@@ -13,6 +13,8 @@
 
 // int_type pbackfail(int_type c = traits::eof());
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

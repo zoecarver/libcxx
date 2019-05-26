@@ -12,6 +12,8 @@
 
 // ostream_iterator& operator*() const;
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <sstream>
 #include <cassert>

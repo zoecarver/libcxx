@@ -10,6 +10,8 @@
 
 // queue& operator=(const queue& q);
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

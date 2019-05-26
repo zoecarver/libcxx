@@ -16,6 +16,8 @@
 
 // mutex_type *mutex() const noexcept;
 
+#include "test_macros.h"
+
 #include <shared_mutex>
 #include <cassert>
 

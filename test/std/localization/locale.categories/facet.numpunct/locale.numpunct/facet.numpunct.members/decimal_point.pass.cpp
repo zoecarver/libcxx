@@ -12,6 +12,8 @@
 
 // char_type decimal_point() const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

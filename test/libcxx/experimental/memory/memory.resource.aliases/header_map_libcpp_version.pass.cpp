@@ -10,6 +10,8 @@
 
 // <experimental/map>
 
+#include "test_macros.h"
+
 #include <experimental/map>
 
 #ifndef _LIBCPP_VERSION

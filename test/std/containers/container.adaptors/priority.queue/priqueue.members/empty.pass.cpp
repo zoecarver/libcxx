@@ -12,6 +12,8 @@
 
 // bool empty() const;
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

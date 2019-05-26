@@ -12,6 +12,8 @@
 
 // valarray(const value_type& x, size_t n);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

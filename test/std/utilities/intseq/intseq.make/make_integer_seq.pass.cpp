@@ -13,6 +13,8 @@
 
 // UNSUPPORTED: c++98, c++03, c++11
 
+#include "test_macros.h"
+
 #include <utility>
 #include <type_traits>
 #include <cassert>

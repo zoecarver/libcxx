@@ -13,6 +13,8 @@
 
 // lognormal_distribution& operator=(const lognormal_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

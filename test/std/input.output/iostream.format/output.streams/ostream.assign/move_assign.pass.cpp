@@ -15,6 +15,8 @@
 
 // basic_ostream& operator=(basic_ostream&& rhs);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

@@ -15,6 +15,8 @@
 
 // basic_istringstream& operator=(basic_istringstream&& rhs);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

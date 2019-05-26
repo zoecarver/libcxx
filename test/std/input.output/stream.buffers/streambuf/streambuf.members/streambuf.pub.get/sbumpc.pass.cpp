@@ -13,6 +13,8 @@
 
 // int_type sbumpc();
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 
