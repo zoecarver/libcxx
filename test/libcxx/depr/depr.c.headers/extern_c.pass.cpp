@@ -11,8 +11,6 @@
 // it as an extension.
 
 extern "C" {
-#include "test_macros.h"
-
 #include <assert.h>
 // complex.h is not supported in extern "C".
 #include <ctype.h>
