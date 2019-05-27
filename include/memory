@@ -4823,7 +4823,7 @@ const_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 
 template<class _Tp, class _Up>
 shared_ptr<_Tp>
-reinterpret_pointer_cast(const shared_ptr<_Up>& __r) noexcept
+reinterpret_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 {
     return shared_ptr<_Tp>(__r,
                            reinterpret_cast<
