@@ -8,6 +8,8 @@
 
 // <memory>
 
+// UNSUPPORTED: c++98, c++03, c++11, c++14
+
 // shared_ptr
 
 // element_type& operator[](ptrdiff_t i) const;
