@@ -3960,10 +3960,10 @@ public:
         {return __cntrl_ == __p.__cntrl_;}
 
 #if _LIBCPP_STD_VER > 14
-    typename __ref_not_void<_Tp>::type
+    typename __ref_not_void<element_type>::type
     _LIBCPP_INLINE_VISIBILITY
     operator[](ptrdiff_t __i) const
-        {return get()[__i];} // assert(get() != 0 && __i >= 0);
+        {return __ptr_[__i];}
 #endif
 
 #ifndef _LIBCPP_NO_RTTI

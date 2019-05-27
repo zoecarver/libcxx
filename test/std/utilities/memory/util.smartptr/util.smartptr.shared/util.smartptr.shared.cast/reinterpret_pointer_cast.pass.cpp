@@ -10,7 +10,8 @@
 
 // shared_ptr
 
-// template<class T, class U> shared_ptr<T> static_pointer_cast(const shared_ptr<U>& r);
+// template<class T, class U>
+//     shared_ptr<T> reinterpret_pointer_cast(const shared_ptr<U>& r) noexcept;
 
 #include "test_macros.h"
 
