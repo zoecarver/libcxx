@@ -14,8 +14,6 @@
 
 // This test is not entirely portable
 
-#include "test_macros.h"
-
 #include <locale>
 #include <codecvt>
 #include <fstream>
@@ -51,7 +49,7 @@ int main(int, char**)
         assert(f.eback() != 0);
         assert(f.eback() == f.gptr());
         assert(*f.gptr() == L'1');
-//         assert(f.egptr() - f.eback() == 9);
+        assert(f.egptr() - f.eback() == 9);
     }
     {
         std::ifstream bs("underflow.dat");
@@ -63,7 +61,7 @@ int main(int, char**)
         assert(f.eback() != 0);
         assert(f.eback() == f.gptr());
         assert(*f.gptr() == L'1');
-//         assert(f.egptr() - f.eback() == 9);
+        assert(f.egptr() - f.eback() == 9);
         f.gbump(8);
         assert(f.sgetc() == L'9');
         assert(f.eback()[0] == L'1');
@@ -72,7 +70,7 @@ int main(int, char**)
         assert(f.eback()[3] == L'4');
         assert(f.gptr() - f.eback() == 8);
         assert(*f.gptr() == L'9');
-//         assert(f.egptr() - f.gptr() == 1);
+        assert(f.egptr() - f.gptr() == 1);
     }
     {
         std::ifstream bs("underflow_utf8.dat");
@@ -80,7 +78,7 @@ int main(int, char**)
         assert(f.sbumpc() == 0x4E51);
         assert(f.sbumpc() == 0x4E52);
         assert(f.sbumpc() == 0x4E53);
-//         assert(f.sbumpc() == test_buf::traits_type::eof());
+        assert(f.sbumpc() == test_buf::traits_type::eof());
     }
 
   return 0;
