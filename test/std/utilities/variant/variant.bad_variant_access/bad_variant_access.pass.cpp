@@ -24,6 +24,8 @@ public:
 
 */
 
+#include "test_macros.h"
+
 #include <cassert>
 #include <exception>
 #include <type_traits>

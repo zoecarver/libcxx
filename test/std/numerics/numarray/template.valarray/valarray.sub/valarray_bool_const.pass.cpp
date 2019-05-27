@@ -12,6 +12,8 @@
 
 // valarray operator[](const valarray<bool>& vb) const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

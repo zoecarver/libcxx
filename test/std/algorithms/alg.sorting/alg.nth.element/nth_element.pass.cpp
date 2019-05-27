@@ -14,6 +14,8 @@
 //   void
 //   nth_element(Iter first, Iter nth, Iter last);
 
+#include "test_macros.h"
+
 #include <algorithm>
 #include <random>
 #include <cassert>

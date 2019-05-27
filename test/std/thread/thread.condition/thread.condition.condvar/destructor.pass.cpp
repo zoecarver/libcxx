@@ -14,6 +14,8 @@
 
 // ~condition_variable();
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

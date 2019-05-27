@@ -13,6 +13,8 @@
 
 // extreme_value_distribution(const extreme_value_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

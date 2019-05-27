@@ -11,6 +11,8 @@
 
 // template<class E> exception_ptr make_exception_ptr(E e);
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cassert>
 

@@ -8,6 +8,8 @@
 
 // <typeinfo>
 
+#include "test_macros.h"
+
 #include <typeinfo>
 
 #ifndef _LIBCPP_VERSION

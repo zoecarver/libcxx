@@ -14,6 +14,8 @@
 
 // recursive_mutex();
 
+#include "test_macros.h"
+
 #include <mutex>
 
 int main(int, char**)

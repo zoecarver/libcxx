@@ -14,6 +14,8 @@
 
 // valarray(initializer_list<value_type>);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

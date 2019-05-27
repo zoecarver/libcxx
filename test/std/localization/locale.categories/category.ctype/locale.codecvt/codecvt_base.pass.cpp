@@ -14,6 +14,8 @@
 //     enum result {ok, partial, error, noconv};
 // };
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

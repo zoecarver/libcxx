@@ -12,6 +12,8 @@
 
 // static constexpr int_type not_eof(int_type c);
 
+#include "test_macros.h"
+
 #include <string>
 #include <cassert>
 

@@ -10,6 +10,8 @@
 
 // const error_category& iostream_category();
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 #include <string>

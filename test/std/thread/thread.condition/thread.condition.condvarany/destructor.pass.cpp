@@ -14,6 +14,8 @@
 
 // ~condition_variable_any();
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

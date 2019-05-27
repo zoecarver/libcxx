@@ -10,6 +10,8 @@
 
 // <experimental/deque>
 
+#include "test_macros.h"
+
 #include <experimental/deque>
 
 #ifndef _LIBCPP_VERSION

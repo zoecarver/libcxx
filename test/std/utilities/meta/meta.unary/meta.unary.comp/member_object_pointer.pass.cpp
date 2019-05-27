@@ -10,6 +10,8 @@
 
 // member_object_pointer
 
+#include "test_macros.h"
+
 #include <type_traits>
 
 template <class T>

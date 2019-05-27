@@ -13,6 +13,8 @@
 // int compare(const charT* low1, const charT* high1,
 //             const charT* low2, const charT* high2) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

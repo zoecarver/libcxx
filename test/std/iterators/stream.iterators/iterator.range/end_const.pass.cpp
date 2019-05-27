@@ -10,6 +10,8 @@
 
 // template <class C> auto end(const C& c) -> decltype(c.end());
 
+#include "test_macros.h"
+
 #include <vector>
 #include <cassert>
 

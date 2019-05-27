@@ -10,6 +10,8 @@
 
 // class error_category
 
+#include "test_macros.h"
+
 #include <system_error>
 
 int main(int, char**)

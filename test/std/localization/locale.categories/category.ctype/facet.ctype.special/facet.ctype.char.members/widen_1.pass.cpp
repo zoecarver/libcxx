@@ -12,6 +12,8 @@
 
 // char widen(char c) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

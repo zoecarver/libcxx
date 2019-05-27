@@ -11,6 +11,8 @@
 // struct allocator_arg_t { };
 // const allocator_arg_t allocator_arg = allocator_arg_t();
 
+#include "test_macros.h"
+
 #include <memory>
 
 void test(std::allocator_arg_t) {}

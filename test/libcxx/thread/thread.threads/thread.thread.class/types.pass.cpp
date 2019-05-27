@@ -18,6 +18,8 @@
 //     ...
 // };
 
+#include "test_macros.h"
+
 #include <thread>
 #include <type_traits>
 

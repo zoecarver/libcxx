@@ -14,6 +14,8 @@
 //   valarray<T>
 //   sin(const valarray<T>& x);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 #include <sstream>

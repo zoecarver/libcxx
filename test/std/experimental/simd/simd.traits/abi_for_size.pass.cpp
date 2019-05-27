@@ -15,6 +15,8 @@
 // }; template <class T, size_t N> using ex::abi_for_size_t = typename
 // ex::abi_for_size<T, N>::type;
 
+#include "test_macros.h"
+
 #include <cstdint>
 #include <experimental/simd>
 

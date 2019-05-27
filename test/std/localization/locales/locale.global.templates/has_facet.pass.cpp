@@ -10,6 +10,8 @@
 
 // template <class Facet> bool has_facet(const locale& loc) throw();
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

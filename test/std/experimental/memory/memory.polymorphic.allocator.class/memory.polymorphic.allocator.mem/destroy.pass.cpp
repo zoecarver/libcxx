@@ -15,6 +15,8 @@
 // template <class U>
 // void polymorphic_allocator<T>::destroy(U * ptr);
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <new>

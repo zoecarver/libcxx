@@ -14,6 +14,8 @@
 
 // unsigned hardware_concurrency();
 
+#include "test_macros.h"
+
 #include <thread>
 #include <cassert>
 

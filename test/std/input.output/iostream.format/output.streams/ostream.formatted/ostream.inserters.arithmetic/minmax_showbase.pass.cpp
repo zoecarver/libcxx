@@ -29,6 +29,8 @@
 // XFAIL: with_system_cxx_lib=macosx10.13
 // XFAIL: with_system_cxx_lib=macosx10.12
 
+#include "test_macros.h"
+
 #include <cassert>
 #include <cstdint>
 #include <ios>

@@ -8,6 +8,8 @@
 
 // test <cstdint>
 
+#include "test_macros.h"
+
 #include <cstdint>
 #include <cstddef>
 #include <cwchar>

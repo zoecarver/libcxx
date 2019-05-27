@@ -10,6 +10,8 @@
 
 // size_type find_last_of(const basic_string& str, size_type pos = npos) const;
 
+#include "test_macros.h"
+
 #include <string_view>
 #include <cassert>
 

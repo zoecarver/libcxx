@@ -18,6 +18,8 @@
 
 #define _LIBCPP_DEBUG 1
 
+#include "test_macros.h"
+
 #include <cassert>
 #include <cstddef>
 #include <deque>

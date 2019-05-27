@@ -13,6 +13,8 @@
 
 // weibull_distribution& operator=(const weibull_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

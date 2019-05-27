@@ -10,6 +10,8 @@
 
 // <thread>
 
+#include "test_macros.h"
+
 #include <thread>
 
 #ifndef _LIBCPP_VERSION

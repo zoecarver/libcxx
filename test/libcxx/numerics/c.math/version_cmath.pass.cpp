@@ -8,6 +8,8 @@
 
 // <cmath>
 
+#include "test_macros.h"
+
 #include <cmath>
 
 #ifndef _LIBCPP_VERSION

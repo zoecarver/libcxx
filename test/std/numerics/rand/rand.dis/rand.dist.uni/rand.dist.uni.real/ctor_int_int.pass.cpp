@@ -14,6 +14,8 @@
 // explicit uniform_real_distribution(RealType a = 0,
 //                                    RealType b = 1);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

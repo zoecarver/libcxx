@@ -8,6 +8,8 @@
 
 // test ratio_subtract
 
+#include "test_macros.h"
+
 #include <ratio>
 
 int main(int, char**)

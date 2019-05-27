@@ -6,6 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "test_macros.h"
+
 #include <limits>
 #include <sstream>
 #include <cassert>

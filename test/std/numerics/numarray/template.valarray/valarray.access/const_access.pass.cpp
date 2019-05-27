@@ -12,6 +12,8 @@
 
 // const value_type& operator[](size_t i) const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

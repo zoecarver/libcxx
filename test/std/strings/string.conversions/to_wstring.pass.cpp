@@ -18,6 +18,8 @@
 // wstring to_wstring(double val);
 // wstring to_wstring(long double val);
 
+#include "test_macros.h"
+
 #include <limits>
 #include <string>
 #include <cassert>

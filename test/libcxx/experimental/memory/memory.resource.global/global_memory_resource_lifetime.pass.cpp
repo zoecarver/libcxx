@@ -17,6 +17,8 @@
 // attempts to use 'new_delete_resource()' very late in program termination
 // to detect lifetime issues.
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

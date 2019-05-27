@@ -10,6 +10,8 @@
 
 // stack(const stack&) = default;
 
+#include "test_macros.h"
+
 #include <stack>
 #include <cassert>
 

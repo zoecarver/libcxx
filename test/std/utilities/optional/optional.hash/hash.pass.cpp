@@ -11,6 +11,8 @@
 
 // template <class T> struct hash<optional<T>>;
 
+#include "test_macros.h"
+
 #include <optional>
 #include <string>
 #include <memory>

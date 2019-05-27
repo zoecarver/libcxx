@@ -10,6 +10,8 @@
 
 // T3 setbase(int base);
 
+#include "test_macros.h"
+
 #include <iomanip>
 #include <istream>
 #include <ostream>

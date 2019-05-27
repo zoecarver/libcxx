@@ -15,6 +15,8 @@
 // using noop_coroutine_handle = coroutine_handle<noop_coroutine_promise>;
 // noop_coroutine_handle noop_coroutine() noexcept;
 
+#include "test_macros.h"
+
 #include <experimental/coroutine>
 #include <cassert>
 #include <type_traits>

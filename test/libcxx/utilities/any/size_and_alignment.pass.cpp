@@ -12,6 +12,8 @@
 
 // Check that the size and alignment of any are what we expect.
 
+#include "test_macros.h"
+
 #include <any>
 
 int main(int, char**)

@@ -17,6 +17,8 @@
 //   basic_ostream<charT, traits>&
 //   operator<<(basic_ostream<charT, traits>&& os, const T& x);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 
 // <uchar.h>
 
+#include "test_macros.h"
+
 #include <uchar.h>
 
 int main(int, char**)

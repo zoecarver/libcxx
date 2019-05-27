@@ -12,6 +12,8 @@
 // Check that std::unordered_multimap and its iterators can be instantiated with an incomplete
 // type.
 
+#include "test_macros.h"
+
 #include <unordered_map>
 
 template <class Tp>

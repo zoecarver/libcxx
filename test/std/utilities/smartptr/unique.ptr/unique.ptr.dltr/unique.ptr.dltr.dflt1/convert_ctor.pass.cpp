@@ -16,6 +16,8 @@
 // This constructor shall not participate in overload resolution unless
 //   U(*)[] is convertible to T(*)[].
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 
 // gamma_distribution(const gamma_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

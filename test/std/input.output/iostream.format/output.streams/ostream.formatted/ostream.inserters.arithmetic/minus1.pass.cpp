@@ -22,6 +22,8 @@
 
 //  Testing to make sure that the max length values are correctly inserted
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <ios>
 #include <type_traits>

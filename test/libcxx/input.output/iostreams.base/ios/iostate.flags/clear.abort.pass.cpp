@@ -17,6 +17,8 @@
 
 // REQUIRES: libcpp-no-exceptions
 
+#include "test_macros.h"
+
 #include <csignal>
 #include <cstdlib>
 #include <ios>

@@ -15,6 +15,8 @@
 
 // explicit mersenne_twister_engine();
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

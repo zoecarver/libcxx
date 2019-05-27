@@ -12,6 +12,8 @@
 
 // static char_type* assign(char_type* s, size_t n, char_type a);
 
+#include "test_macros.h"
+
 #include <string>
 #include <cassert>
 

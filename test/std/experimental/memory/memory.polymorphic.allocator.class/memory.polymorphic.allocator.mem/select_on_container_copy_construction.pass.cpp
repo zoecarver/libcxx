@@ -15,6 +15,8 @@
 // polymorphic_allocator
 // polymorphic_allocator<T>::select_on_container_copy_construction() const
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

@@ -15,6 +15,8 @@
 // static const iostate failbit;
 // static const iostate goodbit = 0;
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

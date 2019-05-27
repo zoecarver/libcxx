@@ -12,6 +12,8 @@
 
 // test reset against resetting self
 
+#include "test_macros.h"
+
 #include <memory>
 
 struct A {

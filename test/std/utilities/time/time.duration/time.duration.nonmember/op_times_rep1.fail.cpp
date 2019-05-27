@@ -20,6 +20,7 @@
 
 #include <chrono>
 
+#include "test_macros.h"
 #include "../../rep.h"
 
 int main(int, char**)

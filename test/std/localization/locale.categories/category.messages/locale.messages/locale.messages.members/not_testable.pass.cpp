@@ -12,6 +12,8 @@
 
 // catalog open(const basic_string<char>& name, const locale&) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

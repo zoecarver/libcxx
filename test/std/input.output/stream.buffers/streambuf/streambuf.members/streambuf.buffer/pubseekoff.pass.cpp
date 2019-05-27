@@ -14,6 +14,8 @@
 // pos_type pubseekoff(off_type off, ios_base::seekdir way,
 //                     ios_base::openmode which = ios_base::in | ios_base::out);
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

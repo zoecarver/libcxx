@@ -13,6 +13,8 @@
 // template<class InputIterator>
 //     seed_seq(InputIterator begin, InputIterator end);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

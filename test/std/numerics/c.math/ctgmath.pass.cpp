@@ -8,6 +8,8 @@
 
 // <ctgmath>
 
+#include "test_macros.h"
+
 #include <ctgmath>
 
 int main(int, char**)

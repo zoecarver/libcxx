@@ -18,6 +18,8 @@
 
 // Not a portable test
 
+#include "test_macros.h"
+
 #include <codecvt>
 #include <cstdlib>
 #include <cassert>

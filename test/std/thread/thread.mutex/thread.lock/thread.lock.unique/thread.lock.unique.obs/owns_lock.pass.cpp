@@ -14,6 +14,8 @@
 
 // bool owns_lock() const;
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <cassert>
 

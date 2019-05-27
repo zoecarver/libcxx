@@ -12,6 +12,8 @@
 
 // void swap(shared_ptr& r);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

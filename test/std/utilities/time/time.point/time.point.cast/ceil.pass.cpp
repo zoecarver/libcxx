@@ -15,6 +15,8 @@
 //   time_point<Clock, ToDuration>
 //   ceil(const time_point<Clock, Duration>& t);
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <type_traits>
 #include <cassert>

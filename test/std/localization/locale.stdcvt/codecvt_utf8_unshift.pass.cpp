@@ -20,6 +20,8 @@
 //     unshift(stateT& state,
 //             externT* to, externT* to_end, externT*& to_next) const;
 
+#include "test_macros.h"
+
 #include <codecvt>
 #include <cassert>
 

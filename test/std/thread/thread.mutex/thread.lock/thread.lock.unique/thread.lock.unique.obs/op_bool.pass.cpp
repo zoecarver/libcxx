@@ -14,6 +14,8 @@
 
 // explicit operator bool() const;
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <cassert>
 

@@ -20,6 +20,8 @@
 // Test that the copy/move constructors and assignment operators are
 // correctly defined or deleted based on the properties of `T` and `U`.
 
+#include "test_macros.h"
+
 #include <cassert>
 #include <string>
 #include <tuple>

@@ -13,6 +13,8 @@
 // template<class charT, class traits, class Allocator>
 //   bool operator!=(basic_string_view<charT,traits> lhs, const basic_string<charT, traits, Allocator> &rhs);
 
+#include "test_macros.h"
+
 #include <string_view>
 #include <string>
 #include <cassert>

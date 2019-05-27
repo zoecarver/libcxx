@@ -10,6 +10,8 @@
 
 // struct output_iterator_tag {};
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <type_traits>
 

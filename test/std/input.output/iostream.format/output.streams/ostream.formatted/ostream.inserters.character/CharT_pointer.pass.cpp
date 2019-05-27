@@ -14,6 +14,8 @@
 // template<class charT, class traits>
 //   basic_ostream<charT,traits>& operator<<(basic_ostream<charT,traits>& out, const charT* s);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

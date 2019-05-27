@@ -10,6 +10,8 @@
 
 // <experimental/string>
 
+#include "test_macros.h"
+
 #include <experimental/string>
 
 #ifndef _LIBCPP_VERSION

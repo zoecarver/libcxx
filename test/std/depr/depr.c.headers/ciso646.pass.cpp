@@ -8,6 +8,8 @@
 
 // <ciso646>
 
+#include "test_macros.h"
+
 #include <ciso646>
 
 int main(int, char**)

@@ -10,6 +10,8 @@
 
 // template<Returnable R, class T> unspecified mem_fn(R T::* pm);
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

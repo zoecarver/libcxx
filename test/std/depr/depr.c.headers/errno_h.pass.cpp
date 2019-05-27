@@ -9,6 +9,8 @@
 
 // test <errno.h>
 
+#include "test_macros.h"
+
 #include <errno.h>
 
 #ifndef EDOM

@@ -10,6 +10,8 @@
 
 // complex& operator= (const T&);
 
+#include "test_macros.h"
+
 #include <complex>
 #include <cassert>
 

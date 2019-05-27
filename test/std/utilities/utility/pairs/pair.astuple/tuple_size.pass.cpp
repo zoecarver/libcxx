@@ -12,6 +12,8 @@
 
 // tuple_size<pair<T1, T2> >::value
 
+#include "test_macros.h"
+
 #include <utility>
 
 int main(int, char**)

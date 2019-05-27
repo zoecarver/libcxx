@@ -8,6 +8,8 @@
 
 // <cwctype>
 
+#include "test_macros.h"
+
 #include <cwctype>
 
 #ifndef _LIBCPP_VERSION

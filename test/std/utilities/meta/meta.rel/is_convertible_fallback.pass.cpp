@@ -21,5 +21,7 @@
 #endif
 
 #define _LIBCPP_USE_IS_CONVERTIBLE_FALLBACK
+#include "test_macros.h"
+
 #include "is_convertible.pass.cpp"
 

@@ -12,6 +12,8 @@
 
 // const charT* narrow(const charT* low, const charT*, char dfault, char* to) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <string>
 #include <vector>

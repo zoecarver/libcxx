@@ -12,6 +12,8 @@
 
 // bool operator<(const error_condition& lhs, const error_condition& rhs);
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <string>
 #include <cassert>

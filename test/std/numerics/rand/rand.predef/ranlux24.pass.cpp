@@ -10,6 +10,8 @@
 
 // typedef discard_block_engine<ranlux24_base, 223, 23>                ranlux24;
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

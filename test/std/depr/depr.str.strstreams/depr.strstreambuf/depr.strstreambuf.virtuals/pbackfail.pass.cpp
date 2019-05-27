@@ -12,6 +12,8 @@
 
 // int_type pbackfail(int_type c = EOF);
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 

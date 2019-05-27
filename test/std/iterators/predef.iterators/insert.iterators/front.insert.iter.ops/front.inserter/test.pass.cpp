@@ -12,6 +12,8 @@
 //   front_insert_iterator<Cont>
 //   front_inserter(Cont& x);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <list>
 #include <cassert>

@@ -20,6 +20,8 @@
 //     and if each of the other resulting $X_i$ is $0$, changes $X_{-n}$ to
 //     $ 2^{w-1} $.
 
+#include "test_macros.h"
+
 #include <random>
 
 #include <algorithm>

@@ -15,6 +15,8 @@
 
 // thread& operator=(thread&& t);
 
+#include "test_macros.h"
+
 #include <thread>
 #include <exception>
 #include <cstdlib>

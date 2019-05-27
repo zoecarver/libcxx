@@ -17,6 +17,8 @@
 // UNSUPPORTED: c++98, c++03, c++11, c++14
 // UNSUPPORTED: libcpp-no-structured-bindings
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <array>
 #include <type_traits>

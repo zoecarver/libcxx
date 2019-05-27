@@ -15,6 +15,8 @@
 //                  const basic_regex<charT, traits>& e,
 //                  regex_constants::match_flag_type flags = regex_constants::match_default);
 
+#include "test_macros.h"
+
 #include <regex>
 #include <cassert>
 

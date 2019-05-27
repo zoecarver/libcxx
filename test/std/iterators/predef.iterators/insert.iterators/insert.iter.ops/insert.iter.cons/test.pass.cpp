@@ -12,6 +12,8 @@
 
 // insert_iterator(Cont& x, Cont::iterator i);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <vector>
 #include "nasty_containers.hpp"

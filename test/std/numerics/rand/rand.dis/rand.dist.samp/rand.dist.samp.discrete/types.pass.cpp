@@ -13,6 +13,8 @@
 // {
 //     typedef bool result_type;
 
+#include "test_macros.h"
+
 #include <random>
 #include <type_traits>
 

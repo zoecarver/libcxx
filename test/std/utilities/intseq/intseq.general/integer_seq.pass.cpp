@@ -11,6 +11,8 @@
 
 // class make_integer_sequence
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <utility>
 #include <type_traits>

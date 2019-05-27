@@ -12,6 +12,8 @@
 
 // void clear();
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 

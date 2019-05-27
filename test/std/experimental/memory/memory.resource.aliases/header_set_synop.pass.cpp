@@ -22,6 +22,8 @@
 //
 // }}} // namespace std::experimental::pmr
 
+#include "test_macros.h"
+
 #include <experimental/set>
 #include <experimental/memory_resource>
 #include <type_traits>

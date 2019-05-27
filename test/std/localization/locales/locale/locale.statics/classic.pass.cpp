@@ -10,6 +10,8 @@
 
 // static const locale& classic();
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

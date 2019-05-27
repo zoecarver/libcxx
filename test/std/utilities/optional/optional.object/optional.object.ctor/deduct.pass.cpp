@@ -18,6 +18,8 @@
 //   optional(T) -> optional<T>;
 
 
+#include "test_macros.h"
+
 #include <optional>
 #include <cassert>
 

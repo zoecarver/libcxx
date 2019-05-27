@@ -8,6 +8,8 @@
 
 // <clocale>
 
+#include "test_macros.h"
+
 #include <clocale>
 #include <type_traits>
 

@@ -16,6 +16,8 @@
 // template <class Mutex>
 //   void swap(shared_lock<Mutex>& x, shared_lock<Mutex>& y) noexcept;
 
+#include "test_macros.h"
+
 #include <shared_mutex>
 #include <cassert>
 

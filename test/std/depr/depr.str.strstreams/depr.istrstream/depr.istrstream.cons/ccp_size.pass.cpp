@@ -12,6 +12,8 @@
 
 // explicit istrstream(const char* s, streamsize n);
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 #include <string>

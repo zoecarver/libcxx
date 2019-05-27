@@ -12,6 +12,8 @@
 
 // Extension:  SCARY/N2913 iterator compatibility between set and multiset
 
+#include "test_macros.h"
+
 #include <set>
 
 int main(int, char**)

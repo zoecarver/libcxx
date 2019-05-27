@@ -12,6 +12,8 @@
 //   complex<T>
 //   operator+(const complex<T>& lhs, const complex<T>& rhs);
 
+#include "test_macros.h"
+
 #include <complex>
 #include <cassert>
 

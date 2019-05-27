@@ -12,6 +12,8 @@
 
 // bool operator<(const error_category& rhs) const;
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 

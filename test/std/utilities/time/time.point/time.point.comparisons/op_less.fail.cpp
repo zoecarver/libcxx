@@ -30,6 +30,7 @@
 
 #include <chrono>
 
+#include "test_macros.h"
 #include "../../clock.h"
 
 int main(int, char**)

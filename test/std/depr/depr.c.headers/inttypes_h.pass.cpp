@@ -8,6 +8,8 @@
 
 // test <inttypes.h>
 
+#include "test_macros.h"
+
 #include <inttypes.h>
 #include <type_traits>
 

@@ -13,6 +13,8 @@
 
 // MODULES_DEFINES: _LIBCPP_ABI_INCOMPLETE_TYPES_IN_DEQUE
 #define _LIBCPP_ABI_INCOMPLETE_TYPES_IN_DEQUE
+#include "test_macros.h"
+
 #include <deque>
 #include <cassert>
 

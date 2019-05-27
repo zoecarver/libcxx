@@ -12,6 +12,8 @@
 
 // valarray cshift(int i) const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

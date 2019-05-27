@@ -14,6 +14,8 @@
 //   void
 //   partial_sort(Iter first, Iter middle, Iter last);
 
+#include "test_macros.h"
+
 #include <algorithm>
 #include <random>
 #include <cassert>

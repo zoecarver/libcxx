@@ -12,6 +12,8 @@
 
 // static constexpr bool is_always_lock_free;
 
+#include "test_macros.h"
+
 #include <atomic>
 #include <cassert>
 

@@ -11,6 +11,8 @@
 // template <class T, class Container>
 //   void swap(queue<T, Container>& x, queue<T, Container>& y);
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

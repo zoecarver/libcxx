@@ -8,6 +8,8 @@
 
 // test size_t count() const;
 
+#include "test_macros.h"
+
 #include <bitset>
 #include <cassert>
 

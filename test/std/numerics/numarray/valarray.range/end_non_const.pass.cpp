@@ -14,6 +14,8 @@
 //   unspecified1
 //   end(valarray<T>& v);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 #include <cstddef>

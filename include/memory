@@ -3740,18 +3740,18 @@ template<class _Tp> class _LIBCPP_TEMPLATE_VIS enable_shared_from_this;
 template<class _Tp>
 class _LIBCPP_TEMPLATE_VIS shared_ptr
 {
+public:
+    typedef _Tp element_type;
+
+#if _LIBCPP_STD_VER > 14
+    typedef weak_ptr<_Tp> weak_type;
+#endif
 private:
-    _Tp*                 __ptr_;
+    element_type*        __ptr_;
     __shared_weak_count* __cntrl_;
 
     struct __nat {int __for_bool_;};
 public:
-#if _LIBCPP_STD_VER > 14
-    typedef weak_ptr<_Tp> weak_type;
-#endif
-
-    typedef _Tp element_type;
-
     _LIBCPP_INLINE_VISIBILITY
     _LIBCPP_CONSTEXPR shared_ptr() _NOEXCEPT;
     _LIBCPP_INLINE_VISIBILITY
@@ -3999,7 +3999,7 @@ private:
     template<class _Yp, class _Deleter = default_delete<_Yp>,
                         class _Alloc = typename __shared_ptr_default_allocator<_Yp>::type>
     static __shared_weak_count*
-    __allocate_shared(_Yp* __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
+    __allocate_shared(_Yp* __p, _Deleter __d = _Deleter(), _Alloc __a = _Alloc())
     {
         try {
             typedef __shared_ptr_pointer<_Yp*, _Deleter, _Alloc> _CT;
@@ -4022,7 +4022,7 @@ private:
     template<class _Deleter = default_delete<_Tp>,
              class _Alloc = typename __shared_ptr_default_allocator<_Tp>::type>
     static __shared_weak_count*
-    __allocate_shared(nullptr_t __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
+    __allocate_shared(nullptr_t __p, _Deleter __d = _Deleter(), _Alloc __a = _Alloc())
     {
         try {
             typedef __shared_ptr_pointer<_Tp*, _Deleter, _Alloc> _CT;
@@ -4526,8 +4526,7 @@ make_shared()
                                                       __hold2.release());
 }
 
-template<class _Tp>
-template<class _A0>
+template<class _Tp, class _A0>
 shared_ptr<_Tp>
 make_shared(_A0& __a0)
 {
@@ -4542,8 +4541,7 @@ make_shared(_A0& __a0)
                                                       __hold2.release());
 }
 
-template<class _Tp>
-template<class _A0, class _A1>
+template<class _Tp, class _A0, class _A1>
 shared_ptr<_Tp>
 make_shared(_A0& __a0, _A1& __a1)
 {
@@ -4558,8 +4556,7 @@ make_shared(_A0& __a0, _A1& __a1)
                                                       __hold2.release());
 }
 
-template<class _Tp>
-template<class _A0, class _A1, class _A2>
+template<class _Tp, class _A0, class _A1, class _A2>
 shared_ptr<_Tp>
 make_shared(_A0& __a0, _A1& __a1, _A2& __a2)
 {
@@ -4574,8 +4571,7 @@ make_shared(_A0& __a0, _A1& __a1, _A2& __a2)
                                                       __hold2.release());
 }
 
-template<class _Tp>
-template<class _Alloc>
+template<class _Tp, class _Alloc>
 shared_ptr<_Tp>
 allocate_shared(const _Alloc& __a)
 {
@@ -4591,8 +4587,7 @@ allocate_shared(const _Alloc& __a)
                                                       _VSTD::addressof(*__hold2.release()));
 }
 
-template<class _Tp>
-template<class _Alloc, class _A0>
+template<class _Tp, class _Alloc, class _A0>
 shared_ptr<_Tp>
 allocate_shared(const _Alloc& __a, _A0& __a0)
 {
@@ -4608,8 +4603,7 @@ allocate_shared(const _Alloc& __a, _A0& __a0)
                                                       _VSTD::addressof(*__hold2.release()));
 }
 
-template<class _Tp>
-template<class _Alloc, class _A0, class _A1>
+template<class _Tp, class _Alloc, class _A0, class _A1>
 shared_ptr<_Tp>
 allocate_shared(const _Alloc& __a, _A0& __a0, _A1& __a1)
 {
@@ -4625,8 +4619,7 @@ allocate_shared(const _Alloc& __a, _A0& __a0, _A1& __a1)
                                                       _VSTD::addressof(*__hold2.release()));
 }
 
-template<class _Tp>
-template<class _Alloc, class _A0, class _A1, class _A2>
+template<class _Tp, class _Alloc, class _A0, class _A1, class _A2>
 shared_ptr<_Tp>
 allocate_shared(const _Alloc& __a, _A0& __a0, _A1& __a1, _A2& __a2)
 {

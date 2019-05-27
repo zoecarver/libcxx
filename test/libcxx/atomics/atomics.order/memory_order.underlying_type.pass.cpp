@@ -15,6 +15,8 @@
 //
 // See PR40977 for details.
 
+#include "test_macros.h"
+
 #include <atomic>
 #include <type_traits>
 

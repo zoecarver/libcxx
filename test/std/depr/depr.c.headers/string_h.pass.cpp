@@ -8,6 +8,8 @@
 
 // <string.h>
 
+#include "test_macros.h"
+
 #include <string.h>
 #include <type_traits>
 

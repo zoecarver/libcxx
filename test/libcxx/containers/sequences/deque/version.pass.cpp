@@ -8,6 +8,8 @@
 
 // <deque>
 
+#include "test_macros.h"
+
 #include <deque>
 
 #ifndef _LIBCPP_VERSION

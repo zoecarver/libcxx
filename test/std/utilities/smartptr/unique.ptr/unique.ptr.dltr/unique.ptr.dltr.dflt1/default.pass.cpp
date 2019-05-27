@@ -12,6 +12,8 @@
 
 // Test that default_delete<T[]> has a working default constructor
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

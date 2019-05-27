@@ -8,6 +8,8 @@
 
 // test terminate_handler
 
+#include "test_macros.h"
+
 #include <exception>
 #include <type_traits>
 #include <cassert>

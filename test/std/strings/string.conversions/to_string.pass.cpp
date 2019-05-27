@@ -18,6 +18,8 @@
 // string to_string(double val);
 // string to_string(long double val);
 
+#include "test_macros.h"
+
 #include <limits>
 #include <string>
 #include <cassert>

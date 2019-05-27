@@ -18,6 +18,8 @@
 //
 // }}} // namespace std::experimental::pmr
 
+#include "test_macros.h"
+
 #include <experimental/deque>
 #include <experimental/memory_resource>
 #include <type_traits>

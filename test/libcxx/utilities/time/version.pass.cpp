@@ -8,6 +8,8 @@
 
 // <chrono>
 
+#include "test_macros.h"
+
 #include <chrono>
 
 #ifndef _LIBCPP_VERSION

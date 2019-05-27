@@ -8,6 +8,8 @@
 
 // test new_handler
 
+#include "test_macros.h"
+
 #include <new>
 #include <type_traits>
 #include <cassert>

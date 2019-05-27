@@ -15,6 +15,8 @@
 //   void swap(basic_stringbuf<charT, traits, Allocator>& x,
 //             basic_stringbuf<charT, traits, Allocator>& y);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

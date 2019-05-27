@@ -12,6 +12,8 @@
 
 // UNSUPPORTED: c++98, c++03
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

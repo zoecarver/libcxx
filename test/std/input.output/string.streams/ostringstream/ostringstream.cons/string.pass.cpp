@@ -14,6 +14,8 @@
 // explicit basic_ostringstream(const basic_string<charT,traits,allocator>& str,
 //                              ios_base::openmode which = ios_base::in);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

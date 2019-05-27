@@ -21,6 +21,8 @@
 // least check that they are lowered at all (otherwise there is a compile
 // failure with GCC).
 
+#include "test_macros.h"
+
 #include <atomic>
 
 int main(int, char**) {

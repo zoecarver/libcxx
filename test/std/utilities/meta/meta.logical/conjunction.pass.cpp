@@ -13,6 +13,8 @@
 // template<class... B>
 //   constexpr bool conjunction_v = conjunction<B...>::value;         // C++17
 
+#include "test_macros.h"
+
 #include <type_traits>
 #include <cassert>
 

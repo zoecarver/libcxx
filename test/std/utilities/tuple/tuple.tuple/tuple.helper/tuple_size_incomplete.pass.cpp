@@ -17,6 +17,8 @@
 // XFAIL: gcc-4.9
 // UNSUPPORTED: c++98, c++03
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <array>
 #include <type_traits>

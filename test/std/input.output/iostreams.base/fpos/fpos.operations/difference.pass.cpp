@@ -12,6 +12,8 @@
 
 // Subraction with fpos
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

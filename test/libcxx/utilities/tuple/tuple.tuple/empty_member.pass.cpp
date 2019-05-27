@@ -14,6 +14,8 @@
 
 // This is not a portable test
 
+#include "test_macros.h"
+
 #include <tuple>
 
 struct A {};

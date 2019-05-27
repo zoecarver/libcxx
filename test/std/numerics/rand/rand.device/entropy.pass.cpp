@@ -12,6 +12,8 @@
 
 // double entropy() const;
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

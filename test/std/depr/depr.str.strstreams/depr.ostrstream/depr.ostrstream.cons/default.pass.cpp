@@ -12,6 +12,8 @@
 
 // ostrstream();
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 #include <string>

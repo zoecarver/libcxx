@@ -21,6 +21,8 @@
 // operator>>(basic_istream<charT, traits>& is,
 //            piecewise_linear_distribution& x);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

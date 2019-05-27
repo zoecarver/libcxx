@@ -13,6 +13,8 @@
 // template<class _M, class _N>
 // constexpr common_type_t<_M,_N> gcd(_M __m, _N __n)
 
+#include "test_macros.h"
+
 #include <numeric>
 #include <cassert>
 #include <climits>

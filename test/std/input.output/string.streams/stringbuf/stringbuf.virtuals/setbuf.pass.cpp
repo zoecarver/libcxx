@@ -13,6 +13,8 @@
 
 // basic_streambuf<charT,traits>* setbuf(charT* s, streamsize n);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

@@ -12,6 +12,8 @@
 
 // void mask_array& operator=(const mask_array& ma) const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

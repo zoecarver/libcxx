@@ -13,6 +13,8 @@
 
 // basic_ostream<charT,traits>& put(char_type c);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

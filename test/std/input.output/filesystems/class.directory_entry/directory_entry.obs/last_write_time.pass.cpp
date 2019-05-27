@@ -15,6 +15,8 @@
 // file_time_type last_write_time() const;
 // file_time_type last_write_time(error_code const&) const noexcept;
 
+#include "test_macros.h"
+
 #include "filesystem_include.hpp"
 #include <type_traits>
 #include <cassert>

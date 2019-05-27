@@ -12,6 +12,8 @@
 
 // quoted
 
+#include "test_macros.h"
+
 #include <iomanip>
 #include <sstream>
 #include <string>

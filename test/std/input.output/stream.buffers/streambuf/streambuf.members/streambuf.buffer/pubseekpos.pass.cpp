@@ -14,6 +14,8 @@
 // pos_type pubseekpos(pos_type sp,
 //                     ios_base::openmode which = ios_base::in | ios_base::out;
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

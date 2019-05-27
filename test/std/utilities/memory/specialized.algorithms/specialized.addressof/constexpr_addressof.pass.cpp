@@ -13,6 +13,8 @@
 
 // template <ObjectType T> constexpr T* addressof(T& r);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

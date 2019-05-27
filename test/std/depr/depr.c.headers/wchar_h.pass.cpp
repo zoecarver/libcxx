@@ -8,6 +8,8 @@
 
 // <wchar.h>
 
+#include "test_macros.h"
+
 #include <wchar.h>
 #include <stdarg.h>
 #include <type_traits>

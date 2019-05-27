@@ -8,6 +8,8 @@
 
 // <ratio>
 
+#include "test_macros.h"
+
 #include <ratio>
 
 #ifndef _LIBCPP_VERSION

@@ -32,6 +32,8 @@
 //     static const mask graph = alnum | punct;
 // };
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

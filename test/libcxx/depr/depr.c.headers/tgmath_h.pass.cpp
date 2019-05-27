@@ -8,6 +8,8 @@
 
 // <tgmath.h>
 
+#include "test_macros.h"
+
 #include <tgmath.h>
 
 #ifndef _LIBCPP_VERSION

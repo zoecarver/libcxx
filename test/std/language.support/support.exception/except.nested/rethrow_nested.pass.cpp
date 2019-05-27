@@ -13,6 +13,8 @@
 
 // void rethrow_nested [[noreturn]] () const;
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cstdlib>
 #include <cassert>

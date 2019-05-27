@@ -12,6 +12,8 @@
 
 // const error_category& future_category();
 
+#include "test_macros.h"
+
 #include <future>
 #include <cstring>
 #include <cassert>

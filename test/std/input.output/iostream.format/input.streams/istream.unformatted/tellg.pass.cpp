@@ -10,6 +10,8 @@
 
 // pos_type tellg();
 
+#include "test_macros.h"
+
 #include <istream>
 #include <cassert>
 

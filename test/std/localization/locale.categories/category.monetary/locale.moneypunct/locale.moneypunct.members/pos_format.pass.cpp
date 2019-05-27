@@ -12,6 +12,8 @@
 
 // pattern pos_format() const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <limits>
 #include <cassert>

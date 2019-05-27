@@ -8,6 +8,8 @@
 
 // test exception
 
+#include "test_macros.h"
+
 #include <exception>
 #include <type_traits>
 #include <cassert>

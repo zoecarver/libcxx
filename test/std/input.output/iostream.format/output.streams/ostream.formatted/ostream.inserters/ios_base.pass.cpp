@@ -13,6 +13,8 @@
 
 // basic_ostream<charT,traits>& operator<<(ios_base& (*pf)(ios_base&));
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

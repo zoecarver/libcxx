@@ -12,6 +12,8 @@
 
 // istreambuf_iterator(const proxy& p) throw();
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <sstream>
 #include <cassert>

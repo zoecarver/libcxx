@@ -24,6 +24,8 @@
 //     charT operator*();
 // };
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <sstream>
 #include <cassert>

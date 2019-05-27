@@ -13,6 +13,8 @@
 
 // void open(const wchar_t* s, ios_base::openmode mode = ios_base::in);
 
+#include "test_macros.h"
+
 #include <fstream>
 #include <cassert>
 

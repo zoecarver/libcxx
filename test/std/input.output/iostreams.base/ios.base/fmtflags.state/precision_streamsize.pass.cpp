@@ -12,6 +12,8 @@
 
 // streamsize precision(streamsize prec);
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

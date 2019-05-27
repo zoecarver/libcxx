@@ -8,6 +8,8 @@
 
  // test climits
 
+#include "test_macros.h"
+
 #include <climits>
 
 #ifndef CHAR_BIT

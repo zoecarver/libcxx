@@ -15,6 +15,8 @@
 // template <class Lock>
 //   void wait(Lock& lock);
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

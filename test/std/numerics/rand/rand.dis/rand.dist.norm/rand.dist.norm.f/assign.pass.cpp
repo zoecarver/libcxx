@@ -13,6 +13,8 @@
 
 // fisher_f_distribution& operator=(const fisher_f_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

@@ -10,6 +10,8 @@
 
 // An array is a contiguous container
 
+#include "test_macros.h"
+
 #include <array>
 #include <cassert>
 

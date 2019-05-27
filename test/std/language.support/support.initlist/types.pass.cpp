@@ -20,6 +20,8 @@
 //     typedef const E* iterator;
 //     typedef const E* const_iterator;
 
+#include "test_macros.h"
+
 #include <initializer_list>
 #include <type_traits>
 
