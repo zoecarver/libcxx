@@ -15,6 +15,8 @@
 
 // param_type(initializer_list<double> wl);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

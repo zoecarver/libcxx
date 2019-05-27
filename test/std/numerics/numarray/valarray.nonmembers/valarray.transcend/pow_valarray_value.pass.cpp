@@ -14,6 +14,8 @@
 //   valarray<T>
 //   pow(const valarray<T>& x, const T& y);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 #include <sstream>

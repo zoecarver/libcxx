@@ -13,6 +13,8 @@
 
 // explicit basic_ostream(basic_streambuf<charT,traits>* sb);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

@@ -20,6 +20,8 @@
 //     ...
 // };
 
+#include "test_macros.h"
+
 #include <shared_mutex>
 #include <type_traits>
 

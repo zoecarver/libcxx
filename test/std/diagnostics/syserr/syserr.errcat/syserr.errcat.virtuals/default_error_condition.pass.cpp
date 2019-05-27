@@ -12,6 +12,8 @@
 
 // virtual error_condition default_error_condition(int ev) const;
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 

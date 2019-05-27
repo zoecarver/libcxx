@@ -10,6 +10,8 @@
 
 // test unexpected_handler
 
+#include "test_macros.h"
+
 #include <exception>
 
 void f() {}

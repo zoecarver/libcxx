@@ -15,6 +15,8 @@
 // file_type type() const noexcept;
 // perms permissions(p) const noexcept;
 
+#include "test_macros.h"
+
 #include "filesystem_include.hpp"
 #include <type_traits>
 #include <cassert>

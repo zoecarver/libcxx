@@ -13,6 +13,8 @@
 // template <class _Tp>
 // void destroy_at(_Tp*);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cstdlib>
 #include <cassert>

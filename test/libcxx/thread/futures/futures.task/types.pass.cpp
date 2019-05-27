@@ -19,6 +19,8 @@
 
 // This is a libc++ extension.
 
+#include "test_macros.h"
+
 #include <future>
 #include <type_traits>
 

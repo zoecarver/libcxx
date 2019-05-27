@@ -10,6 +10,8 @@
 
 // float_denorm_style
 
+#include "test_macros.h"
+
 #include <limits>
 
 typedef char one;

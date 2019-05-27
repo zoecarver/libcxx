@@ -14,6 +14,8 @@
 
 #define _LIBCPP_DEBUG 1
 
+#include "test_macros.h"
+
 #include <cstdlib>
 #include <string>
 #include <type_traits>

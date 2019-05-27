@@ -13,6 +13,8 @@
 
 // streamsize sputn(const char_type* s, streamsize n);
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

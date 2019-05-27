@@ -12,6 +12,8 @@
 
 // void this_thread::yield();
 
+#include "test_macros.h"
+
 #include <thread>
 #include <cassert>
 

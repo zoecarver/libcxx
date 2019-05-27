@@ -8,6 +8,8 @@
 
 // test <time.h>
 
+#include "test_macros.h"
+
 #include <time.h>
 #include <type_traits>
 

@@ -10,6 +10,8 @@
 
 // bool empty() const;
 
+#include "test_macros.h"
+
 #include <stack>
 #include <cassert>
 

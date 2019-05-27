@@ -17,6 +17,8 @@
 //     deferred
 // };
 
+#include "test_macros.h"
+
 #include <future>
 
 int main(int, char**)

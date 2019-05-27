@@ -12,6 +12,8 @@
 
 // ~ios_base()
 
+#include "test_macros.h"
+
 #include <ios>
 #include <string>
 #include <locale>

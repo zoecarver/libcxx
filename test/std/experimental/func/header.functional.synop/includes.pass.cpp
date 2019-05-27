@@ -12,6 +12,8 @@
 //
 //  has to include <functional>
 
+#include "test_macros.h"
+
 #include <experimental/functional>
 
 int main(int, char**)

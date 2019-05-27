@@ -12,6 +12,8 @@
 
 // #define __STDCPP_THREADS__ __cplusplus
 
+#include "test_macros.h"
+
 #include <thread>
 
 int main(int, char**)

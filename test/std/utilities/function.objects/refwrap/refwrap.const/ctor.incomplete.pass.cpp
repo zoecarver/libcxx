@@ -15,6 +15,8 @@
 //  where T is an incomplete type (since C++20)
 
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

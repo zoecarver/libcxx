@@ -8,6 +8,8 @@
 
 // <bitset>
 
+#include "test_macros.h"
+
 #include <bitset>
 
 #ifndef _LIBCPP_VERSION

@@ -12,6 +12,8 @@
 
 // seed_seq();
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

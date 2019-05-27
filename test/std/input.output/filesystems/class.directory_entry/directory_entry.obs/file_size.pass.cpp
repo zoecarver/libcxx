@@ -15,6 +15,8 @@
 // uintmax_t file_size() const;
 // uintmax_t file_size(error_code const&) const noexcept;
 
+#include "test_macros.h"
+
 #include "filesystem_include.hpp"
 #include <type_traits>
 #include <cassert>

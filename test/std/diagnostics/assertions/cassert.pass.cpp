@@ -8,6 +8,8 @@
 
 // test <cassert>
 
+#include "test_macros.h"
+
 #include <cassert>
 
 #ifndef assert

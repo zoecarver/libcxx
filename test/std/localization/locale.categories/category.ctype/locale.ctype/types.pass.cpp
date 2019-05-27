@@ -17,6 +17,8 @@
 //     typedef CharT char_type;
 // };
 
+#include "test_macros.h"
+
 #include <locale>
 #include <type_traits>
 #include <cassert>

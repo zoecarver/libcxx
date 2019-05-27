@@ -13,6 +13,8 @@
 // {
 // };
 
+#include "test_macros.h"
+
 #include <iterator>
 
 struct not_an_iterator

@@ -15,6 +15,8 @@
 
 // MODULES_DEFINES: _LIBCPP_ABI_POINTER_SAFETY_ENUM_TYPE
 #define _LIBCPP_ABI_POINTER_SAFETY_ENUM_TYPE
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

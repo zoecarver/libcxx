@@ -23,6 +23,8 @@
 // operator>>(basic_istream<charT, traits>& is,
 //            linear_congruential_engine<UIntType, a, c, m>& x);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

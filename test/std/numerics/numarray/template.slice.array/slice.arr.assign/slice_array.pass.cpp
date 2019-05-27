@@ -12,6 +12,8 @@
 
 // const slice_array& operator=(const slice_array& sa) const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

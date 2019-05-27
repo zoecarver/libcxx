@@ -13,6 +13,8 @@
 
 // template <class ...Types> class variant;
 
+#include "test_macros.h"
+
 #include <limits>
 #include <type_traits>
 #include <utility>

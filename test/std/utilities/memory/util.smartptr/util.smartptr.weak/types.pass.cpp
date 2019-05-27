@@ -15,6 +15,8 @@
 //     ...
 // };
 
+#include "test_macros.h"
+
 #include <memory>
 
 struct A;  // purposefully incomplete

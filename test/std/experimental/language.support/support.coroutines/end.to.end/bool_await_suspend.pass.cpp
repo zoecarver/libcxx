@@ -12,6 +12,8 @@
 // See https://bugs.llvm.org/show_bug.cgi?id=33271
 // UNSUPPORTED: ubsan
 
+#include "test_macros.h"
+
 #include <experimental/coroutine>
 #include <cassert>
 

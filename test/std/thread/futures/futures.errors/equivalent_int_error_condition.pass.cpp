@@ -14,6 +14,8 @@
 
 // virtual bool equivalent(int code, const error_condition& condition) const;
 
+#include "test_macros.h"
+
 #include <future>
 #include <cassert>
 

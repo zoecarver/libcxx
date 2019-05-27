@@ -13,6 +13,8 @@
 
 // geometric_distribution& operator=(const geometric_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

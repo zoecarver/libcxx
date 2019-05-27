@@ -13,6 +13,8 @@
 
 // explicit independent_bits_engine();
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

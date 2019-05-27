@@ -16,6 +16,8 @@
 //   unspecified bind(Fn, Types...);
 
 // https://bugs.llvm.org/show_bug.cgi?id=23141
+#include "test_macros.h"
+
 #include <functional>
 #include <type_traits>
 

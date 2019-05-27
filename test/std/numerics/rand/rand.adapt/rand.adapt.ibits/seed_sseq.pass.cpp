@@ -13,6 +13,8 @@
 
 // template<class Sseq> void seed(Sseq& q);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

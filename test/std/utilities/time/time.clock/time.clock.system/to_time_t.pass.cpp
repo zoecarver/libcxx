@@ -12,6 +12,8 @@
 
 // time_t to_time_t(const time_point& t);
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <ctime>
 

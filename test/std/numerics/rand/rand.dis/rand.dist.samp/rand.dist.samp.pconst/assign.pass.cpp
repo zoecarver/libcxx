@@ -13,6 +13,8 @@
 
 // piecewise_constant_distribution& operator=(const piecewise_constant_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

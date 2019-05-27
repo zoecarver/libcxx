@@ -13,6 +13,8 @@
 // gslice(size_t start, const valarray<size_t>& size,
 //                      const valarray<size_t>& stride);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

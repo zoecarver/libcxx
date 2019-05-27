@@ -17,6 +17,8 @@
 // template <class Clock, class Duration>
 //   unique_lock(mutex_type& m, const chrono::time_point<Clock, Duration>& abs_time);
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <thread>
 #include <cstdlib>

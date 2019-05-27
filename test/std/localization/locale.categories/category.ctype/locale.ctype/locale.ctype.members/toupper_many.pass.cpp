@@ -12,6 +12,8 @@
 
 // const charT* toupper(charT* low, const charT* high) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <string>
 #include <cassert>

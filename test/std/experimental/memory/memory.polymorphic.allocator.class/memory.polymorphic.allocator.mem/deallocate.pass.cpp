@@ -14,6 +14,8 @@
 
 // T* polymorphic_allocator<T>::deallocate(T*, size_t size)
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

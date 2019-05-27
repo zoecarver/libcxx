@@ -8,6 +8,8 @@
 
 // <experimental/algorithm>
 
+#include "test_macros.h"
+
 #include <experimental/algorithm>
 
 #ifndef _LIBCPP_ALGORITHM

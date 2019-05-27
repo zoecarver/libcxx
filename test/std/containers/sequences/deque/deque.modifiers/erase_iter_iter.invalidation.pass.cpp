@@ -14,6 +14,8 @@
 //  to items that were not erased.
 
 
+#include "test_macros.h"
+
 #include <deque>
 #include <cstdint>
 #include <cassert>

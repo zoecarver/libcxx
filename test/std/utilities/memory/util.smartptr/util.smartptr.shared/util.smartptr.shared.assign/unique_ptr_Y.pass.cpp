@@ -12,6 +12,8 @@
 
 // template <class Y, class D> shared_ptr& operator=(unique_ptr<Y, D>&& r);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <type_traits>
 #include <cassert>

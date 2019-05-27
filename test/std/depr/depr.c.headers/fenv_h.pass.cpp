@@ -10,6 +10,8 @@
 
 // <fenv.h>
 
+#include "test_macros.h"
+
 #include <fenv.h>
 #include <type_traits>
 

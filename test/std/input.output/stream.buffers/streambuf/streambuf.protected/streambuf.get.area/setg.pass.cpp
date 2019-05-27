@@ -13,6 +13,8 @@
 
 // void setg(char_type* gbeg, char_type* gnext, char_type* gend);
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

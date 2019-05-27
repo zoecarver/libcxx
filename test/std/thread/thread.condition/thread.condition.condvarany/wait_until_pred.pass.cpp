@@ -20,6 +20,8 @@
 //                const chrono::time_point<Clock, Duration>& abs_time,
 //                Predicate pred);
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

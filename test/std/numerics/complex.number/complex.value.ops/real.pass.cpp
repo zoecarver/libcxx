@@ -12,6 +12,8 @@
 //   T
 //   real(const complex<T>& x);
 
+#include "test_macros.h"
+
 #include <complex>
 #include <cassert>
 

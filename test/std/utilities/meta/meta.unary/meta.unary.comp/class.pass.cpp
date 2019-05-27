@@ -10,6 +10,8 @@
 
 // class
 
+#include "test_macros.h"
+
 #include <type_traits>
 
 template <class T>

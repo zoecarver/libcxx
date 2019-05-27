@@ -38,6 +38,8 @@
 ///   described in the previous item;
 ///   (1.5) - f(t1, t2, ..., tN) in all other cases.
 
+#include "test_macros.h"
+
 #include <functional>
 #include <type_traits>
 #include <utility> // for std::move

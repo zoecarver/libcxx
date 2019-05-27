@@ -12,6 +12,8 @@
 
 // valarray(const mask_array<value_type>& ma);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

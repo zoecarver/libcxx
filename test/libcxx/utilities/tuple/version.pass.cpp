@@ -8,6 +8,8 @@
 
 // <tuple>
 
+#include "test_macros.h"
+
 #include <tuple>
 
 #ifndef _LIBCPP_VERSION

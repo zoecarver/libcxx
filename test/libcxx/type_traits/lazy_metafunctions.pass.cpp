@@ -14,6 +14,8 @@
 
 // Test the libc++ lazy meta-programming helpers in <type_traits>
 
+#include "test_macros.h"
+
 #include <type_traits>
 
 template <class Type>

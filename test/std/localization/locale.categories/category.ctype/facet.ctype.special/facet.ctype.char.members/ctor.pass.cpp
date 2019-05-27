@@ -12,6 +12,8 @@
 
 // explicit ctype(const mask* tbl = 0, bool del = false, size_t refs = 0);
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

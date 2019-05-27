@@ -17,6 +17,8 @@
 // typedef u16streampos   pos_type;
 // typedef mbstate_t      state_type;
 
+#include "test_macros.h"
+
 #include <string>
 #include <type_traits>
 #include <cstdint>

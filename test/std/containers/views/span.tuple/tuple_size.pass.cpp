@@ -11,6 +11,8 @@
 
 // tuple_size<span<T, N> >::value
 
+#include "test_macros.h"
+
 #include <span>
 
 template <class T, std::size_t N>

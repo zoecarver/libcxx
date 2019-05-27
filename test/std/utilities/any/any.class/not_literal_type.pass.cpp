@@ -12,6 +12,8 @@
 
 // [Note any is a not a literal type --end note]
 
+#include "test_macros.h"
+
 #include <any>
 #include <type_traits>
 

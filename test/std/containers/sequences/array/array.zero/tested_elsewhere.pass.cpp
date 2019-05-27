@@ -10,6 +10,8 @@
 
 // support for zero-sized array
 
+#include "test_macros.h"
+
 #include <array>
 
 int main(int, char**)

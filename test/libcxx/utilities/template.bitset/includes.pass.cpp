@@ -8,6 +8,8 @@
 
 // test that <bitset> includes <cstddef>, <string>, <stdexcept> and <iosfwd>
 
+#include "test_macros.h"
+
 #include <bitset>
 
 #ifndef _LIBCPP_CSTDDEF

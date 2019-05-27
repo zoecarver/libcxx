@@ -19,6 +19,8 @@
 // call_once properly synchronizes user state, a data race that was fixed
 // in r280621.
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <thread>
 #include <cassert>

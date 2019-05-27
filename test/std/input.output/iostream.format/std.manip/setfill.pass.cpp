@@ -10,6 +10,8 @@
 
 // template<charT> T4 setfill(charT c);
 
+#include "test_macros.h"
+
 #include <iomanip>
 #include <ostream>
 #include <cassert>

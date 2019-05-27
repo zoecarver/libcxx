@@ -15,6 +15,8 @@
 
 // This is pretty much just an "are you breathing" test
 
+#include "test_macros.h"
+
 #include <locale>
 #include <string>
 #include <vector>

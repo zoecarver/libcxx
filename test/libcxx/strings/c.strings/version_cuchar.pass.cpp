@@ -10,6 +10,8 @@
 
 // <cuchar>
 
+#include "test_macros.h"
+
 #include <cuchar>
 
 #ifndef _LIBCPP_VERSION

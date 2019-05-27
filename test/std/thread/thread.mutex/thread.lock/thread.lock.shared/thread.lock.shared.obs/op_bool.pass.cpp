@@ -16,6 +16,8 @@
 
 // explicit operator bool() const noexcept;
 
+#include "test_macros.h"
+
 #include <shared_mutex>
 #include <cassert>
 

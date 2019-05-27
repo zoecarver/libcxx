@@ -17,6 +17,8 @@
 //   basic_ostream<CharT, Traits>&
 //   operator<<(basic_ostream<CharT, Traits>& os, const unique_ptr<Y, D>& p);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <sstream>
 #include <cassert>

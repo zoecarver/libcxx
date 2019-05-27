@@ -15,6 +15,7 @@
 #include <memory>
 #include <cassert>
 
+#include "test_macros.h"
 #include "../AB.h"
 
 void

@@ -8,6 +8,8 @@
 
 // <codecvt>
 
+#include "test_macros.h"
+
 #include <codecvt>
 
 #ifndef _LIBCPP_VERSION

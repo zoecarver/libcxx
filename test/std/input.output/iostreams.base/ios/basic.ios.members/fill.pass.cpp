@@ -12,6 +12,8 @@
 
 // char_type fill() const;
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

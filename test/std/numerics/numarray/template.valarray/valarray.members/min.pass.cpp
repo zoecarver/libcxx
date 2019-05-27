@@ -12,6 +12,8 @@
 
 // value_type min() const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

@@ -18,6 +18,8 @@
 
 // https://bugs.llvm.org/show_bug.cgi?id=16542
 
+#include "test_macros.h"
+
 #include <unordered_map>
 #include <tuple>
 

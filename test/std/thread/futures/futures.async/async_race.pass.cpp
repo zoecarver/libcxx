@@ -22,6 +22,8 @@
 // This test is designed to cause and allow TSAN to detect the race condition
 // reported in PR23293: https://bugs.llvm.org/show_bug.cgi?id=23293
 
+#include "test_macros.h"
+
 #include <future>
 #include <chrono>
 #include <thread>

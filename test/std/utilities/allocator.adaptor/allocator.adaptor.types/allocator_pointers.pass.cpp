@@ -8,6 +8,8 @@
 
 // UNSUPPORTED: c++98, c++03
 
+#include "test_macros.h"
+
 #include <scoped_allocator>
 #include <memory>
 #include <cassert>

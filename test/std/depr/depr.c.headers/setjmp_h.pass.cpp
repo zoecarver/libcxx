@@ -8,6 +8,8 @@
 
 // test <setjmp.h>
 
+#include "test_macros.h"
+
 #include <setjmp.h>
 #include <type_traits>
 

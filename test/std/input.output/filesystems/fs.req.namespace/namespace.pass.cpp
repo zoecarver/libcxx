@@ -12,6 +12,8 @@
 
 // namespace std::filesystem
 
+#include "test_macros.h"
+
 #include <filesystem>
 #include <type_traits>
 

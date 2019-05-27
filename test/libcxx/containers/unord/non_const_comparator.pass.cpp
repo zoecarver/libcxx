@@ -14,6 +14,8 @@
 //
 // See PR41360.
 
+#include "test_macros.h"
+
 #include <unordered_set>
 #include <unordered_map>
 #include <functional>

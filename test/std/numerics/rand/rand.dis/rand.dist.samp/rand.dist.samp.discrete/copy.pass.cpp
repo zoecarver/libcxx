@@ -13,6 +13,8 @@
 
 // discrete_distribution(const discrete_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

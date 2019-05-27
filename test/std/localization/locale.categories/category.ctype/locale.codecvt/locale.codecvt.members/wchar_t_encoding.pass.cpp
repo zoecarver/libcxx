@@ -12,6 +12,8 @@
 
 // int encoding() const throw();
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

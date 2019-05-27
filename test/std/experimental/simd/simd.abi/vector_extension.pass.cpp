@@ -12,6 +12,8 @@
 //
 // [simd.abi]
 
+#include "test_macros.h"
+
 #include <experimental/simd>
 #include <cstdint>
 

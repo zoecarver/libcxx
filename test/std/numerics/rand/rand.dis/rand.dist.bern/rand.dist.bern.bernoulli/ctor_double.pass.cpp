@@ -12,6 +12,8 @@
 
 // explicit bernoulli_distribution(double p = 0.5);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

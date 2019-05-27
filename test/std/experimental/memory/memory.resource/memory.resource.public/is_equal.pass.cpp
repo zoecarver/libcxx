@@ -21,6 +21,8 @@
 //      and the resulting value is returned.
 //   D) 'do_is_equal' is called on the LHS object and not the RHS object.
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

@@ -12,6 +12,8 @@
 
 // static constexpr bool lt(char_type c1, char_type c2);
 
+#include "test_macros.h"
+
 #include <string>
 #include <cassert>
 

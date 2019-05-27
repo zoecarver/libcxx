@@ -10,6 +10,8 @@
 
 // error_code make_error_code(io_errc e);
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 
 // pos_type tellp();
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

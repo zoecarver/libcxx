@@ -14,6 +14,8 @@
 
 // valarray& operator=(valarray&& v);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 #include <cstddef>

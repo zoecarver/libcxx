@@ -16,6 +16,8 @@
 
 // UNSUPPORTED: c++98, c++03
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <type_traits>
 

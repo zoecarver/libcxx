@@ -52,6 +52,8 @@
 //     T operator=(T) noexcept;
 // };
 
+#include "test_macros.h"
+
 #include <atomic>
 #include <new>
 #include <cassert>

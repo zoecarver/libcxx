@@ -13,6 +13,8 @@
 
 // template<class Sseq> explicit discard_block_engine(Sseq& q);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

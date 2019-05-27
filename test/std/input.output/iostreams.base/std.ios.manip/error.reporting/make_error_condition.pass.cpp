@@ -10,6 +10,8 @@
 
 // error_condition make_error_condition(io_errc e);
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

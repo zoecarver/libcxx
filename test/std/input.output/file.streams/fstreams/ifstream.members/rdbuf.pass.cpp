@@ -13,6 +13,8 @@
 
 // basic_filebuf<charT,traits>* rdbuf() const;
 
+#include "test_macros.h"
+
 #include <fstream>
 #include <cassert>
 

@@ -12,6 +12,8 @@
 
 // Extension:  SCARY/N2913 iterator compatibility between unordered_map and unordered_multimap
 
+#include "test_macros.h"
+
 #include <unordered_map>
 
 int main(int, char**)

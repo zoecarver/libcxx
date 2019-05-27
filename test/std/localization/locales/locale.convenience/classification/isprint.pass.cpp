@@ -10,6 +10,8 @@
 
 // template <class charT> bool isprint (charT c, const locale& loc);
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

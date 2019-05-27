@@ -13,6 +13,8 @@
 
 // uniform_real_distribution& operator=(const uniform_real_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

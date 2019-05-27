@@ -16,6 +16,8 @@ struct allocator;
 struct pair;
 struct equal_to;
 struct unique_ptr;
+#include "test_macros.h"
+
 #include <ext/hash_set>
 
 namespace __gnu_cxx {

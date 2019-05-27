@@ -8,6 +8,8 @@
 
 // <ccomplex>
 
+#include "test_macros.h"
+
 #include <ccomplex>
 
 int main(int, char**)

@@ -16,6 +16,8 @@
 // bool operator!(const exponential_distribution& x,
 //                const exponential_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

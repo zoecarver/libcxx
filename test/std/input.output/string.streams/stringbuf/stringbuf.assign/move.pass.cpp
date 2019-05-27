@@ -13,6 +13,8 @@
 
 // basic_stringbuf& operator=(basic_stringbuf&& rhs);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 
 // explicit fisher_f_distribution(result_type alpha = 0, result_type beta = 1);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

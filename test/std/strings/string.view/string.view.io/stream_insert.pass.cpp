@@ -13,6 +13,8 @@
 //   operator<<(basic_ostream<charT, traits>& os,
 //              const basic_string_view<charT,traits> str);
 
+#include "test_macros.h"
+
 #include <string_view>
 #include <sstream>
 #include <cassert>

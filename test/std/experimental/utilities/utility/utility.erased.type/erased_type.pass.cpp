@@ -8,6 +8,8 @@
 
 // <experimental/utility>
 
+#include "test_macros.h"
+
 #include <experimental/utility>
 
 int main(int, char**)

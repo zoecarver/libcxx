@@ -14,6 +14,8 @@
 
 // bool do_is_equal(memory_resource const &) const noexcept;
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <memory>

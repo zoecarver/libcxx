@@ -10,6 +10,8 @@
 
 // template <class _Tp> using __is_inplace_index
 
+#include "test_macros.h"
+
 #include <utility>
 
 struct S {};

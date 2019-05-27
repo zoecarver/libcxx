@@ -15,6 +15,8 @@
 //   Callable<T, ArgTypes&&...>::result_type
 //   operator()(ArgTypes&&... args) const;
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 
 // template<class T> void swap(weak_ptr<T>& a, weak_ptr<T>& b)
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

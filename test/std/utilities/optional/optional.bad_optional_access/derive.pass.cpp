@@ -13,6 +13,8 @@
 
 // class bad_optional_access : public exception
 
+#include "test_macros.h"
+
 #include <optional>
 #include <type_traits>
 

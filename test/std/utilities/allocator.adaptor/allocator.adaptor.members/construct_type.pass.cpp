@@ -16,6 +16,8 @@
 // template <class T, class ...Args>
 // void scoped_allocator_adaptor::construct(T*, Args&&...)
 
+#include "test_macros.h"
+
 #include <scoped_allocator>
 #include <type_traits>
 #include <utility>

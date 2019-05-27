@@ -15,6 +15,8 @@
 
 // basic_stringstream(basic_stringstream&& rhs);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <vector>
 #include <string>

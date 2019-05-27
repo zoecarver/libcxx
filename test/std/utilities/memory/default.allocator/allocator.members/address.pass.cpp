@@ -12,6 +12,8 @@
 // pointer address(reference x) const;
 // const_pointer address(const_reference x) const;
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

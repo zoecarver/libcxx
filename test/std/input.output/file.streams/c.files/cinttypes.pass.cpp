@@ -8,6 +8,8 @@
 
 // test <cinttypes>
 
+#include "test_macros.h"
+
 #include <cinttypes>
 #include <type_traits>
 

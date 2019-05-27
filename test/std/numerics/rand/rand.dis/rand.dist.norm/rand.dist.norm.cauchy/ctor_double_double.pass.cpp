@@ -13,6 +13,8 @@
 
 // explicit cauchy_distribution(result_type a = 0, result_type b = 1);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

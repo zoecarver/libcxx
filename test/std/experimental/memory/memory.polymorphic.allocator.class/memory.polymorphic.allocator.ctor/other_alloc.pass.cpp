@@ -16,6 +16,8 @@
 // polymorphic_allocator<T>::polymorphic_allocator(polymorphic_allocator<U> const &);
 
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

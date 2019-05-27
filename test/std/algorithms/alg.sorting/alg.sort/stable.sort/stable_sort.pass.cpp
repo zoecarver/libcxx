@@ -14,6 +14,8 @@
 //   void
 //   stable_sort(Iter first, Iter last);
 
+#include "test_macros.h"
+
 #include <algorithm>
 #include <iterator>
 #include <random>

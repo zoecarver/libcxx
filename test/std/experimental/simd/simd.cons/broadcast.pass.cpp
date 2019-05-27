@@ -16,6 +16,8 @@
 // [simd.class]
 // template <class U> simd(U&& value);
 
+#include "test_macros.h"
+
 #include <cstdint>
 #include <experimental/simd>
 

@@ -12,6 +12,8 @@
 
 // virtual string message(int ev) const = 0;
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 #include <string>

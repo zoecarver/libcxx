@@ -8,6 +8,8 @@
 
 // <ccomplex>
 
+#include "test_macros.h"
+
 #include <ccomplex>
 
 #ifndef _LIBCPP_VERSION

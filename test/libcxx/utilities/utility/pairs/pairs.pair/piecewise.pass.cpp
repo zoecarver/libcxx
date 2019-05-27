@@ -16,6 +16,8 @@
 //     pair(piecewise_construct_t, tuple<Args1...> first_args,
 //                                 tuple<Args2...> second_args);
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <type_traits>
 #include <utility>

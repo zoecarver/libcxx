@@ -14,6 +14,8 @@
 
 // sanity check
 
+#include "test_macros.h"
+
 #include <locale>
 #include <codecvt>
 #include <cassert>

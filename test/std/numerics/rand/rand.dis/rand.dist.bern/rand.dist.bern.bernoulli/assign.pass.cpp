@@ -12,6 +12,8 @@
 
 // bernoulli_distribution& operator=(const bernoulli_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

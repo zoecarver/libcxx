@@ -14,6 +14,8 @@
 
 // Allow incomplete argument types in the __is_callable check
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

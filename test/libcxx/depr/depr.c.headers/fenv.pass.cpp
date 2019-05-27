@@ -8,6 +8,8 @@
 
 // <fenv.h>
 
+#include "test_macros.h"
+
 #include <fenv.h>
 
 #ifndef _LIBCPP_VERSION

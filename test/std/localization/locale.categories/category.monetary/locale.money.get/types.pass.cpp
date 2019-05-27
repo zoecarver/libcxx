@@ -17,6 +17,8 @@
 //     typedef InputIterator           iter_type;
 //     typedef basic_string<char_type> string_type;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <type_traits>
 

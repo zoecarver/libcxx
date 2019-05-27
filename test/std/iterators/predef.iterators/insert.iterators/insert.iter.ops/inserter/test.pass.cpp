@@ -12,6 +12,8 @@
 //   insert_iterator<Cont>
 //   inserter(Cont& x, Cont::iterator i);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <vector>
 #include <cassert>

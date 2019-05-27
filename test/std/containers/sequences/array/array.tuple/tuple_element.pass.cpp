@@ -10,6 +10,8 @@
 
 // tuple_element<I, array<T, N> >::type
 
+#include "test_macros.h"
+
 #include <array>
 #include <type_traits>
 

@@ -28,6 +28,8 @@
 //  F) 'get_default_resource' and 'set_default_resource' are noexcept.
 
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <cassert>
 

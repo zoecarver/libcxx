@@ -14,6 +14,8 @@
 
 // mutex_type *mutex() const;
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <cassert>
 

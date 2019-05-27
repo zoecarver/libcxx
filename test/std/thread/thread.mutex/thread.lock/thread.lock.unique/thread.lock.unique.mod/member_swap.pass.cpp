@@ -14,6 +14,8 @@
 
 // void swap(unique_lock& u);
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <cassert>
 

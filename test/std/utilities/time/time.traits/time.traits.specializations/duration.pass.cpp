@@ -14,6 +14,8 @@
 //     typedef chrono::duration<typename common_type<Rep1, Rep2>::type, see below }> type;
 // };
 
+#include "test_macros.h"
+
 #include <chrono>
 
 template <class D1, class D2, class De>

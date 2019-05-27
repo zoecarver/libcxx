@@ -13,6 +13,8 @@
 // Test that <optional> provides all of the arithmetic, enum, and pointer
 // hash specializations.
 
+#include "test_macros.h"
+
 #include <optional>
 
 #include "poisoned_hash_helper.hpp"

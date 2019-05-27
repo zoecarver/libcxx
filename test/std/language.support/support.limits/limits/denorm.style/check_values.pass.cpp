@@ -10,6 +10,8 @@
 
 // float_round_style
 
+#include "test_macros.h"
+
 #include <limits>
 
 typedef char one;

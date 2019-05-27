@@ -13,6 +13,8 @@
 
 // explicit sentry(basic_ostream<charT,traits>& os);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

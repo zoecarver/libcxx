@@ -24,6 +24,8 @@
 //     container_type c;
 //     Compare comp;
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 #include <deque>

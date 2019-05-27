@@ -12,6 +12,8 @@
 
 // type_index(const type_info& rhs);
 
+#include "test_macros.h"
+
 #include <typeinfo>
 #include <typeindex>
 #include <cassert>

@@ -8,6 +8,8 @@
 
 // test get_new_handler
 
+#include "test_macros.h"
+
 #include <new>
 #include <cassert>
 

@@ -12,6 +12,8 @@
 
 // check for deriving from binary_function
 
+#include "test_macros.h"
+
 #include <functional>
 #include <type_traits>
 

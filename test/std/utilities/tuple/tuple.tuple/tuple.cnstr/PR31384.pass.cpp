@@ -14,6 +14,8 @@
 // template <class TupleLike> tuple(TupleLike&&); // libc++ extension
 
 // See llvm.org/PR31384
+#include "test_macros.h"
+
 #include <tuple>
 #include <cassert>
 

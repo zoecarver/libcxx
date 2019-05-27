@@ -14,6 +14,8 @@
 
 // template<class U, class V> pair& operator=(tuple<U, V>&& p);
 
+#include "test_macros.h"
+
 #include <utility>
 #include <tuple>
 #include <array>

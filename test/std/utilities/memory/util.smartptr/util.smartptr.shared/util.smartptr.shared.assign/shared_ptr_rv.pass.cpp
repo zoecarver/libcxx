@@ -14,6 +14,8 @@
 
 // shared_ptr& operator=(shared_ptr&& r);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <type_traits>
 #include <cassert>

@@ -15,6 +15,8 @@
 // file_status symlink_status() const;
 // file_status symlink_status(error_code&) const noexcept;
 
+#include "test_macros.h"
+
 #include "filesystem_include.hpp"
 #include <type_traits>
 #include <cassert>

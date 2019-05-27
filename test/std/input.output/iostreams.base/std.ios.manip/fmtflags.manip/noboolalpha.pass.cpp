@@ -12,6 +12,8 @@
 
 // ios_base& noboolalpha(ios_base& str);
 
+#include "test_macros.h"
+
 #include <ios>
 #include <streambuf>
 #include <cassert>

@@ -13,6 +13,8 @@
 
 // param_type param() const;
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

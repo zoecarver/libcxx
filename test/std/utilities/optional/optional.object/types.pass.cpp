@@ -16,6 +16,8 @@
 //     typedef T value_type;
 //     ...
 
+#include "test_macros.h"
+
 #include <optional>
 #include <type_traits>
 

@@ -12,6 +12,8 @@
 
 // template <ErrorCodeEnum E> error_code(E e);
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 

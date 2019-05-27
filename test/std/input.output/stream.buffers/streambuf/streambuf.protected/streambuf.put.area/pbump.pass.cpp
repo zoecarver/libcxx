@@ -13,6 +13,8 @@
 
 // void pbump(int n);
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

@@ -16,6 +16,8 @@
 
 // void set_exception(exception_ptr p);
 
+#include "test_macros.h"
+
 #include <future>
 #include <cassert>
 

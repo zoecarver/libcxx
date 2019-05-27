@@ -14,6 +14,8 @@
 
 // void wait(unique_lock<mutex>& lock);
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

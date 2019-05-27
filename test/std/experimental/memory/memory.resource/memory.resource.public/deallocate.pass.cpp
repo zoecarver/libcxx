@@ -21,6 +21,8 @@
 //  D) Invoking 'deallocate' invokes 'do_deallocate' with the same arguments.
 
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cstddef>

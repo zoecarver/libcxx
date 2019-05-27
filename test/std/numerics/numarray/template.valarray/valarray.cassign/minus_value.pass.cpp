@@ -12,6 +12,8 @@
 
 // valarray& operator-=(const value_type& x);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 #include <cstddef>

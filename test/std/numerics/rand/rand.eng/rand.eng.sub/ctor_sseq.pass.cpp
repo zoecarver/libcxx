@@ -13,6 +13,8 @@
 
 // template<class Sseq> explicit subtract_with_carry_engine(Sseq& q);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

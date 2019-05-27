@@ -12,6 +12,8 @@
 //   back_insert_iterator<Cont>
 //   back_inserter(Cont& x);
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <vector>
 #include <cassert>

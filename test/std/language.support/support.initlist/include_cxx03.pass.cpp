@@ -10,6 +10,8 @@
 
 // Test that the file can be included in C++03
 
+#include "test_macros.h"
+
 #include <initializer_list>
 
 int main(int, char**)

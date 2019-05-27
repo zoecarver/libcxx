@@ -10,6 +10,8 @@
 
 // bad_function_call();
 
+#include "test_macros.h"
+
 #include <functional>
 #include <type_traits>
 

@@ -14,6 +14,8 @@
 //   basic_istream<charT, traits>&
 //   operator>>(basic_istream<charT, traits>&& is, T&& x);
 
+#include "test_macros.h"
+
 #include <istream>
 #include <sstream>
 #include <cassert>

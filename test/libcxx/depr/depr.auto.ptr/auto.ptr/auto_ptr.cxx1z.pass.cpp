@@ -19,6 +19,8 @@
 #define _LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR
 #define _LIBCPP_DISABLE_DEPRECATION_WARNINGS
 
+#include "test_macros.h"
+
 #include <memory>
 #include <type_traits>
 

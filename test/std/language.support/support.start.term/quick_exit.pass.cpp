@@ -9,6 +9,8 @@
 
 // test quick_exit and at_quick_exit
 
+#include "test_macros.h"
+
 #include <cstdlib>
 
 void f() {}

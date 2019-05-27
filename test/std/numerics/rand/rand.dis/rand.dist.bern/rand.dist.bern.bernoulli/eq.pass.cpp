@@ -15,6 +15,8 @@
 // bool operator!(const bernoulli_distribution& x,
 //                const bernoulli_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

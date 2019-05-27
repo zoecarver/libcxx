@@ -10,6 +10,8 @@
 
 // basic_istream<charT,traits>& seekg(pos_type pos);
 
+#include "test_macros.h"
+
 #include <istream>
 #include <cassert>
 

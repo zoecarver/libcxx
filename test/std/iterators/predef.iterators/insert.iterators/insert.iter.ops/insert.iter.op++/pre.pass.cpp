@@ -12,6 +12,8 @@
 
 // insert_iterator<Cont>& operator++();
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <vector>
 #include <cassert>

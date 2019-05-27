@@ -12,6 +12,8 @@
 
 // template <class T> T kill_dependency(T y);
 
+#include "test_macros.h"
+
 #include <atomic>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 
 // void str(const basic_string<charT,traits,Allocator>& str);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

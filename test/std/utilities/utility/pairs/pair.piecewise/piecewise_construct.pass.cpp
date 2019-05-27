@@ -15,6 +15,8 @@
 // struct piecewise_construct_t { };
 // constexpr piecewise_construct_t piecewise_construct = piecewise_construct_t();
 
+#include "test_macros.h"
+
 #include <utility>
 #include <tuple>
 #include <cassert>

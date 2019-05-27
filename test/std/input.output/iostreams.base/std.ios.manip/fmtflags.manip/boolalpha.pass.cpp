@@ -12,6 +12,8 @@
 
 // ios_base& boolalpha(ios_base& str);
 
+#include "test_macros.h"
+
 #include <ios>
 #include <streambuf>
 #include <cassert>

@@ -13,6 +13,8 @@
 
 // student_t_distribution(const student_t_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

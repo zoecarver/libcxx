@@ -12,6 +12,8 @@
 
 // slice(size_t start, size_t size, size_t stride);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

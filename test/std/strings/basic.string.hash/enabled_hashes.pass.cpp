@@ -13,6 +13,8 @@
 // Test that <string> provides all of the arithmetic, enum, and pointer
 // hash specializations.
 
+#include "test_macros.h"
+
 #include <string>
 
 #include "poisoned_hash_helper.hpp"

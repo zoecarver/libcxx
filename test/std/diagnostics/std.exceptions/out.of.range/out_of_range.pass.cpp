@@ -8,6 +8,8 @@
 
 // test out_of_range
 
+#include "test_macros.h"
+
 #include <stdexcept>
 #include <type_traits>
 #include <cstring>

@@ -12,6 +12,8 @@
 
 // template<class T, class U> bool operator<(const shared_ptr<T>& a, const shared_ptr<U>& b);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

@@ -8,6 +8,8 @@
 
 // NOTE: Undefined __DEPRECATED to prevent this test from failing with -Werror
 #undef __DEPRECATED
+#include "test_macros.h"
+
 #include <assert.h>
 #include <ext/hash_map>
 #include <string>

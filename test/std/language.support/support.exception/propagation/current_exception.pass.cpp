@@ -15,6 +15,8 @@
 
 // exception_ptr current_exception();
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cassert>
 

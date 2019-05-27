@@ -14,6 +14,8 @@
 
 // id();
 
+#include "test_macros.h"
+
 #include <thread>
 #include <cassert>
 

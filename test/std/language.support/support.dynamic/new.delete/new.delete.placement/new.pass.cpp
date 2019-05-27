@@ -8,6 +8,8 @@
 
 // test placement new
 
+#include "test_macros.h"
+
 #include <new>
 #include <cassert>
 

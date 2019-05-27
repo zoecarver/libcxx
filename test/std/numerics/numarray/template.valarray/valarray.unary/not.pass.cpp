@@ -12,6 +12,8 @@
 
 // valarray<bool> operator!() const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 #include <cstddef>

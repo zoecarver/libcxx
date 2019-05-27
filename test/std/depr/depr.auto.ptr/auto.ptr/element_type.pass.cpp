@@ -20,6 +20,8 @@
 
 #define _LIBCPP_DISABLE_DEPRECATION_WARNINGS
 
+#include "test_macros.h"
+
 #include <memory>
 #include <type_traits>
 
