@@ -4016,12 +4016,24 @@ private:
             }
         }
 
+    template <class _Yp>
+        struct __shared_ptr_default_delete
+            : default_delete<_Yp> {};
+
+    template <class _Yp, size_t _Sz>
+        struct __shared_ptr_default_delete<_Yp[_Sz]>
+            : default_delete<_Yp[]> {};
+
+    template <class _Yp>
+        struct __shared_ptr_default_delete<_Yp[]>
+            : default_delete<_Yp[]> {};
+
     _LIBCPP_INLINE_VISIBILITY void __enable_weak_this(...) _NOEXCEPT {}
 
     template <class _Up> friend class _LIBCPP_TEMPLATE_VIS shared_ptr;
     template <class _Up> friend class _LIBCPP_TEMPLATE_VIS weak_ptr;
 
-    template<class _Yp, class _Deleter = default_delete<_Tp>,
+    template<class _Yp, class _Deleter = __shared_ptr_default_delete<_Tp>,
                         class _Alloc = typename __shared_ptr_default_allocator<_Yp>::type>
     static __shared_weak_count*
     __allocate_shared(_Yp* __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
@@ -4044,7 +4056,7 @@ private:
         }
     }
 
-    template<class _Deleter = default_delete<_Tp>,
+    template<class _Deleter = __shared_ptr_default_delete<_Tp>,
              class _Alloc = typename __shared_ptr_default_allocator<_Tp>::type>
     static __shared_weak_count*
     __allocate_shared(nullptr_t __p, _Deleter __d = _Deleter {}, _Alloc __a = _Alloc {})
@@ -4803,7 +4815,8 @@ inline _LIBCPP_INLINE_VISIBILITY
 shared_ptr<_Tp>
 dynamic_pointer_cast(const shared_ptr<_Up>& __r) _NOEXCEPT
 {
-    _Tp* __p = dynamic_cast<typename shared_ptr<_Tp>::element_type*>(__r.get());
+    typedef typename shared_ptr<_Tp>::element_type _ET;
+    _ET* __p = dynamic_cast<_ET*>(__r.get());
     return __p ? shared_ptr<_Tp>(__r, __p) : shared_ptr<_Tp>();
 }
 
