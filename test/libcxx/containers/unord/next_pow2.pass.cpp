@@ -18,6 +18,8 @@
 // If n <= 1, return n. If n is a power of 2, return n.
 // Otherwise, return the next power of 2.
 
+#include "test_macros.h"
+
 #include <__hash_table>
 #include <unordered_map>
 #include <cassert>

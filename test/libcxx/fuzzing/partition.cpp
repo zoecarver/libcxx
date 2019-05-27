@@ -9,6 +9,7 @@
 
 // XFAIL
 
+#include "test_macros.h"
 #include "fuzzing.h"
 #include <cassert>
 #include <cstring> // for strlen

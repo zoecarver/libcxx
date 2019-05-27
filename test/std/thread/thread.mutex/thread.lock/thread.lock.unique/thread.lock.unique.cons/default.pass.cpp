@@ -14,6 +14,8 @@
 
 // unique_lock();
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <cassert>
 

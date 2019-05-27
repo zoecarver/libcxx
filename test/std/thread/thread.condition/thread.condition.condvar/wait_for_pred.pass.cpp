@@ -18,6 +18,8 @@
 //              const chrono::duration<Rep, Period>& rel_time,
 //              Predicate pred);
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

@@ -14,6 +14,8 @@
 
 // pair& operator=(pair const& p);
 
+#include "test_macros.h"
+
 #include <utility>
 #include <memory>
 #include <cassert>

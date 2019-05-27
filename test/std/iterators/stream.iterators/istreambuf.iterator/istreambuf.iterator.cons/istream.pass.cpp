@@ -12,6 +12,8 @@
 
 // istreambuf_iterator(basic_istream<charT,traits>& s) throw();
 
+#include "test_macros.h"
+
 #include <iterator>
 #include <sstream>
 #include <cassert>

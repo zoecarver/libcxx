@@ -14,6 +14,8 @@
 //     typedef chrono::time_point<Clock, typename common_type<Duration1, Duration2>::type> type;
 // };
 
+#include "test_macros.h"
+
 #include <chrono>
 
 template <class D1, class D2, class De>

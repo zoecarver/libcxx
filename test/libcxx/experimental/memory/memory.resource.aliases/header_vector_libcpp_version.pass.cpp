@@ -10,6 +10,8 @@
 
 // <experimental/vector>
 
+#include "test_macros.h"
+
 #include <experimental/vector>
 
 #ifndef _LIBCPP_VERSION

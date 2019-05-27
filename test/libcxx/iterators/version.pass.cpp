@@ -8,6 +8,8 @@
 
 // <iterator>
 
+#include "test_macros.h"
+
 #include <iterator>
 
 #ifndef _LIBCPP_VERSION

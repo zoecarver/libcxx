@@ -13,6 +13,8 @@
 
 // independent_bits_engine& operator=(const independent_bits_engine&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

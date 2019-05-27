@@ -12,6 +12,8 @@
 
 // exception_ptr shall satisfy the requirements of NullablePointer.
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cassert>
 

@@ -14,6 +14,8 @@
 
 // bool try_lock();
 
+#include "test_macros.h"
+
 #include <mutex>
 #include <thread>
 #include <cstdlib>

@@ -17,6 +17,8 @@
 // void scoped_allocator_adaptor::construct(pair<U1, U2>*,
 //     piecewise_construct_t, tuple<Args1...>, tuple<Args2...>)
 
+#include "test_macros.h"
+
 #include <scoped_allocator>
 #include <type_traits>
 #include <utility>

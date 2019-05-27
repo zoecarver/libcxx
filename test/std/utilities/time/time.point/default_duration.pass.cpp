@@ -15,6 +15,8 @@
 // template <class Clock, class Duration = typename Clock::duration>
 //   class time_point;
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <type_traits>
 

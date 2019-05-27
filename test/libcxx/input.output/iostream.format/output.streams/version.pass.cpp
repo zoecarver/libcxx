@@ -8,6 +8,8 @@
 
 // <ostream>
 
+#include "test_macros.h"
+
 #include <ostream>
 
 #ifndef _LIBCPP_VERSION

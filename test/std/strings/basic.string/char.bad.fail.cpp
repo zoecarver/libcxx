@@ -10,6 +10,7 @@
 //   ... manipulating sequences of any non-array trivial standard-layout types.
 
 #include <string>
+#include "test_macros.h"
 #include "test_traits.h"
 
 struct NotTrivial {

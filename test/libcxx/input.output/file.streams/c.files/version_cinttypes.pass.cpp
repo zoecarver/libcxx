@@ -8,6 +8,8 @@
 
 // <cinttypes>
 
+#include "test_macros.h"
+
 #include <cinttypes>
 
 #ifndef _LIBCPP_VERSION

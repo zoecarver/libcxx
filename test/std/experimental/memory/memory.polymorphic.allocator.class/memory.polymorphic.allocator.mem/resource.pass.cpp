@@ -15,6 +15,8 @@
 // memory_resource *
 // polymorphic_allocator<T>::resource() const
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

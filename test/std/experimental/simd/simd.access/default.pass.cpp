@@ -14,6 +14,8 @@
 // reference operator[](size_t);
 // value_type operator[](size_t) const;
 
+#include "test_macros.h"
+
 #include <experimental/simd>
 #include <cassert>
 #include <cstdint>

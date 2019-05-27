@@ -12,6 +12,8 @@
 
 // explicit failure(const char* msg, const error_code& ec = io_errc::stream);
 
+#include "test_macros.h"
+
 #include <ios>
 #include <string>
 #include <system_error>

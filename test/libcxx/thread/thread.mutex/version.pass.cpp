@@ -8,6 +8,8 @@
 
 // <mutex>
 
+#include "test_macros.h"
+
 #include <mutex>
 
 #ifndef _LIBCPP_VERSION

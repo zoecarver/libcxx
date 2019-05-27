@@ -35,6 +35,8 @@
 // template <class T, class D>
 //     bool operator>=(nullptr_t, const unique_ptr<T, D>& y) noexcept;
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

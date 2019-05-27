@@ -15,6 +15,8 @@
 
 // basic_ostringstream(basic_ostringstream&& rhs);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

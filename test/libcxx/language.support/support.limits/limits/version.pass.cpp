@@ -8,6 +8,8 @@
 
 // <limits>
 
+#include "test_macros.h"
+
 #include <limits>
 
 #ifndef _LIBCPP_VERSION

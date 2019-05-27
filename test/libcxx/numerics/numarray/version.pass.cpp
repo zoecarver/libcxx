@@ -8,6 +8,8 @@
 
 // <valarray>
 
+#include "test_macros.h"
+
 #include <valarray>
 
 #ifndef _LIBCPP_VERSION

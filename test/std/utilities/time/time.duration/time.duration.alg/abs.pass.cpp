@@ -15,6 +15,8 @@
 // template <class Rep, class Period>
 //   constexpr duration<Rep, Period> abs(duration<Rep, Period> d)
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <type_traits>
 #include <cassert>

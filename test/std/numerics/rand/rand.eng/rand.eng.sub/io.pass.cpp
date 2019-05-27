@@ -23,6 +23,8 @@
 // operator>>(basic_istream<charT, traits>& is,
 //            subtract_with_carry_engine<UIntType, w, s, r>& x);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

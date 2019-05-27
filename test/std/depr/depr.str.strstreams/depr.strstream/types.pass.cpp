@@ -18,6 +18,8 @@
 //     typedef char_traits<char>::pos_type pos_type;
 //     typedef char_traits<char>::off_type off_type;
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <type_traits>
 

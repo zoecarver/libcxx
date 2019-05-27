@@ -10,6 +10,8 @@
 
 // test set_unexpected
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cassert>
 #include <cstdlib>

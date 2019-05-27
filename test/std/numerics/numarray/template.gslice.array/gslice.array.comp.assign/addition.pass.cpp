@@ -12,6 +12,8 @@
 
 // void operator+= (const valarray<value_type>& v) const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

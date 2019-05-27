@@ -8,6 +8,8 @@
 
 // test <signal.h>
 
+#include "test_macros.h"
+
 #include <signal.h>
 #include <type_traits>
 

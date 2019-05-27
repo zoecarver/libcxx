@@ -10,6 +10,8 @@
 
 // reference front();
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

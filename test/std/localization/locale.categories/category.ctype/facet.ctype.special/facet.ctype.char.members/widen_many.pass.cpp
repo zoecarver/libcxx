@@ -12,6 +12,8 @@
 
 // const char* widen(const char* low, const char* high, char* to) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <string>
 #include <vector>

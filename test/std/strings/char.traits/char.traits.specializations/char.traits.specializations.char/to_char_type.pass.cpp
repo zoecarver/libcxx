@@ -12,6 +12,8 @@
 
 // static constexpr char_type to_char_type(int_type c);
 
+#include "test_macros.h"
+
 #include <string>
 #include <cassert>
 

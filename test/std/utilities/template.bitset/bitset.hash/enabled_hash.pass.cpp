@@ -13,6 +13,8 @@
 // Test that <bitset> provides all of the arithmetic, enum, and pointer
 // hash specializations.
 
+#include "test_macros.h"
+
 #include <bitset>
 
 #include "poisoned_hash_helper.hpp"

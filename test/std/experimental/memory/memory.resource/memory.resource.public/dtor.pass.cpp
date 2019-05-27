@@ -18,6 +18,8 @@
 //  B) The destructor is implicitly marked noexcept.
 //  C) The destructor is marked virtual.
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

@@ -23,6 +23,8 @@
 // This test is designed to cause and allow TSAN to detect a race condition
 // in std::async, as reported in https://bugs.llvm.org/show_bug.cgi?id=38682.
 
+#include "test_macros.h"
+
 #include <cassert>
 #include <functional>
 #include <future>

@@ -12,6 +12,8 @@
 //   complex<T>
 //   conj(const complex<T>& x);
 
+#include "test_macros.h"
+
 #include <complex>
 #include <cassert>
 

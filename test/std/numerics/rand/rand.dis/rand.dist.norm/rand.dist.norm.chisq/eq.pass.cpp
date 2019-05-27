@@ -16,6 +16,8 @@
 // bool operator!(const chi_squared_distribution& x,
 //                const chi_squared_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

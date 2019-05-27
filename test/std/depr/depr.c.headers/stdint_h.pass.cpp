@@ -8,6 +8,8 @@
 
 // test <stdint.h>
 
+#include "test_macros.h"
+
 #include <stdint.h>
 #include <cstddef>
 #include <csignal>

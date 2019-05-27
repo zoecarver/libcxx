@@ -15,6 +15,8 @@
 //     param_type(size_t nw, double xmin, double xmax,
 //                           UnaryOperation fw);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

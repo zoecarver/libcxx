@@ -10,6 +10,8 @@
 
 // typedef SZ_T streamsize;
 
+#include "test_macros.h"
+
 #include <ios>
 #include <type_traits>
 

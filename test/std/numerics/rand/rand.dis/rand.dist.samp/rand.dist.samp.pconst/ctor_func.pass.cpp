@@ -15,6 +15,8 @@
 //     piecewise_constant_distribution(size_t nw, result_type xmin,
 //                                     result_type xmax, UnaryOperation fw);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

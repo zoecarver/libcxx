@@ -12,6 +12,8 @@
 
 // bool eof() const;
 
+#include "test_macros.h"
+
 #include <ios>
 #include <streambuf>
 #include <cassert>

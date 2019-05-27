@@ -12,6 +12,8 @@
 
 // int_type underflow();
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 

@@ -12,6 +12,8 @@
 
 // const std::type_info& target_type() const;
 
+#include "test_macros.h"
+
 #include <functional>
 #include <typeinfo>
 #include <cassert>

@@ -22,6 +22,7 @@
 #include <cstddef>
 #include <cassert>
 
+#include "test_macros.h"
 #include "filesystem_common.h"
 
 #ifndef __SIZEOF_INT128__

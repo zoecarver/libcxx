@@ -14,6 +14,8 @@
 
 // void notify_one();
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <atomic>
 #include <mutex>

@@ -8,6 +8,8 @@
 
 // <csignal>
 
+#include "test_macros.h"
+
 #include <csignal>
 
 #ifndef _LIBCPP_VERSION

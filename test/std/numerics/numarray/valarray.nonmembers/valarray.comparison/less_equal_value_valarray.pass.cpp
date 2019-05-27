@@ -14,6 +14,8 @@
 //   valarray<bool>
 //   operator<=(const T& x, const valarray<T>& y);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 #include <cstddef>

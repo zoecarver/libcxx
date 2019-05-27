@@ -13,6 +13,8 @@
 
 // streamsize in_avail();
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

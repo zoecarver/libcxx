@@ -13,6 +13,8 @@
 
 // binomial_distribution& operator=(const binomial_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

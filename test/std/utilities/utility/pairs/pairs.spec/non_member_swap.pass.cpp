@@ -13,6 +13,8 @@
 
 // template <class T1, class T2> void swap(pair<T1, T2>& x, pair<T1, T2>& y);
 
+#include "test_macros.h"
+
 #include <utility>
 #include <cassert>
 

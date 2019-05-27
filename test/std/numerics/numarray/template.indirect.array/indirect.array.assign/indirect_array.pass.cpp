@@ -12,6 +12,8 @@
 
 // const indirect_array& operator=(const indirect_array& ia) const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

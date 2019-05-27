@@ -13,6 +13,8 @@
 
 // discard_block_engine& operator=(const discard_block_engine&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

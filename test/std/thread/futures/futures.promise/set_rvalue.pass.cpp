@@ -15,6 +15,8 @@
 
 // void promise::set_value(R&& r);
 
+#include "test_macros.h"
+
 #include <future>
 #include <memory>
 #include <cassert>

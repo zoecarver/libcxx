@@ -16,6 +16,8 @@
 // Test that the __convert_to_integral functions properly converts Tp to the
 // correct type and value for integral, enum and user defined types.
 
+#include "test_macros.h"
+
 #include <limits>
 #include <type_traits>
 #include <cstdint>

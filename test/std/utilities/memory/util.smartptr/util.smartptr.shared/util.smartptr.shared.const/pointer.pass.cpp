@@ -10,6 +10,8 @@
 
 // template<class Y> explicit shared_ptr(Y* p);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

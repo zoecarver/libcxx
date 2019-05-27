@@ -13,6 +13,8 @@
 
 // explicit uniform_int_distribution(const param_type& parm);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

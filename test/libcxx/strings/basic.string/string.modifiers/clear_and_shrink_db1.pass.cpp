@@ -14,6 +14,8 @@
 
 #define _LIBCPP_ASSERT(x, m) ((x) ? (void)0 : std::exit(0))
 
+#include "test_macros.h"
+
 #include <string>
 #include <cassert>
 

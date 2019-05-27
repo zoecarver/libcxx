@@ -8,6 +8,8 @@
 
 // test unsigned long long to_ullong() const;
 
+#include "test_macros.h"
+
 #include <bitset>
 #include <algorithm>
 #include <type_traits>

@@ -8,6 +8,8 @@
 
 // test get_terminate
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cstdlib>
 #include <cassert>

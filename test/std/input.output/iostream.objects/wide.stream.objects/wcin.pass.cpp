@@ -12,6 +12,8 @@
 
 // istream wcin;
 
+#include "test_macros.h"
+
 #include <iostream>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 
 // explicit piecewise_linear_distribution(const param_type& parm);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

@@ -12,6 +12,8 @@
 
 // The deleter is not called if get() == 0
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

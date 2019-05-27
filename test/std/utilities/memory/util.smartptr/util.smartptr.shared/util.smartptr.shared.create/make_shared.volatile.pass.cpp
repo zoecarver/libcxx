@@ -12,6 +12,8 @@
 
 // template<class T, class... Args> shared_ptr<T> make_shared(Args&&... args);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

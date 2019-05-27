@@ -12,6 +12,8 @@
 
 // fmtflags flags(fmtflags fmtfl);
 
+#include "test_macros.h"
+
 #include <ios>
 #include <cassert>
 

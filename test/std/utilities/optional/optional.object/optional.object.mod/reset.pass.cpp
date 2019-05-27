@@ -12,6 +12,8 @@
 
 // void reset() noexcept;
 
+#include "test_macros.h"
+
 #include <optional>
 #include <type_traits>
 #include <cassert>

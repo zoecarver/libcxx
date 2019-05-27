@@ -8,6 +8,8 @@
 
 // test rel_ops
 
+#include "test_macros.h"
+
 #include <utility>
 #include <cassert>
 

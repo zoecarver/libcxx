@@ -16,6 +16,8 @@
 // bool operator!(const gamma_distribution& x,
 //                const gamma_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

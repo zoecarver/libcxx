@@ -16,6 +16,8 @@
 // [simd.class]
 // template <class G> explicit simd(G&& gen);
 
+#include "test_macros.h"
+
 #include <experimental/simd>
 #include <cstdint>
 

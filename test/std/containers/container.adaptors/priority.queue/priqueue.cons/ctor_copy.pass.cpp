@@ -10,6 +10,8 @@
 
 // priority_queue(const priority_queue&) = default;
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 #include <functional>

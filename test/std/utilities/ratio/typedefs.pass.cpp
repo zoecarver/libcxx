@@ -8,6 +8,8 @@
 
 // test ratio typedef's
 
+#include "test_macros.h"
+
 #include <ratio>
 
 int main(int, char**)

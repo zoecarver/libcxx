@@ -21,6 +21,8 @@
 // This test checks that we do not evaluate __make_tuple_types
 // on the array.
 
+#include "test_macros.h"
+
 #include <array>
 #include <tuple>
 

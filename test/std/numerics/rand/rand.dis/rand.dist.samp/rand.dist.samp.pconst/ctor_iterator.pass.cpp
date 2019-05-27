@@ -16,6 +16,8 @@
 //                                     InputIteratorB lastB,
 //                                     InputIteratorW firstW);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

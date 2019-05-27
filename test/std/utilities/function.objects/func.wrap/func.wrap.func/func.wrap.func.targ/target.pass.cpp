@@ -19,6 +19,8 @@
 //   const T*
 //   target() const;
 
+#include "test_macros.h"
+
 #include <functional>
 #include <new>
 #include <cstdlib>

@@ -18,6 +18,8 @@
 // MODULES_DEFINES: _LIBCPP_ENABLE_THREAD_SAFETY_ANNOTATIONS
 #define _LIBCPP_ENABLE_THREAD_SAFETY_ANNOTATIONS
 
+#include "test_macros.h"
+
 #include <mutex>
 
 std::mutex m;

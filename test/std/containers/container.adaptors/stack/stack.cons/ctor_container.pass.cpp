@@ -10,6 +10,8 @@
 
 // explicit stack(const container_type& c);
 
+#include "test_macros.h"
+
 #include <stack>
 #include <cassert>
 #include <cstddef>

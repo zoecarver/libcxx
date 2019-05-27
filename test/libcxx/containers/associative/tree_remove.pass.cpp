@@ -13,6 +13,8 @@
 // void
 // __tree_remove(_NodePtr __root, _NodePtr __z)
 
+#include "test_macros.h"
+
 #include <__tree>
 #include <cassert>
 

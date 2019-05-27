@@ -12,6 +12,8 @@
 
 // bool always_noconv() const throw();
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

@@ -14,6 +14,8 @@
 
 // polymorphic_allocator operator=(polymorphic_allocator const &) = delete
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <type_traits>
 #include <cassert>

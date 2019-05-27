@@ -17,6 +17,8 @@
 //     static constexpr size_t size() noexcept;
 // };
 
+#include "test_macros.h"
+
 #include <utility>
 #include <type_traits>
 #include <cstddef>

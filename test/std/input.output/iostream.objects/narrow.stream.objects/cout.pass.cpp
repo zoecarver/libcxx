@@ -12,6 +12,8 @@
 
 // istream cout;
 
+#include "test_macros.h"
+
 #include <iostream>
 
 int main(int, char**)

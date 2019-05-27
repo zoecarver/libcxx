@@ -10,6 +10,8 @@
 
 // void swap(stack& q);
 
+#include "test_macros.h"
+
 #include <stack>
 #include <cassert>
 

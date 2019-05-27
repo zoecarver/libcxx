@@ -15,6 +15,8 @@
 // template <class Rep, class Period = ratio<1>>
 // class duration;
 
+#include "test_macros.h"
+
 #include <chrono>
 #include <type_traits>
 

@@ -12,6 +12,8 @@
 
 // function& operator=(nullptr_t);
 
+#include "test_macros.h"
+
 #include <functional>
 #include <cassert>
 

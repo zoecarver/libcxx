@@ -13,6 +13,8 @@
 
 // int_type sungetc();
 
+#include "test_macros.h"
+
 #include <streambuf>
 #include <cassert>
 

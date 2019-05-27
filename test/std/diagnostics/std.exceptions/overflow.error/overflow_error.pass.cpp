@@ -8,6 +8,8 @@
 
 // test overflow_error
 
+#include "test_macros.h"
+
 #include <stdexcept>
 #include <type_traits>
 #include <cstring>

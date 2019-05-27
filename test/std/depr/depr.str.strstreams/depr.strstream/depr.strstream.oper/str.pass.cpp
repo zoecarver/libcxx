@@ -12,6 +12,8 @@
 
 // char* str();
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 

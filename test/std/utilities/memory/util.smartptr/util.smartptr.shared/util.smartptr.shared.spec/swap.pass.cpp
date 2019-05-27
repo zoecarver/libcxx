@@ -13,6 +13,8 @@
 
 // template<class T> void swap(shared_ptr<T>& a, shared_ptr<T>& b);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

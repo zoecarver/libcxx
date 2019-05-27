@@ -10,6 +10,8 @@
 // Test that _LIBCPP_NODISCARD_EXT is not defined to [[nodiscard]] unless
 // explicitly enabled by _LIBCPP_ENABLE_NODISCARD
 
+#include "test_macros.h"
+
 #include <__config>
 
 _LIBCPP_NODISCARD_EXT int foo() { return 42; }

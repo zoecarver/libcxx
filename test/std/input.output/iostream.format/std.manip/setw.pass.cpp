@@ -10,6 +10,8 @@
 
 // T6 setw(int n);
 
+#include "test_macros.h"
+
 #include <iomanip>
 #include <istream>
 #include <ostream>

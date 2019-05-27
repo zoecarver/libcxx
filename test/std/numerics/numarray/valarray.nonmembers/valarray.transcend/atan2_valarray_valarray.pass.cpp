@@ -14,6 +14,8 @@
 //   valarray<T>
 //   atan2(const valarray<T>& x, const valarray<T>& y);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 #include <sstream>

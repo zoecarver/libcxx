@@ -12,6 +12,8 @@
 
 // map();
 
+#include "test_macros.h"
+
 #include <map>
 
 struct X

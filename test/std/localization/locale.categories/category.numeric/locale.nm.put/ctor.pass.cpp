@@ -12,6 +12,8 @@
 
 // explicit num_put(size_t refs = 0);
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

@@ -11,6 +11,8 @@
 // template <class T, class Container>
 //   void swap(stack<T, Container>& x, stack<T, Container>& y);
 
+#include "test_macros.h"
+
 #include <stack>
 #include <cassert>
 

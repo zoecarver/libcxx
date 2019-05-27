@@ -16,6 +16,8 @@
 
 // void open(const filesystem::path& s, ios_base::openmode mode = ios_base::in);
 
+#include "test_macros.h"
+
 #include <fstream>
 #include <filesystem>
 #include <cassert>

@@ -12,6 +12,8 @@
 
 // char narrow(charT c, char dfault) const;
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

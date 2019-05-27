@@ -11,6 +11,7 @@
 
 #include <cassert>
 
+#include "test_macros.h"
 #include "allocators.h"
 
 struct alloc_last

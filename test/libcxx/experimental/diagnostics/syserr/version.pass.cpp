@@ -11,6 +11,8 @@
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-W#warnings"
 #endif
+#include "test_macros.h"
+
 #include <experimental/system_error>
 
 #ifndef _LIBCPP_VERSION

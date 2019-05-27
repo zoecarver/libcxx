@@ -23,6 +23,8 @@
 // operator>>(basic_istream<charT, traits>& is,
 //            discard_block_engine<Engine, p, r>& x);
 
+#include "test_macros.h"
+
 #include <random>
 #include <sstream>
 #include <cassert>

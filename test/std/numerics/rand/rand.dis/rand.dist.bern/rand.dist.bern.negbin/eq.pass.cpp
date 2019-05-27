@@ -16,6 +16,8 @@
 // bool operator!(const negative_binomial_distribution& x,
 //                const negative_binomial_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

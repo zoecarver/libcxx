@@ -13,6 +13,8 @@
 
 // explicit basic_istringstream(ios_base::openmode which = ios_base::in);
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <cassert>
 

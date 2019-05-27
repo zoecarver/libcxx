@@ -20,6 +20,8 @@
 // However this breaks whenever a 2-tuple contains a reference to an incomplete
 // type as its first parameter. See PR27684.
 
+#include "test_macros.h"
+
 #include <tuple>
 #include <cassert>
 

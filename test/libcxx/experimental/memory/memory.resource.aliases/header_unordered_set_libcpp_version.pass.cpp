@@ -10,6 +10,8 @@
 
 // <experimental/unordered_set>
 
+#include "test_macros.h"
+
 #include <experimental/unordered_set>
 
 #ifndef _LIBCPP_VERSION

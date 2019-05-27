@@ -15,6 +15,8 @@
 // explicit file_status() noexcept;
 // explicit file_status(file_type, perms prms = perms::unknown) noexcept;
 
+#include "test_macros.h"
+
 #include "filesystem_include.hpp"
 #include <type_traits>
 #include <cassert>

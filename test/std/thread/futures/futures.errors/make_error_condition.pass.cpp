@@ -14,6 +14,8 @@
 
 // error_condition make_error_condition(future_errc e);
 
+#include "test_macros.h"
+
 #include <future>
 #include <cassert>
 

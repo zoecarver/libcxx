@@ -8,6 +8,8 @@
 
 // test <csetjmp>
 
+#include "test_macros.h"
+
 #include <csetjmp>
 #include <type_traits>
 

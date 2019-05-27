@@ -12,6 +12,8 @@
 
 // error_code make_error_code(errc e);
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 

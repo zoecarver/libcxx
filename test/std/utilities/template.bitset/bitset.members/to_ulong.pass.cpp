@@ -8,6 +8,8 @@
 
 // test unsigned long to_ulong() const;
 
+#include "test_macros.h"
+
 #include <bitset>
 #include <algorithm>
 #include <type_traits>

@@ -13,6 +13,8 @@
 
 // normal_distribution(const normal_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

@@ -8,6 +8,8 @@
 
 // test ratio_multiply
 
+#include "test_macros.h"
+
 #include <ratio>
 
 int main(int, char**)

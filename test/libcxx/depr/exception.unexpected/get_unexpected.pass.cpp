@@ -11,6 +11,8 @@
 
 // MODULES_DEFINES: _LIBCPP_ENABLE_CXX17_REMOVED_UNEXPECTED_FUNCTIONS
 #define _LIBCPP_ENABLE_CXX17_REMOVED_UNEXPECTED_FUNCTIONS
+#include "test_macros.h"
+
 #include <exception>
 #include <cassert>
 #include <cstdlib>

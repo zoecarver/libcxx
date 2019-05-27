@@ -14,6 +14,8 @@
 //     enum dateorder {no_order, dmy, mdy, ymd, ydm};
 // };
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

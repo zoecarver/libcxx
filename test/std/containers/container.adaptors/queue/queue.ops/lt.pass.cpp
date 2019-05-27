@@ -20,6 +20,8 @@
 // template <class T, class Container>
 //   bool operator<=(const queue<T, Container>& x,const queue<T, Container>& y);
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

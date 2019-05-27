@@ -1,6 +1,7 @@
 #ifndef TEST_INCOMPLETE_TYPE_HELPER_H
 #define TEST_INCOMPLETE_TYPE_HELPER_H
 
+#include "test_macros.h"
 #include "min_allocator.h"
 
 namespace NS {

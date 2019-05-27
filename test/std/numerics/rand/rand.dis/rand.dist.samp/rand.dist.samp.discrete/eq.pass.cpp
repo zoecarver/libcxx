@@ -16,6 +16,8 @@
 // bool operator!(const discrete_distribution& x,
 //                const discrete_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

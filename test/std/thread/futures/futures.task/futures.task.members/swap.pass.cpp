@@ -15,6 +15,8 @@
 
 // void swap(packaged_task& other);
 
+#include "test_macros.h"
+
 #include <future>
 #include <cassert>
 

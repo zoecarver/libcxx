@@ -11,6 +11,8 @@
 // Check that std::map and its iterators can be instantiated with an incomplete
 // type.
 
+#include "test_macros.h"
+
 #include <map>
 
 struct A {

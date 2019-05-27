@@ -11,6 +11,8 @@
 
 // template <class T, class U> constexpr bool operator> (const optional<T>& x, const optional<U>& y);
 
+#include "test_macros.h"
+
 #include <optional>
 
 using std::optional;

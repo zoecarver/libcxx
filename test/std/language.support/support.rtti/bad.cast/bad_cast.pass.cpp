@@ -8,6 +8,8 @@
 
 // test bad_cast
 
+#include "test_macros.h"
+
 #include <typeinfo>
 #include <type_traits>
 #include <cassert>

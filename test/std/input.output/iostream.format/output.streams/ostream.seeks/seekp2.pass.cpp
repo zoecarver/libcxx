@@ -13,6 +13,8 @@
 
 // basic_ostream<charT,traits>& seekp(off_type off, ios_base::seekdir dir);
 
+#include "test_macros.h"
+
 #include <ostream>
 #include <cassert>
 

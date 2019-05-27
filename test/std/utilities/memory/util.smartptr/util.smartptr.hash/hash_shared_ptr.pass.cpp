@@ -16,6 +16,8 @@
 //     size_t operator()(const shared_ptr<T>& p) const;
 // };
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

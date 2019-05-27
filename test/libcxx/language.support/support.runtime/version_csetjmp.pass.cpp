@@ -8,6 +8,8 @@
 
 // <csetjmp>
 
+#include "test_macros.h"
+
 #include <csetjmp>
 
 #ifndef _LIBCPP_VERSION

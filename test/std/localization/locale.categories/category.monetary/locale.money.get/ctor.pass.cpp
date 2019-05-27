@@ -12,6 +12,8 @@
 
 // explicit money_get(size_t refs = 0);
 
+#include "test_macros.h"
+
 #include <locale>
 #include <cassert>
 

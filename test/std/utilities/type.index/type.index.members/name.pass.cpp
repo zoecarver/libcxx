@@ -12,6 +12,8 @@
 
 // const char* name() const;
 
+#include "test_macros.h"
+
 #include <typeindex>
 #include <string>
 #include <cassert>

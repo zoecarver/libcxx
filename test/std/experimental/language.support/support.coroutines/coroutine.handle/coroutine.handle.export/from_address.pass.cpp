@@ -16,6 +16,8 @@
 
 // static coroutine_handle from_address(void*) noexcept
 
+#include "test_macros.h"
+
 #include <experimental/coroutine>
 #include <type_traits>
 #include <cassert>

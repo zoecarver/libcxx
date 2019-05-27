@@ -15,6 +15,8 @@
 //                                 37, 0xfff7eee000000000,
 //                                 43, 6364136223846793005>          mt19937_64;
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

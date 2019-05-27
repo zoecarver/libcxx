@@ -12,6 +12,8 @@
 
 // strstreambuf(const char* gnext_arg, streamsize n);
 
+#include "test_macros.h"
+
 #include <strstream>
 #include <cassert>
 

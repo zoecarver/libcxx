@@ -17,6 +17,8 @@
 
 // wstring_convert(wstring_convert&& other); // EXTENSION
 
+#include "test_macros.h"
+
 #include <locale>
 #include <codecvt>
 #include <cassert>

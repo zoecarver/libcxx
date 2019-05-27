@@ -22,6 +22,8 @@
 // std::thread. See: https://bugs.llvm.org/show_bug.cgi?id=30202
 
 
+#include "test_macros.h"
+
 #include <condition_variable>
 #include <mutex>
 #include <thread>

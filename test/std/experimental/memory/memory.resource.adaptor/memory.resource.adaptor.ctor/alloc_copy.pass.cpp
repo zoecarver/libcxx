@@ -14,6 +14,8 @@
 
 // resource_adaptor_imp<Alloc>::resource_adaptor_imp(Alloc const &)
 
+#include "test_macros.h"
+
 #include <experimental/memory_resource>
 #include <cassert>
 

@@ -8,6 +8,8 @@
 
 // test <stdbool.h>
 
+#include "test_macros.h"
+
 #include <stdbool.h>
 
 #ifndef __bool_true_false_are_defined

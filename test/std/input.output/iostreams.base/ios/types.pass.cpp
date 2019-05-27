@@ -18,6 +18,8 @@
 //     typedef typename traits::off_type off_type;
 //     typedef traits traits_type;
 
+#include "test_macros.h"
+
 #include <ios>
 #include <type_traits>
 

@@ -12,6 +12,8 @@
 
 // explicit valarray(size_t);
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 

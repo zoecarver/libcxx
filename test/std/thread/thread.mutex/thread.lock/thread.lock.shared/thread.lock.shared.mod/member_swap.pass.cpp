@@ -15,6 +15,8 @@
 
 // void swap(shared_lock& u) noexcept;
 
+#include "test_macros.h"
+
 #include <shared_mutex>
 #include <cassert>
 

@@ -14,6 +14,8 @@
 
 // void swap(thread& x, thread& y);
 
+#include "test_macros.h"
+
 #include <thread>
 #include <new>
 #include <cstdlib>

@@ -8,6 +8,8 @@
 
 // Tests workaround for https://gcc.gnu.org/bugzilla/show_bug.cgi?id=37804
 
+#include "test_macros.h"
+
 #include <set>
 std::set<int> s;
 #include <map>

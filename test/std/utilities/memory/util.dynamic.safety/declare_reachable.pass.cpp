@@ -11,6 +11,8 @@
 // void declare_reachable(void* p);
 // template <class T> T* undeclare_reachable(T* p);
 
+#include "test_macros.h"
+
 #include <memory>
 #include <cassert>
 

@@ -14,6 +14,8 @@
 
 // id get_id() const;
 
+#include "test_macros.h"
+
 #include <thread>
 #include <new>
 #include <cstdlib>

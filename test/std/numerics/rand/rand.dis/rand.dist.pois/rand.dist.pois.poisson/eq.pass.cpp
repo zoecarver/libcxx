@@ -16,6 +16,8 @@
 // bool operator!(const poisson_distribution& x,
 //                const poisson_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

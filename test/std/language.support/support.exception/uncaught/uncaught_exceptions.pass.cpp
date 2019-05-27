@@ -19,6 +19,8 @@
 
 // test uncaught_exceptions
 
+#include "test_macros.h"
+
 #include <exception>
 #include <cassert>
 

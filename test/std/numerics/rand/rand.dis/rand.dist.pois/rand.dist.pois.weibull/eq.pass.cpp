@@ -16,6 +16,8 @@
 // bool operator!(const weibull_distribution& x,
 //                const weibull_distribution& y);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

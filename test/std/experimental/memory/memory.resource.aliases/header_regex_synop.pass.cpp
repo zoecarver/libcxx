@@ -25,6 +25,8 @@
 //
 // }}} // namespace std::experimental::pmr
 
+#include "test_macros.h"
+
 #include <experimental/regex>
 #include <type_traits>
 #include <cassert>

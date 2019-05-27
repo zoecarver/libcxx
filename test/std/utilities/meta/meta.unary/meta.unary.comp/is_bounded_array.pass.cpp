@@ -12,6 +12,8 @@
 // is_bounded_array<T>
 // T is an array type of known bound ([dcl.array])
 
+#include "test_macros.h"
+
 #include <type_traits>
 
 template <class T, bool B>

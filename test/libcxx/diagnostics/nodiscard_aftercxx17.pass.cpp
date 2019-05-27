@@ -12,6 +12,8 @@
 
 // MODULES_DEFINES: _LIBCPP_DISABLE_NODISCARD_AFTER_CXX17
 #define _LIBCPP_DISABLE_NODISCARD_AFTER_CXX17
+#include "test_macros.h"
+
 #include <__config>
 
 _LIBCPP_NODISCARD_AFTER_CXX17 int foo() { return 6; }

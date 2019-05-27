@@ -20,6 +20,8 @@
 // bool operator>=(directory_entry const&) const noexcept;
 
 
+#include "test_macros.h"
+
 #include "filesystem_include.hpp"
 #include <type_traits>
 #include <cassert>

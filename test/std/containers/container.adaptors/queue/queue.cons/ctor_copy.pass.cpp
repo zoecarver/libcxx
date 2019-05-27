@@ -10,6 +10,8 @@
 
 // queue(const queue&) = default;
 
+#include "test_macros.h"
+
 #include <queue>
 #include <cassert>
 

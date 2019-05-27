@@ -10,6 +10,8 @@
 
 // <cfenv>
 
+#include "test_macros.h"
+
 #include <cfenv>
 
 #ifndef _LIBCPP_VERSION

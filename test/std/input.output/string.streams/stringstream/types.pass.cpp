@@ -20,6 +20,8 @@
 //     typedef typename traits_type::off_type off_type;
 //     typedef Allocator                      allocator_type;
 
+#include "test_macros.h"
+
 #include <sstream>
 #include <type_traits>
 

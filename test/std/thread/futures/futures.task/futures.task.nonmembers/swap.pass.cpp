@@ -17,6 +17,8 @@
 //   void
 //   swap(packaged_task<R(ArgTypes...)>& x, packaged_task<R(ArgTypes...)>& y);
 
+#include "test_macros.h"
+
 #include <future>
 #include <cassert>
 

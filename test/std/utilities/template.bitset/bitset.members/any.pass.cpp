@@ -8,6 +8,8 @@
 
 // test bool any() const;
 
+#include "test_macros.h"
+
 #include <bitset>
 #include <type_traits>
 #include <cassert>

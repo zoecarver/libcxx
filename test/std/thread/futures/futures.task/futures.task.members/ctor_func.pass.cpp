@@ -16,6 +16,8 @@
 // template <class F>
 //     explicit packaged_task(F&& f);
 
+#include "test_macros.h"
+
 #include <future>
 #include <cassert>
 

@@ -13,6 +13,8 @@
 // Test that <string_view> provides all of the arithmetic, enum, and pointer
 // hash specializations.
 
+#include "test_macros.h"
+
 #include <string_view>
 
 #include "poisoned_hash_helper.hpp"

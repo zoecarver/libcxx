@@ -8,6 +8,8 @@
 
 // <complex>
 
+#include "test_macros.h"
+
 #include <complex>
 #include <cassert>
 

@@ -8,6 +8,8 @@
 
 // test bad_alloc
 
+#include "test_macros.h"
+
 #include <new>
 #include <type_traits>
 #include <cassert>

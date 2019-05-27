@@ -12,6 +12,8 @@
 
 // error_condition();
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 

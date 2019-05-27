@@ -12,6 +12,8 @@
 
 // error_condition(int val, const error_category& cat);
 
+#include "test_macros.h"
+
 #include <system_error>
 #include <cassert>
 

@@ -6,6 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "test_macros.h"
+
 #include <experimental/iterator>
 
 int main(int, char**) {

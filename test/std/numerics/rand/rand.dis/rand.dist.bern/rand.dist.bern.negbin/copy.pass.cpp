@@ -13,6 +13,8 @@
 
 // negative_binomial_distribution(const negative_binomial_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

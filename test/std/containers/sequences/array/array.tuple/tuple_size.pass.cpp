@@ -10,6 +10,8 @@
 
 // tuple_size<array<T, N> >::value
 
+#include "test_macros.h"
+
 #include <array>
 
 template <class T, std::size_t N>

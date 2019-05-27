@@ -13,6 +13,8 @@
 
 // poisson_distribution& operator=(const poisson_distribution&);
 
+#include "test_macros.h"
+
 #include <random>
 #include <cassert>
 

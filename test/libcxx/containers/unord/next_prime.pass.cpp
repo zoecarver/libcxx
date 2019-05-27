@@ -16,6 +16,8 @@
 
 // If n == 0, return 0, else return the lowest prime greater than or equal to n
 
+#include "test_macros.h"
+
 #include <__hash_table>
 #include <cassert>
 

@@ -12,6 +12,8 @@
 
 // valarray operator[](const valarray<size_t>& vs) const;
 
+#include "test_macros.h"
+
 #include <valarray>
 #include <cassert>
 
