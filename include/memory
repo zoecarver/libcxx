@@ -3608,10 +3608,14 @@ class __shared_ptr_pointer
     : public __shared_weak_count
 {
     __compressed_pair<__compressed_pair<_Tp, _Dp>, _Alloc> __data_;
+    size_t __size;
+
 public:
     _LIBCPP_INLINE_VISIBILITY
-    __shared_ptr_pointer(_Tp __p, _Dp __d, _Alloc __a)
-        :  __data_(__compressed_pair<_Tp, _Dp>(__p, _VSTD::move(__d)), _VSTD::move(__a)) {}
+    __shared_ptr_pointer(_Tp __p, _Dp __d, _Alloc __a,
+                         size_t __size = sizeof(__shared_ptr_pointer))
+        :  __data_(__compressed_pair<_Tp, _Dp>(__p, _VSTD::move(__d)), _VSTD::move(__a)),
+           __size(__size) {}
 
 #ifndef _LIBCPP_NO_RTTI
     virtual const void* __get_deleter(const type_info&) const _NOEXCEPT;
@@ -3646,12 +3650,13 @@ void
 __shared_ptr_pointer<_Tp, _Dp, _Alloc>::__on_zero_shared_weak() _NOEXCEPT
 {
     typedef typename __allocator_traits_rebind<_Alloc, __shared_ptr_pointer>::type _Al;
+    typedef typename __allocator_traits_rebind<_Alloc, std::byte>::type _A2;
     typedef allocator_traits<_Al> _ATraits;
     typedef pointer_traits<typename _ATraits::pointer> _PTraits;
 
-    _Al __a(__data_.second());
+    _A2 __a(__data_.second());
     __data_.second().~_Alloc();
-    __a.deallocate(_PTraits::pointer_to(*this), 1);
+    __a.deallocate(reinterpret_cast<std::byte*>(_PTraits::pointer_to(*this)), __size);
 }
 
 template <class _Tp, class _Alloc>
@@ -4511,21 +4516,16 @@ allocate_shared(const _Alloc& __a, _Args&& ...__args)
 #if _LIBCPP_STD_VER > 17
 
 template<class _Tp>
-struct __default_delete_n
+struct __destroy_n
 {
     size_t __size;
 
-    __default_delete_n(size_t __size) : __size(__size) {}
+    __destroy_n(size_t __size) : __size(__size) {}
 
     void operator()(_Tp* __ptr)
     {
-        delete __ptr;
-//         for (size_t __i = 0; __i < __size; ++__i)
-//         {
-//             _Tp* __tmp = __ptr + 1;
-//             delete __ptr;
-//             swap(__ptr, __tmp);
-//         }
+        for (size_t __i = 0; __i < __size; ++__i)
+            __ptr++->~_Tp();
     }
 };
 
@@ -4539,7 +4539,7 @@ typename enable_if
 make_shared(size_t __size)
 {
     typedef remove_extent_t<_Tp> _ET;
-    typedef __default_delete_n<_ET> _D1;
+    typedef __destroy_n<_ET> _D1;
     typedef typename __shared_ptr_default_allocator<_ET>::type _Alloc;
     typedef __shared_ptr_pointer<_ET*, _D1, _Alloc> _CntrlBlk;
     typedef allocator<std::byte> _A2;
@@ -4553,7 +4553,7 @@ make_shared(size_t __size)
     _ET* __arr_ptr = reinterpret_cast<_ET*>(__cntrl_ptr + 1);
 
     ::new(static_cast<void*>(__cntrl_ptr))
-        _CntrlBlk(__arr_ptr, _D1(__size), _Alloc());
+        _CntrlBlk(__arr_ptr, _D1(__size), _Alloc(), __alloc_size);
 
     for (size_t __i = 0; __i < __size; ++__i)
         ::new(static_cast<void*>(__arr_ptr + __i)) _ET();
@@ -4573,7 +4573,7 @@ typename enable_if
 allocate_shared(const _Alloc& __a, size_t __size)
 {
     typedef remove_extent_t<_Tp> _ET;
-    typedef __default_delete_n<_ET> _D1;
+    typedef __destroy_n<_ET> _D1;
     typedef __shared_ptr_pointer<_ET*, _D1, _Alloc> _CntrlBlk;
     typedef typename __allocator_traits_rebind<_Alloc, std::byte>::type _A2;
     typedef __allocator_destructor<_A2> _D2;
@@ -4586,7 +4586,7 @@ allocate_shared(const _Alloc& __a, size_t __size)
     _ET* __arr_ptr = reinterpret_cast<_ET*>(__cntrl_ptr + 1);
 
     ::new(static_cast<void*>(__cntrl_ptr))
-        _CntrlBlk(__arr_ptr, _D1(__size), __a);
+        _CntrlBlk(__arr_ptr, _D1(__size), __a, __alloc_size);
 
     for (size_t __i = 0; __i < __size; ++__i)
         ::new(static_cast<void*>(__arr_ptr + __i)) _ET();
