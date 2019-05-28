@@ -3621,6 +3621,9 @@ public:
     virtual const void* __get_deleter(const type_info&) const _NOEXCEPT;
 #endif
 
+    _LIBCPP_INLINE_VISIBILITY
+    _Tp get() _NOEXCEPT {return __data_.first().first();}
+
 private:
     virtual void __on_zero_shared() _NOEXCEPT;
     virtual void __on_zero_shared_weak() _NOEXCEPT;
@@ -4514,6 +4517,60 @@ allocate_shared(const _Alloc& __a, _Args&& ...__args)
 }
 
 #if _LIBCPP_STD_VER > 17
+
+// bounded array types
+
+template<class _Tp, class ..._Args>
+inline _LIBCPP_INLINE_VISIBILITY
+typename enable_if
+<
+    is_bounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
+make_shared()
+{
+    typedef allocator<_Tp> _Alloc;
+    typedef remove_extent_t<_Tp> _ET;
+    typedef default_delete<_ET[]> _D1;
+    typedef __shared_ptr_pointer<_ET*, _D1, _Alloc> _CntrlBlk;
+    typedef allocator<_CntrlBlk> _A2;
+    typedef __allocator_destructor<_A2> _D2;
+
+    _A2 __a2;
+    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
+    ::new(__hold2.get())
+        _CntrlBlk(new _Tp, _D1(), __a2);
+
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      __hold2.release());
+}
+
+template<class _Tp, class _Alloc, class ..._Args>
+inline _LIBCPP_INLINE_VISIBILITY
+typename enable_if
+<
+    is_bounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
+allocate_shared(const _Alloc& __a)
+{
+    typedef remove_extent_t<_Tp> _ET;
+    typedef default_delete<_ET[]> _D1;
+    typedef __shared_ptr_pointer<_ET*, _D1, _Alloc> _CntrlBlk;
+    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _A2;
+    typedef __allocator_destructor<_A2> _D2;
+
+    _A2 __a2(__a);
+    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
+    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
+        _CntrlBlk(new _Tp, _D1(), __a);
+
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
+                                                      _VSTD::addressof(*__hold2.release()));
+}
+
+
+// unbounded array types
 
 template<class _Tp>
 struct __destroy_n
