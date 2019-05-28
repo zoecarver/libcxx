@@ -663,6 +663,7 @@ void* align(size_t alignment, size_t size, void*& ptr, size_t& space);
 #include <stdexcept>
 #include <cstring>
 #include <cassert>
+#include <cstddef> // std::byte
 #if !defined(_LIBCPP_HAS_NO_ATOMIC_HEADER)
 #  include <atomic>
 #endif
@@ -3753,6 +3754,18 @@ struct __compatible_with
     : is_convertible<_Tp*, _Up*> {};
 #endif // _LIBCPP_STD_VER > 14
 
+template <class _Yp, bool = is_function<_Yp>::value>
+struct __shared_ptr_default_allocator
+{
+    typedef allocator<_Yp> type;
+};
+
+template <class _Yp>
+struct __shared_ptr_default_allocator<_Yp, true>
+{
+    typedef allocator<__shared_ptr_dummy_rebind_allocator_type> type;
+};
+
 template<class _Tp>
 class _LIBCPP_TEMPLATE_VIS shared_ptr
 {
@@ -3987,18 +4000,6 @@ public:
     }
 
 private:
-    template <class _Yp, bool = is_function<_Yp>::value>
-        struct __shared_ptr_default_allocator
-        {
-            typedef allocator<_Yp> type;
-        };
-
-    template <class _Yp>
-        struct __shared_ptr_default_allocator<_Yp, true>
-        {
-            typedef allocator<__shared_ptr_dummy_rebind_allocator_type> type;
-        };
-
     template <class _Yp, class _OrigPtr>
         _LIBCPP_INLINE_VISIBILITY
         typename enable_if<is_convertible<_OrigPtr*,
@@ -4507,44 +4508,95 @@ allocate_shared(const _Alloc& __a, _Args&& ...__args)
                                                       _VSTD::addressof(*__hold2.release()));
 }
 
-#if TEST_STD_VER > 17
+#if _LIBCPP_STD_VER > 17
+
+template<class _Tp>
+struct __default_delete_n
+{
+    size_t __size;
+
+    __default_delete_n(size_t __size) : __size(__size) {}
+
+    void operator()(_Tp* __ptr)
+    {
+        delete __ptr;
+//         for (size_t __i = 0; __i < __size; ++__i)
+//         {
+//             _Tp* __tmp = __ptr + 1;
+//             delete __ptr;
+//             swap(__ptr, __tmp);
+//         }
+    }
+};
 
 template<class _Tp>
 inline _LIBCPP_INLINE_VISIBILITY
-shared_ptr<_Tp[]>
+typename enable_if
+<
+    is_unbounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
 make_shared(size_t __size)
 {
-    typedef __shared_ptr_emplace<_Tp, allocator<_Tp> > _CntrlBlk;
-    typedef allocator<_CntrlBlk> _A2;
+    typedef remove_extent_t<_Tp> _ET;
+    typedef __default_delete_n<_ET> _D1;
+    typedef typename __shared_ptr_default_allocator<_ET>::type _Alloc;
+    typedef __shared_ptr_pointer<_ET*, _D1, _Alloc> _CntrlBlk;
+    typedef allocator<std::byte> _A2;
     typedef __allocator_destructor<_A2> _D2;
 
     _A2 __a2;
-    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
-    ::new(__hold2.get()) _CntrlBlk(__a2, _VSTD::forward<_Args>(__args)...);
+    size_t __alloc_size = sizeof(_ET) * __size + sizeof(_CntrlBlk);
+    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(__alloc_size), _D2(__a2, 1));
 
-    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
-                                                      __hold2.release());
+    _CntrlBlk* __cntrl_ptr = reinterpret_cast<_CntrlBlk*>(__hold2.get());
+    _ET* __arr_ptr = reinterpret_cast<_ET*>(__cntrl_ptr + 1);
+
+    ::new(static_cast<void*>(__cntrl_ptr))
+        _CntrlBlk(__arr_ptr, _D1(__size), _Alloc());
+
+    for (size_t __i = 0; __i < __size; ++__i)
+        ::new(static_cast<void*>(__arr_ptr + __i)) _ET();
+
+    __hold2.release();
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__arr_ptr,
+                                                      __cntrl_ptr);
 }
 
 template<class _Tp, class _Alloc>
 inline _LIBCPP_INLINE_VISIBILITY
-shared_ptr<_Tp[]>
+typename enable_if
+<
+    is_unbounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
 allocate_shared(const _Alloc& __a, size_t __size)
 {
-    typedef __shared_ptr_emplace<_Tp, _Alloc> _CntrlBlk;
-    typedef typename __allocator_traits_rebind<_Alloc, _CntrlBlk>::type _A2;
+    typedef remove_extent_t<_Tp> _ET;
+    typedef __default_delete_n<_ET> _D1;
+    typedef __shared_ptr_pointer<_ET*, _D1, _Alloc> _CntrlBlk;
+    typedef typename __allocator_traits_rebind<_Alloc, std::byte>::type _A2;
     typedef __allocator_destructor<_A2> _D2;
 
     _A2 __a2(__a);
-    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(1), _D2(__a2, 1));
-    ::new(static_cast<void*>(_VSTD::addressof(*__hold2.get())))
-        _CntrlBlk(__a, _VSTD::forward<_Args>(__args)...);
+    size_t __alloc_size = sizeof(_ET) * __size + sizeof(_CntrlBlk);
+    unique_ptr<_CntrlBlk, _D2> __hold2(__a2.allocate(__alloc_size), _D2(__a2, 1));
 
-    return shared_ptr<_Tp>::__create_with_cntrl_block(__hold2.get()->get(),
-                                                      _VSTD::addressof(*__hold2.release()));
+    _CntrlBlk* __cntrl_ptr = reinterpret_cast<_CntrlBlk*>(__hold2.get());
+    _ET* __arr_ptr = reinterpret_cast<_ET*>(__cntrl_ptr + 1);
+
+    ::new(static_cast<void*>(__cntrl_ptr))
+        _CntrlBlk(__arr_ptr, _D1(__size), __a);
+
+    for (size_t __i = 0; __i < __size; ++__i)
+        ::new(static_cast<void*>(__arr_ptr + __i)) _ET();
+
+    __hold2.release();
+    return shared_ptr<_Tp>::__create_with_cntrl_block(__arr_ptr,
+                                                      __cntrl_ptr);
 }
 
-#endif // TEST_STD_VER > 17
+#endif // _LIBCPP_STD_VER > 17
 
 #else  // _LIBCPP_HAS_NO_VARIADICS
 
