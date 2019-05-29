@@ -4603,18 +4603,38 @@ allocate_shared(const _Alloc& __a, _Up __element)
 
 // unbounded array types
 
-template<class _Tp>
+template<class _Tp, bool = is_array_v<_Tp>>
 struct __destroy_n
 {
-    size_t __size;
+	size_t __size;
 
     __destroy_n(size_t __size) : __size(__size) {}
 
-    void operator()(_Tp* __ptr)
-    {
-        for (size_t __i = 0; __i < __size; ++__i)
-            __ptr++->~_Tp();
-    }
+	void operator()(_Tp* __ptr)
+	{
+		for (size_t __i = 0; __i < __size; ++__i)
+			__ptr++->~_Tp();
+	}
+};
+
+template<class _Tp>
+struct __destroy_n<_Tp, true>
+{
+	size_t __size;
+
+    __destroy_n(size_t __size) : __size(__size) {}
+
+	template<size_t _Sz>
+	void operator()(remove_extent_t<_Tp>(*__ptr)[_Sz])
+	{
+		using _ET = remove_extent_t<_Tp>;
+		static_assert(is_same_v<_ET, int>);
+		for (size_t __i = 0; __i < __size; ++__i)
+		{
+			__destroy_n<_ET> __d { _Sz };
+			__d(*__ptr++);
+		}
+	}
 };
 
 template<class _Tp, class _Up>
@@ -4708,7 +4728,9 @@ typename enable_if
 make_shared(initializer_list<_Up> __element)
 {
     shared_ptr<_Tp> __ptr = make_shared<_Tp>();
-    _VSTD::copy(__element.begin(), __element.end(), __ptr.get());
+    for (size_t __i = 0; __i < extent_v<_Tp>; ++__i)
+        memcpy(__ptr[__i], __element.begin(), __element.size()
+            * sizeof(typename remove_all_extents<_Tp>::type));
     return __ptr;
 }
 
@@ -4722,7 +4744,9 @@ typename enable_if
 allocate_shared(const _Alloc& __a, initializer_list<_Up> __element)
 {
     shared_ptr<_Tp> __ptr = allocate_shared<_Tp>(__a);
-    _VSTD::copy(__element.begin(), __element.end(), __ptr.get());
+    for (size_t __i = 0; __i < extent_v<_Tp>; ++__i)
+        memcpy(__ptr[__i], __element.begin(), __element.size()
+            * sizeof(typename remove_all_extents<_Tp>::type));
     return __ptr;
 }
 
@@ -4736,7 +4760,9 @@ typename enable_if
 make_shared(size_t __size, initializer_list<_Up> __element)
 {
     shared_ptr<_Tp> __ptr = make_shared<_Tp>(__size);
-    _VSTD::copy(__element.begin(), __element.end(), __ptr.get());
+    for (size_t __i = 0; __i < __size; ++__i)
+        memcpy(__ptr[__i], __element.begin(), __element.size()
+            * sizeof(typename remove_all_extents<_Tp>::type));
     return __ptr;
 }
 
@@ -4750,7 +4776,9 @@ typename enable_if
 allocate_shared(const _Alloc& __a, size_t __size, initializer_list<_Up> __element)
 {
     shared_ptr<_Tp> __ptr = allocate_shared<_Tp>(__a, __size);
-    _VSTD::copy(__element.begin(), __element.end(),__ptr.get());
+    for (size_t __i = 0; __i < __size; ++__i)
+        memcpy(__ptr[__i], __element.begin(), __element.size()
+            * sizeof(typename remove_all_extents<_Tp>::type));
     return __ptr;
 }
 
