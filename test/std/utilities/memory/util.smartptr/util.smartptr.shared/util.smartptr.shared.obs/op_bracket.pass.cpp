@@ -8,44 +8,36 @@
 
 // <memory>
 
-// UNSUPPORTED: c++98, c++03, c++11, c++14
-
 // shared_ptr
 
-// element_type& operator[](ptrdiff_t i) const;
+// explicit operator bool() const;
 
 #include "test_macros.h"
 
 #include <memory>
 #include <cassert>
 
+struct A
+{
+    int a;
+    virtual ~A() {};
+};
+struct B : A { };
+
 int main(int, char**)
 {
     {
-        const std::shared_ptr<int[8]> p(new int[8]);
-
-        for (int i = 0; i < 8; ++i)
-            p[i] = i;
-        for (int i = 0; i < 8; ++i)
-            assert(p[i] == i);
+        const std::shared_ptr<int> p(new int(32));
+        assert(p);
     }
     {
-        int *iptr = new int[8];
-        for (int i = 0; i < 8; ++i)
-            iptr[i] = i;
-
-        const std::shared_ptr<int[8]> p(iptr);
-
-        for (int i = 0; i < 8; ++i)
-            assert(p[i] == i);
+        const std::shared_ptr<int> p;
+        assert(!p);
     }
     {
-        const std::shared_ptr<int[]> p(new int[8]);
-
-        for (int i = 0; i < 8; ++i)
-            p[i] = i;
-        for (int i = 0; i < 8; ++i)
-            assert(p[i] == i);
+        std::shared_ptr<A> basePtr = std::make_shared<B>();
+        std::shared_ptr<B> sp = std::dynamic_pointer_cast<B>(basePtr);
+        assert(sp);
     }
 
     return 0;

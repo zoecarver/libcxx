@@ -4520,7 +4520,9 @@ allocate_shared(const _Alloc& __a, _Args&& ...__args)
 
 // bounded array types
 
-template<class _Tp, class ..._Args>
+struct __empty {};
+
+template<class _Tp>
 inline _LIBCPP_INLINE_VISIBILITY
 typename enable_if
 <
@@ -4545,7 +4547,7 @@ make_shared()
                                                       __hold2.release());
 }
 
-template<class _Tp, class _Alloc, class ..._Args>
+template<class _Tp, class _Alloc>
 inline _LIBCPP_INLINE_VISIBILITY
 typename enable_if
 <
@@ -4569,6 +4571,35 @@ allocate_shared(const _Alloc& __a)
                                                       _VSTD::addressof(*__hold2.release()));
 }
 
+template<class _Tp, class _Up, class ..._Args>
+inline _LIBCPP_INLINE_VISIBILITY
+typename enable_if
+<
+    is_bounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
+make_shared(_Up __element)
+{
+    shared_ptr<_Tp> __ptr = make_shared<_Tp>();
+    for (size_t __i = 0; __i < extent_v<_Tp>; ++__i)
+        __ptr[__i] = __element;
+    return __ptr;
+}
+
+template<class _Tp, class _Up, class _Alloc, class ..._Args>
+inline _LIBCPP_INLINE_VISIBILITY
+typename enable_if
+<
+    is_bounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
+allocate_shared(const _Alloc& __a, _Up __element)
+{
+    shared_ptr<_Tp> __ptr = allocate_shared<_Tp>(__a);
+    for (size_t __i = 0; __i < extent_v<_Tp>; ++__i)
+        __ptr[__i] = __element;
+    return __ptr;
+}
 
 // unbounded array types
 
@@ -4586,14 +4617,28 @@ struct __destroy_n
     }
 };
 
+template<class _Tp, class _Up>
+void __fill_tpr(_Tp* __ptr, size_t __size, _Up __element)
+{
+    for (size_t __i = 0; __i < __size; ++__i)
+        ::new(static_cast<void*>(__ptr + __i)) _Tp(__element);
+}
+
 template<class _Tp>
+void __fill_tpr(_Tp* __ptr, size_t __size, false_type)
+{
+    for (size_t __i = 0; __i < __size; ++__i)
+        ::new(static_cast<void*>(__ptr + __i)) _Tp{};
+}
+
+template<class _Tp, class _Up = false_type>
 inline _LIBCPP_INLINE_VISIBILITY
 typename enable_if
 <
     is_unbounded_array<_Tp>::value,
     shared_ptr<_Tp>
 >::type
-make_shared(size_t __size)
+make_shared(size_t __size, _Up __element = false_type())
 {
     typedef remove_extent_t<_Tp> _ET;
     typedef __destroy_n<_ET> _D1;
@@ -4611,23 +4656,22 @@ make_shared(size_t __size)
 
     ::new(static_cast<void*>(__cntrl_ptr))
         _CntrlBlk(__arr_ptr, _D1(__size), _Alloc(), __alloc_size);
-
-    for (size_t __i = 0; __i < __size; ++__i)
-        ::new(static_cast<void*>(__arr_ptr + __i)) _ET();
+    __fill_tpr(__arr_ptr, __size, __element);
 
     __hold2.release();
     return shared_ptr<_Tp>::__create_with_cntrl_block(__arr_ptr,
                                                       __cntrl_ptr);
 }
 
-template<class _Tp, class _Alloc>
+template<class _Tp, class _Alloc, class _Up = false_type>
 inline _LIBCPP_INLINE_VISIBILITY
 typename enable_if
 <
     is_unbounded_array<_Tp>::value,
     shared_ptr<_Tp>
 >::type
-allocate_shared(const _Alloc& __a, size_t __size)
+allocate_shared(const _Alloc& __a, size_t __size,
+                _Up __element = false_type())
 {
     typedef remove_extent_t<_Tp> _ET;
     typedef __destroy_n<_ET> _D1;
@@ -4645,13 +4689,71 @@ allocate_shared(const _Alloc& __a, size_t __size)
     ::new(static_cast<void*>(__cntrl_ptr))
         _CntrlBlk(__arr_ptr, _D1(__size), __a, __alloc_size);
 
-    for (size_t __i = 0; __i < __size; ++__i)
-        ::new(static_cast<void*>(__arr_ptr + __i)) _ET();
+    __fill_tpr(__arr_ptr, __size, __element);
 
     __hold2.release();
     return shared_ptr<_Tp>::__create_with_cntrl_block(__arr_ptr,
                                                       __cntrl_ptr);
 }
+
+// support initializer list
+
+template<class _Tp, class _Up, class ..._Args>
+inline _LIBCPP_INLINE_VISIBILITY
+typename enable_if
+<
+    is_bounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
+make_shared(initializer_list<_Up> __element)
+{
+    shared_ptr<_Tp> __ptr = make_shared<_Tp>();
+    _VSTD::copy(__element.begin(), __element.end(), __ptr.get());
+    return __ptr;
+}
+
+template<class _Tp, class _Up, class _Alloc, class ..._Args>
+inline _LIBCPP_INLINE_VISIBILITY
+typename enable_if
+<
+    is_bounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
+allocate_shared(const _Alloc& __a, initializer_list<_Up> __element)
+{
+    shared_ptr<_Tp> __ptr = allocate_shared<_Tp>(__a);
+    _VSTD::copy(__element.begin(), __element.end(), __ptr.get());
+    return __ptr;
+}
+
+template<class _Tp, class _Up, class ..._Args>
+inline _LIBCPP_INLINE_VISIBILITY
+typename enable_if
+<
+    is_unbounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
+make_shared(size_t __size, initializer_list<_Up> __element)
+{
+    shared_ptr<_Tp> __ptr = make_shared<_Tp>(__size);
+    _VSTD::copy(__element.begin(), __element.end(), __ptr.get());
+    return __ptr;
+}
+
+template<class _Tp, class _Up, class _Alloc, class ..._Args>
+inline _LIBCPP_INLINE_VISIBILITY
+typename enable_if
+<
+    is_unbounded_array<_Tp>::value,
+    shared_ptr<_Tp>
+>::type
+allocate_shared(const _Alloc& __a, size_t __size, initializer_list<_Up> __element)
+{
+    shared_ptr<_Tp> __ptr = allocate_shared<_Tp>(__a, __size);
+    _VSTD::copy(__element.begin(), __element.end(),__ptr.get());
+    return __ptr;
+}
+
 
 #endif // _LIBCPP_STD_VER > 17
 

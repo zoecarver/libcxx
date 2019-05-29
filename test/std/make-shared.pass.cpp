@@ -52,8 +52,8 @@ int main()
 
         for (unsigned i = 0; i < 8; ++i)
         {
-            assert((*ptr0)[i] == 42);
-            assert((*ptr1)[i] == 42);
+            assert(ptr0[i] == 42);
+            assert(ptr1[i] == 42);
         }
     }
 
@@ -64,8 +64,8 @@ int main()
 
         for (unsigned i = 0; i < 8; ++i)
         {
-            assert((*ptr0)[i] == 42);
-            assert((*ptr1)[i] == 42);
+            assert(ptr0[i] == 42);
+            assert(ptr1[i] == 42);
         }
     }
 
@@ -76,10 +76,10 @@ int main()
 
         for (unsigned i = 0; i < 8; ++i)
         {
-            assert((*ptr0)[i][0] == 4);
-            assert((*ptr1)[i][0] == 4);
-            assert((*ptr0)[i][1] == 2);
-            assert((*ptr1)[i][1] == 2);
+            assert(ptr0[i][0] == 4);
+            assert(ptr1[i][0] == 4);
+            assert(ptr0[i][1] == 2);
+            assert(ptr1[i][1] == 2);
         }
     }
 
@@ -90,10 +90,10 @@ int main()
 
         for (unsigned i = 0; i < 8; ++i)
         {
-            assert((*ptr0)[i][0] == 4);
-            assert((*ptr1)[i][0] == 4);
-            assert((*ptr0)[i][1] == 2);
-            assert((*ptr1)[i][1] == 2);
+            assert(ptr0[i][0] == 4);
+            assert(ptr1[i][0] == 4);
+            assert(ptr0[i][1] == 2);
+            assert(ptr1[i][1] == 2);
         }
     }
 }
