@@ -19,22 +19,22 @@
 
 #include "test_macros.h"
 
-template<class T>
-void test_convertibility()
-{
-    typedef std::observer_ptr<T> OP;
-    static_assert(std::is_convertible<OP, T*>::value, "");
-}
-
-struct Foo;
-
-struct Bar {};
-
 int main()
 {
-    test_convertibility<void>();
-    test_convertibility<bool>();
-    test_convertibility<int>();
-    test_convertibility<Foo>();
-    test_convertibility<Bar>();
+    int* raw_ptr1 = new int;
+    int* raw_ptr2 = new int;
+
+    {
+        std::observer_ptr<int> ptr;
+        ptr.reset(raw_ptr1);
+        assert(ptr.get() == raw_ptr1);
+    }
+    {
+        std::observer_ptr<int> ptr(raw_ptr1);
+        ptr.reset(raw_ptr2);
+        assert(ptr.get() == raw_ptr2);
+    }
+
+    delete raw_ptr1;
+    delete raw_ptr2;
 }

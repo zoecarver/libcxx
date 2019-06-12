@@ -1,0 +1,79 @@
+// -*- C++ -*-
+//===-------------------------- algorithm ---------------------------------===//
+//
+// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+//===----------------------------------------------------------------------===//
+
+#ifndef _LIBCPP_EXPERIMENTAL_MEMORY
+#define _LIBCPP_EXPERIMENTAL_MEMORY
+
+/*
+
+*/
+
+#include <type_traits>
+
+#include <__debug>
+
+#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+#pragma GCC system_header
+#endif
+
+_LIBCPP_PUSH_MACROS
+#include <__undef_macros>
+
+
+_LIBCPP_BEGIN_NAMESPACE_STD // TODO: use _LIBCPP_BEGIN_NAMESPACE_LFTS?
+
+template<class _Wp>
+class observer_ptr
+{
+    typedef add_pointer_t<_Wp>          pointer;
+    typedef add_lvalue_reference_t<_Wp> reference;
+
+    pointer __ptr;
+
+public:
+    typedef _Wp                         element_type;
+
+    // constructors
+    constexpr observer_ptr() noexcept : __ptr(nullptr) { }
+    constexpr observer_ptr(nullptr_t) noexcept : __ptr(nullptr) { }
+    constexpr observer_ptr(pointer __p) noexcept : __ptr(__p) { }
+
+    template<class _W2>
+    constexpr observer_ptr(observer_ptr<_W2> __other) noexcept
+        : __ptr(__other.get()) { }
+
+    observer_ptr(observer_ptr const&) = default;
+    observer_ptr(observer_ptr&&) = default;
+
+    // observers
+    constexpr pointer get() const noexcept { return __ptr; }
+    constexpr reference operator*() const { return *__ptr; }
+    constexpr pointer operator->() const noexcept { return __ptr; }
+    constexpr explicit operator bool() const noexcept { return __ptr != nullptr; }
+
+    // conversions
+    constexpr /*explicit*/ operator pointer() const noexcept { return __ptr; }
+
+    // modifiers
+    constexpr void swap(observer_ptr& __other) noexcept { _VSTD::swap(__ptr, __other.__ptr); }
+    constexpr void reset(pointer __p = nullptr) { __ptr = __p; }
+    constexpr pointer release() noexcept
+    {
+        observer_ptr __p;
+        __p.swap(*this);
+        return __p.get();
+    }
+
+};
+
+_LIBCPP_END_NAMESPACE_STD
+
+_LIBCPP_POP_MACROS
+
+#endif /* _LIBCPP_EXPERIMENTAL_MEMORY */
