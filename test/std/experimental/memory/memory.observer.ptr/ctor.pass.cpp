@@ -117,4 +117,6 @@ int main()
         test_copy_move((void*)new int);
         test_copy_move(new Bar(42));
     }
+
+    return 0;
 }

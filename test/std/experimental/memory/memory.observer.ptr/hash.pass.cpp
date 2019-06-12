@@ -1,4 +1,3 @@
-// -*- C++ -*-
 //===----------------------------------------------------------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
@@ -14,29 +13,26 @@
 // observer_ptr
 
 #include <experimental/memory>
-#include <type_traits>
 #include <cassert>
 
+#include "poisoned_hash_helper.hpp"
 #include "test_macros.h"
 
-template<class T>
-void test_convertibility()
+struct A {};
+
+int main(int, char**)
 {
-    typedef std::observer_ptr<T> OP;
-    static_assert(std::is_convertible<OP, T*>::value, "");
-}
-
-struct Foo;
-
-struct Bar {};
-
-int main()
-{
-    test_convertibility<void>();
-    test_convertibility<bool>();
-    test_convertibility<int>();
-    test_convertibility<Foo>();
-    test_convertibility<Bar>();
+    {
+        int* ptr = new int;
+        std::observer_ptr<int> p(ptr);
+        std::hash<std::observer_ptr<int>> f;
+        std::size_t h = f(p);
+        assert(h == std::hash<int*>()(ptr));
+    }
+    {
+        test_hash_enabled_for_type<std::shared_ptr<int>>();
+        test_hash_enabled_for_type<std::shared_ptr<A>>();
+    }
 
     return 0;
 }

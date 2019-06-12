@@ -33,4 +33,6 @@ int main()
         assert(ptr.get() == nullptr);
         delete raw_ptr;
     }
+
+    return 0;
 }

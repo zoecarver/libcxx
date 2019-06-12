@@ -37,4 +37,6 @@ int main()
 
     delete raw_ptr1;
     delete raw_ptr2;
+
+    return 0;
 }

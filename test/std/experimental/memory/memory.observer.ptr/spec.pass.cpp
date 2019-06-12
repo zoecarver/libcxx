@@ -78,4 +78,10 @@ int main()
         assert((ptr1 >= ptr1) != (ptr1.get() < ptr1.get()));
         assert((ptr1 >= vptr) != (ptr1.get() < vptr.get()));
     }
+
+    delete ptr1.get();
+    delete ptr2.get();
+    delete (int*)vptr.get();
+
+    return 0;
 }

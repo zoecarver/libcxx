@@ -48,4 +48,6 @@ int main()
 
     }
     delete raw_ptr;
+
+    return 0;
 }

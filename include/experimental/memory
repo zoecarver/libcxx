@@ -146,6 +146,21 @@ bool operator>=(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
     return !(__a < __b);
 }
 
+// hash
+
+template<class _Tp>
+struct hash<observer_ptr<_Tp>>
+{
+    typedef observer_ptr<_Tp>    argument_type;
+    typedef size_t               result_type;
+
+    _LIBCPP_INLINE_VISIBILITY
+    result_type operator()(const argument_type& __ptr) const noexcept
+    {
+        return hash<_Tp*>()(__ptr.get());
+    }
+};
+
 _LIBCPP_END_NAMESPACE_STD
 
 _LIBCPP_POP_MACROS
