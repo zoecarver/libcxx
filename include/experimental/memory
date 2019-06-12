@@ -15,6 +15,7 @@
 */
 
 #include <type_traits>
+#include <functional>
 
 #include <__debug>
 
@@ -69,8 +70,81 @@ public:
         __p.swap(*this);
         return __p.get();
     }
-
 };
+
+// specializations
+
+template<class _Wp>
+void swap(observer_ptr<_Wp>& __a, observer_ptr<_Wp>& __b)
+{
+    __a.swap(__b);
+}
+
+template<class _Wp>
+observer_ptr<_Wp> make_observer(_Wp* __ptr)
+{
+    return observer_ptr<_Wp>{__ptr};
+}
+
+template<class _W1, class _W2>
+bool operator==(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
+{
+    return __a.get() == __b.get();
+}
+
+template<class _W1, class _W2>
+bool operator!=(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
+{
+    return !(__a == __b);
+}
+
+template<class _Wp>
+bool operator==(observer_ptr<_Wp> __p, nullptr_t)
+{
+    return !__p;
+}
+
+template<class _Wp>
+bool operator==(nullptr_t, observer_ptr<_Wp> __p)
+{
+    return !__p;
+}
+
+template<class _Wp>
+bool operator!=(observer_ptr<_Wp> __p, nullptr_t)
+{
+    return (bool)__p;
+}
+
+template<class _Wp>
+bool operator!=(nullptr_t, observer_ptr<_Wp> __p)
+{
+    return (bool)__p;
+}
+
+template<class _W1, class _W2>
+bool operator<(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
+{
+    return _VSTD::less<typename _VSTD::common_type<_W1*, _W2*>::type>()(__a.get(), __b.get());
+}
+
+template<class _W1, class _W2>
+bool operator>(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
+{
+    return __a < __b; // TODO: is this really correct?
+}
+
+template<class _W1, class _W2>
+bool operator<=(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
+{
+    return !(__a > __b);
+}
+
+template<class _W1, class _W2>
+bool operator>=(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
+{
+    return !(__a < __b);
+}
 
 _LIBCPP_END_NAMESPACE_STD
 
