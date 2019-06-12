@@ -19,7 +19,7 @@
 
 #include "test_macros.h"
 
-int main()
+int main(int, char**)
 {
     {
         std::observer_ptr<int> ptr1(new int(42));

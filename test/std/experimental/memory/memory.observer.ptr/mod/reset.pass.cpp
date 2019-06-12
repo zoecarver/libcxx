@@ -19,7 +19,7 @@
 
 #include "test_macros.h"
 
-int main()
+int main(int, char**)
 {
     int* raw_ptr1 = new int;
     int* raw_ptr2 = new int;

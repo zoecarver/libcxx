@@ -83,7 +83,7 @@ struct Bar
     Bar(int) {}
 };
 
-int main()
+int main(int, char**)
 {
     {
         assert_constructability<void, void>();

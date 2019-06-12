@@ -30,7 +30,7 @@ struct Foo;
 
 struct Bar {};
 
-int main()
+int main(int, char**)
 {
     test_convertibility<void>();
     test_convertibility<bool>();

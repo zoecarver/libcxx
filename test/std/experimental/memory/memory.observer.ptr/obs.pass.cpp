@@ -24,7 +24,7 @@ struct Foo {
     Foo(int x) : x(x) {}
 };
 
-int main()
+int main(int, char**)
 {
     int* raw_ptr = new int;
     {
