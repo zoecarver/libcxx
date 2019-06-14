@@ -32,7 +32,8 @@ void assert_constructability()
     static_assert(std::is_nothrow_constructible<OP, T*>::value, "");
     static_assert(std::is_nothrow_constructible<OP, OP const&>::value, "");
     static_assert(std::is_nothrow_constructible<OP, OP&&>::value, "");
-    static_assert(std::is_nothrow_constructible<OP, std::observer_ptr<U>>::value, "");
+    static_assert(std::is_nothrow_constructible<OP, std::observer_ptr<U>>::value ==
+                  std::is_convertible<U*, T*>::value, "");
 }
 
 template<class T>
@@ -108,9 +109,15 @@ int main(int, char**)
         constrct_ptr((void*)new int);
     }
     {
-        // TODO: test overload resolution
         constrct_other<void>(new int);
         constrct_other<void>(new Bar(42));
+
+        // overload resolution
+        typedef std::observer_ptr<int>  OP1;
+        typedef std::observer_ptr<Bar>  OP2;
+        typedef std::observer_ptr<char> OP3;
+        static_assert(!std::is_nothrow_constructible<OP1, OP2>::value, "");
+        static_assert(!std::is_nothrow_constructible<OP1, OP3>::value, "");
     }
     {
         test_copy_move(new int);

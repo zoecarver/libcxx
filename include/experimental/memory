@@ -77,7 +77,8 @@ public:
     constexpr observer_ptr(nullptr_t) noexcept : __ptr(nullptr) { }
     constexpr observer_ptr(pointer __p) noexcept : __ptr(__p) { }
 
-    template<class _W2>
+    template<class _W2,
+             class = enable_if_t<is_convertible<_W2*, _Wp*>::value>>
     constexpr observer_ptr(observer_ptr<_W2> __other) noexcept
         : __ptr(__other.get()) { }
 
