@@ -151,6 +151,7 @@
 #include <experimental/iterator>
 #include <experimental/list>
 #include <experimental/map>
+#include <experimental/memory>
 #include <experimental/memory_resource>
 #include <experimental/propagate_const>
 #include <experimental/regex>

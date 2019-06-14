@@ -552,6 +552,10 @@ module std [system] {
       export *
     }
     module memory_resource {
+      header "experimental/memory"
+      export *
+    }
+    module memory_resource {
       header "experimental/memory_resource"
       export *
     }
