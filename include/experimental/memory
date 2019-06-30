@@ -190,6 +190,7 @@ _LIBCPP_BEGIN_NAMESPACE_STD
 
 // hash
 
+#if _LIBCPP_STD_VER > 14
 template<class _Tp>
 struct hash<experimental::observer_ptr<_Tp>>
 {
@@ -202,6 +203,7 @@ struct hash<experimental::observer_ptr<_Tp>>
         return hash<_Tp*>()(__ptr.get());
     }
 };
+#endif // _LIBCPP_STD_VER > 14
 
 _LIBCPP_END_NAMESPACE_STD
 
