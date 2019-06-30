@@ -22,13 +22,13 @@
 int main(int, char**)
 {
     {
-        std::observer_ptr<int> ptr;
+        std::experimental::observer_ptr<int> ptr;
         assert(ptr.release() == nullptr);
         assert(ptr.get() == nullptr);
     }
     {
         int* raw_ptr = new int;
-        std::observer_ptr<int> ptr(raw_ptr);
+        std::experimental::observer_ptr<int> ptr(raw_ptr);
         assert(ptr.release() == raw_ptr);
         assert(ptr.get() == nullptr);
         delete raw_ptr;

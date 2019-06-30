@@ -25,12 +25,12 @@ int main(int, char**)
     int* raw_ptr2 = new int;
 
     {
-        std::observer_ptr<int> ptr;
+        std::experimental::observer_ptr<int> ptr;
         ptr.reset(raw_ptr1);
         assert(ptr.get() == raw_ptr1);
     }
     {
-        std::observer_ptr<int> ptr(raw_ptr1);
+        std::experimental::observer_ptr<int> ptr(raw_ptr1);
         ptr.reset(raw_ptr2);
         assert(ptr.get() == raw_ptr2);
     }

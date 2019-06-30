@@ -22,9 +22,9 @@
 int main(int, char**)
 {
     {
-        std::observer_ptr<int> ptr1(new int(42));
-        std::observer_ptr<int> ptr2(new int(101));
-        std::swap(ptr1, ptr2);
+        std::experimental::observer_ptr<int> ptr1(new int(42));
+        std::experimental::observer_ptr<int> ptr2(new int(101));
+        std::experimental::swap(ptr1, ptr2);
 
         assert(*ptr1 == 101);
         assert(*ptr2 == 42);
@@ -34,15 +34,15 @@ int main(int, char**)
     }
     {
         int* raw = new int;
-        std::observer_ptr<int> ptr = std::make_observer(raw);
+        std::experimental::observer_ptr<int> ptr = std::experimental::make_observer(raw);
         assert(ptr.get() == raw);
         delete raw;
     }
 
-    std::observer_ptr<int> ptr1(new int);
-    std::observer_ptr<int> ptr2(new int);
-    std::observer_ptr<int> ptr3;
-    std::observer_ptr<void> vptr((void*)new int);
+    std::experimental::observer_ptr<int> ptr1(new int);
+    std::experimental::observer_ptr<int> ptr2(new int);
+    std::experimental::observer_ptr<int> ptr3;
+    std::experimental::observer_ptr<void> vptr((void*)new int);
     {
         assert(ptr1 == ptr1);
         assert(!(ptr1 == ptr2));
@@ -66,13 +66,13 @@ int main(int, char**)
         assert((ptr1 < ptr1) == (ptr1.get() < ptr1.get()));
         assert((ptr1 < vptr) == (ptr1.get() < vptr.get()));
     }
-    { // TODO: is this correct?
-        assert((ptr1 > ptr1) == (ptr1.get() < ptr1.get()));
-        assert((ptr1 > vptr) == (ptr1.get() < vptr.get()));
+    {
+        assert((ptr1 > ptr1) == (ptr1.get() > ptr1.get()));
+        assert((ptr1 > vptr) == (ptr1.get() > vptr.get()));
     }
-    { // TODO: same as above
-        assert((ptr1 <= ptr1) != (ptr1.get() < ptr1.get()));
-        assert((ptr1 <= vptr) != (ptr1.get() < vptr.get()));
+    {
+        assert((ptr1 <= ptr1) != (ptr1.get() > ptr1.get()));
+        assert((ptr1 <= vptr) != (ptr1.get() > vptr.get()));
     }
     {
         assert((ptr1 >= ptr1) != (ptr1.get() < ptr1.get()));

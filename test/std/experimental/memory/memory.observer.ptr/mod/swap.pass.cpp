@@ -25,29 +25,29 @@ int main(int, char**)
     int* raw_ptr2 = new int;
 
     {
-        std::observer_ptr<int> ptr1;
-        std::observer_ptr<int> ptr2;
+        std::experimental::observer_ptr<int> ptr1;
+        std::experimental::observer_ptr<int> ptr2;
         ptr1.swap(ptr2);
         assert(ptr1.get() == nullptr);
         assert(ptr2.get() == nullptr);
     }
     {
-        std::observer_ptr<int> ptr1(raw_ptr1);
-        std::observer_ptr<int> ptr2;
+        std::experimental::observer_ptr<int> ptr1(raw_ptr1);
+        std::experimental::observer_ptr<int> ptr2;
         ptr1.swap(ptr2);
         assert(ptr1.get() == nullptr);
         assert(ptr2.get() == raw_ptr1);
     }
     {
-        std::observer_ptr<int> ptr1;
-        std::observer_ptr<int> ptr2(raw_ptr2);
+        std::experimental::observer_ptr<int> ptr1;
+        std::experimental::observer_ptr<int> ptr2(raw_ptr2);
         ptr1.swap(ptr2);
         assert(ptr1.get() == raw_ptr2);
         assert(ptr2.get() == nullptr);
     }
     {
-        std::observer_ptr<int> ptr1(raw_ptr1);
-        std::observer_ptr<int> ptr2(raw_ptr2);
+        std::experimental::observer_ptr<int> ptr1(raw_ptr1);
+        std::experimental::observer_ptr<int> ptr2(raw_ptr2);
         ptr1.swap(ptr2);
         assert(ptr1.get() == raw_ptr2);
         assert(ptr2.get() == raw_ptr1);

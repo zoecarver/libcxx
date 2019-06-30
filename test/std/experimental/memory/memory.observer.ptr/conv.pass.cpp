@@ -22,7 +22,7 @@
 template<class T>
 void test_convertibility()
 {
-    typedef std::observer_ptr<T> OP;
+    typedef std::experimental::observer_ptr<T> OP;
     static_assert(std::is_convertible<OP, T*>::value, "");
 }
 

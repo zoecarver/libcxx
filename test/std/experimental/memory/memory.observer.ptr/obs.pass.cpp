@@ -20,34 +20,35 @@
 #include "test_macros.h"
 
 struct Foo {
-    int x;
-    Foo(int x) : x(x) {}
+    const int x;
+    constexpr Foo(const int x) : x(x) {}
 };
 
 int main(int, char**)
 {
-    int* raw_ptr = new int;
+    static constexpr int x = 42;
+    constexpr const int* raw_ptr = &x;
     {
-        std::observer_ptr<int> ptr(raw_ptr);
-        assert(ptr.get() == raw_ptr);
+        constexpr std::experimental::observer_ptr<const int> ptr(raw_ptr);
+        static_assert(ptr.get() == raw_ptr);
     }
     {
-        std::observer_ptr<int> ptr1;
-        bool check = ptr1;
-        assert(check == false);
+        constexpr std::experimental::observer_ptr<const int> ptr1;
+        const bool check1 = ptr1;
+        static_assert(check1 == false);
 
-        std::observer_ptr<int> ptr2(raw_ptr);
-        check = ptr2;
-        assert(check == true);
+        constexpr std::experimental::observer_ptr<const int> ptr2(raw_ptr);
+        const bool check2 = ptr2;
+        static_assert(check2 == true);
     }
     {
-        Foo* foo_ptr = new Foo(42);
-        std::observer_ptr<Foo> ptr(foo_ptr);
-        assert(ptr->x == 42);
-        assert((*ptr).x == 42);
+        static constexpr Foo f = Foo(42);
+        constexpr const Foo* foo_ptr = &f;
+        constexpr std::experimental::observer_ptr<const Foo> ptr(foo_ptr);
+        static_assert(ptr->x == 42);
+        static_assert((*ptr).x == 42);
 
     }
-    delete raw_ptr;
 
     return 0;
 }

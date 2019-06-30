@@ -26,13 +26,13 @@ void custom_delete(void* ptr) { delete (int*)ptr; }
 template<class T, class U>
 void assert_constructability()
 {
-    typedef std::observer_ptr<T> OP;
+    typedef std::experimental::observer_ptr<T> OP;
     static_assert(std::is_nothrow_constructible<OP>::value, "");
     static_assert(std::is_nothrow_constructible<OP, std::nullptr_t>::value, "");
     static_assert(std::is_nothrow_constructible<OP, T*>::value, "");
     static_assert(std::is_nothrow_constructible<OP, OP const&>::value, "");
     static_assert(std::is_nothrow_constructible<OP, OP&&>::value, "");
-    static_assert(std::is_nothrow_constructible<OP, std::observer_ptr<U>>::value ==
+    static_assert(std::is_nothrow_constructible<OP, std::experimental::observer_ptr<U>>::value ==
                   std::is_convertible<U*, T*>::value, "");
 }
 
@@ -40,11 +40,11 @@ template<class T>
 void constrct_nullptr()
 {
     {
-        std::observer_ptr<T> ptr;
+        std::experimental::observer_ptr<T> ptr;
         assert(ptr.get() == nullptr);
     }
     {
-        std::observer_ptr<T> ptr(nullptr);
+        std::experimental::observer_ptr<T> ptr(nullptr);
         assert(ptr.get() == nullptr);
     }
 }
@@ -52,7 +52,7 @@ void constrct_nullptr()
 template<class T>
 void constrct_ptr(T* raw_ptr)
 {
-    std::observer_ptr<T> ptr(raw_ptr);
+    std::experimental::observer_ptr<T> ptr(raw_ptr);
     assert(ptr.get() == raw_ptr);
     custom_delete(raw_ptr);
 }
@@ -60,8 +60,8 @@ void constrct_ptr(T* raw_ptr)
 template<class T, class U>
 void constrct_other(U* raw_ptr)
 {
-    std::observer_ptr<U> uptr(raw_ptr);
-    std::observer_ptr<T> tptr(uptr);
+    std::experimental::observer_ptr<U> uptr(raw_ptr);
+    std::experimental::observer_ptr<T> tptr(uptr);
     assert(uptr.get() == raw_ptr);
     assert(tptr.get() == raw_ptr);
     custom_delete(raw_ptr);
@@ -70,9 +70,9 @@ void constrct_other(U* raw_ptr)
 template<class T>
 void test_copy_move(T* raw_ptr)
 {
-    std::observer_ptr<T> ptr_a(raw_ptr);
-    std::observer_ptr<T> ptr_b(ptr_a);
-    std::observer_ptr<T> ptr_c(std::move(ptr_a));
+    std::experimental::observer_ptr<T> ptr_a(raw_ptr);
+    std::experimental::observer_ptr<T> ptr_b(ptr_a);
+    std::experimental::observer_ptr<T> ptr_c(std::move(ptr_a));
     assert(ptr_b.get() == raw_ptr);
     assert(ptr_c.get() == raw_ptr);
     custom_delete(raw_ptr);
@@ -113,9 +113,9 @@ int main(int, char**)
         constrct_other<void>(new Bar(42));
 
         // overload resolution
-        typedef std::observer_ptr<int>  OP1;
-        typedef std::observer_ptr<Bar>  OP2;
-        typedef std::observer_ptr<char> OP3;
+        typedef std::experimental::observer_ptr<int>  OP1;
+        typedef std::experimental::observer_ptr<Bar>  OP2;
+        typedef std::experimental::observer_ptr<char> OP3;
         static_assert(!std::is_nothrow_constructible<OP1, OP2>::value, "");
         static_assert(!std::is_nothrow_constructible<OP1, OP3>::value, "");
     }

@@ -6,9 +6,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-// <memory>
+// <experimental/memory>
 
-#include <memory>
+#include <experimental/memory>
 
 #include "test_macros.h"
 

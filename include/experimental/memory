@@ -46,6 +46,7 @@ public:
 }
 */
 
+#include <experimental/__config>
 #include <type_traits>
 #include <functional>
 
@@ -59,7 +60,9 @@ _LIBCPP_PUSH_MACROS
 #include <__undef_macros>
 
 
-_LIBCPP_BEGIN_NAMESPACE_STD // TODO: use _LIBCPP_BEGIN_NAMESPACE_LFTS?
+_LIBCPP_BEGIN_NAMESPACE_LFTS
+
+#if _LIBCPP_STD_VER > 14
 
 template<class _Wp>
 class observer_ptr
@@ -75,10 +78,10 @@ public:
     // constructors
     constexpr observer_ptr() noexcept : __ptr(nullptr) { }
     constexpr observer_ptr(nullptr_t) noexcept : __ptr(nullptr) { }
-    constexpr observer_ptr(pointer __p) noexcept : __ptr(__p) { }
+    constexpr explicit observer_ptr(pointer __p) noexcept : __ptr(__p) { }
 
     template<class _W2,
-             class = enable_if_t<is_convertible<_W2*, _Wp*>::value>>
+             class = _EnableIf<is_convertible<_W2*, _Wp*>::value>>
     constexpr observer_ptr(observer_ptr<_W2> __other) noexcept
         : __ptr(__other.get()) { }
 
@@ -92,7 +95,7 @@ public:
     constexpr explicit operator bool() const noexcept { return __ptr != nullptr; }
 
     // conversions
-    constexpr /*explicit*/ operator pointer() const noexcept { return __ptr; }
+    constexpr operator pointer() const noexcept { return __ptr; }
 
     // modifiers
     constexpr void swap(observer_ptr& __other) noexcept { _VSTD::swap(__ptr, __other.__ptr); }
@@ -108,13 +111,13 @@ public:
 // specializations
 
 template<class _Wp>
-void swap(observer_ptr<_Wp>& __a, observer_ptr<_Wp>& __b)
+void swap(observer_ptr<_Wp>& __a, observer_ptr<_Wp>& __b) noexcept
 {
     __a.swap(__b);
 }
 
 template<class _Wp>
-observer_ptr<_Wp> make_observer(_Wp* __ptr)
+observer_ptr<_Wp> make_observer(_Wp* __ptr) noexcept
 {
     return observer_ptr<_Wp>{__ptr};
 }
@@ -164,7 +167,7 @@ bool operator<(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
 template<class _W1, class _W2>
 bool operator>(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
 {
-    return __a < __b; // TODO: is this really correct?
+    return __b < __a;
 }
 
 template<class _W1, class _W2>
@@ -179,13 +182,19 @@ bool operator>=(observer_ptr<_W1> __a, observer_ptr<_W2> __b)
     return !(__a < __b);
 }
 
+#endif // _LIBCPP_STD_VER > 14
+
+_LIBCPP_END_NAMESPACE_LFTS
+
+_LIBCPP_BEGIN_NAMESPACE_STD
+
 // hash
 
 template<class _Tp>
-struct hash<observer_ptr<_Tp>>
+struct hash<experimental::observer_ptr<_Tp>>
 {
-    typedef observer_ptr<_Tp>    argument_type;
-    typedef size_t               result_type;
+    typedef experimental::observer_ptr<_Tp>    argument_type;
+    typedef size_t                             result_type;
 
     _LIBCPP_INLINE_VISIBILITY
     result_type operator()(const argument_type& __ptr) const noexcept
