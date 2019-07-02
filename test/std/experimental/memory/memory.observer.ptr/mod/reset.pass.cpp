@@ -19,6 +19,15 @@
 
 #include "test_macros.h"
 
+constexpr bool reset_constexpr() {
+    int a = 42;
+    int b = 101;
+
+    std::experimental::observer_ptr<int> ptr(&a);
+    ptr.reset(&b);
+    return ptr.get() == &b;
+}
+
 int main(int, char**)
 {
     int* raw_ptr1 = new int;
@@ -37,6 +46,8 @@ int main(int, char**)
 
     delete raw_ptr1;
     delete raw_ptr2;
+
+    static_assert(reset_constexpr());
 
     return 0;
 }

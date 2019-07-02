@@ -85,9 +85,6 @@ public:
     constexpr observer_ptr(observer_ptr<_W2> __other) noexcept
         : __ptr(__other.get()) { }
 
-    observer_ptr(observer_ptr const&) = default;
-    observer_ptr(observer_ptr&&) = default;
-
     // observers
     constexpr pointer get() const noexcept { return __ptr; }
     constexpr reference operator*() const { return *__ptr; }
@@ -98,8 +95,13 @@ public:
     constexpr operator pointer() const noexcept { return __ptr; }
 
     // modifiers
-    constexpr void swap(observer_ptr& __other) noexcept { _VSTD::swap(__ptr, __other.__ptr); }
     constexpr void reset(pointer __p = nullptr) { __ptr = __p; }
+    constexpr void swap(observer_ptr& __other) noexcept
+    {
+        observer_ptr __tmp = __other;
+        __other = *this;
+        *this = __tmp;
+    }
     constexpr pointer release() noexcept
     {
         observer_ptr __p;

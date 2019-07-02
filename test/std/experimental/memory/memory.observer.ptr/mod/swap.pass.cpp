@@ -19,6 +19,18 @@
 
 #include "test_macros.h"
 
+constexpr bool constexpr_swap()
+{
+    int x = 42;
+    int y = 55;
+
+    auto op1 = std::experimental::observer_ptr<int>(&x);
+    auto op2 = std::experimental::observer_ptr<int>(&y);
+
+    op1.swap(op2);
+    return *op1 == 55 && *op2 == 42;
+}
+
 int main(int, char**)
 {
     int* raw_ptr1 = new int;
@@ -55,6 +67,8 @@ int main(int, char**)
 
     delete raw_ptr1;
     delete raw_ptr2;
+
+    static_assert(constexpr_swap());
 
     return 0;
 }
